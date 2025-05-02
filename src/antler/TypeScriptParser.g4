@@ -5,25 +5,26 @@ options {
 }
 
 program
-    : statement+
+    : statement+ EOF
     ;
 
 statement
-    : importStatement ( ',' importStatement)*
+    : importStatement (',' importStatement)* eos?
     | componentDeclaration
+    | htmlNode
     ;
 
 importStatement
-    : Import importFromBlock eos?
+    : Import importFromBlock
     ;
 
 importFromBlock
-    : OpenBrace (importModule (','importModule)* | importAlias) CloseBrace importFrom
-    | StringLiteral eos?
+    : OpenBrace (importModule ((',' importModule)* | importAlias)) CloseBrace importFrom
+    | StringLiteral
     ;
 
 importAlias
-    : (importModule|'*') (As Identifier)?
+    : (importModule | '*') (As Identifier)?
     ;
 
 importModule
@@ -35,6 +36,7 @@ importModule
 importFrom
     : From StringLiteral
     ;
+
 componentDeclaration
     : AT_Component OpenParen componentMetadata CloseParen
     ;
@@ -56,7 +58,7 @@ selectorProperty
     ;
 
 standaloneProperty
-    : 'standalone' ':' ('true'|'false')
+    : 'standalone' ':' BooleanLiteral
     ;
 
 importsProperty
@@ -66,41 +68,75 @@ importsProperty
 templateProperty
     : 'template' ':' '`' htmlNode '`'
     ;
+
 stylesProperty
     : 'styles' ':' OpenBracket (StringLiteral (',' StringLiteral)*)? CloseBracket
     ;
-htmlNode : htmlElements
-         ;
-htmlElements : htmlElement+
-             ;
+
+// html
+htmlNode
+    : htmlElements
+    ;
+
+htmlElements
+    : htmlElement+
+    ;
 
 htmlElement
-    : '<' htmlTagName htmlAttribute* '>' htmlContent '<' '/' htmlTagName '>'
-    | '<' htmlTagName htmlAttribute* htmlContent '/' '>'
-    | '<' htmlTagName htmlAttribute* '/' '>'
+    : '<' htmlTagName htmlAttribute* '>' htmlContent* '<''/' htmlTagName '>'
+    | '<' htmlTagName htmlAttribute* '/>'
     | '<' htmlTagName htmlAttribute* '>'
     ;
-htmlTagName : Identifier;
-htmlContent:singleExpression
-           ;
 
-singleExpression:htmlElement
-                |Identifier
-                ;
-htmlAttribute
-    : htmlAttributeName ('=' htmlAttributeValue)?
+htmlTagName
+    : Identifier
     ;
 
-htmlAttributeName
-        : TagName
-        | Identifier ('-' Identifier)* // 2020/10/28 bugfix: '-' is recognized as MINUS and TagName is splited by '-'.
-        ;
-htmlAttributeValue
-    : AttributeValue
+htmlContent
+    : htmlElement
     | StringLiteral
+    | DoubleLeftBrace expression DoubleRightBrace
+    ;
+
+htmlAttribute
+    : standardAttribute
+    | boundAttribute
+    | eventAttribute
+    | directiveAttribute
+    ;
+
+standardAttribute
+    : Identifier ('-' Identifier)* ('=' htmlAttributeValue)?
+    ;
+
+boundAttribute
+    : '[' attributeName ']' '=' htmlAttributeValue
+    ;
+
+attributeName
+    : Identifier ((Dot | '-') Identifier)*
+    ;
+
+eventAttribute
+    : '(' Identifier ')' '=' htmlAttributeValue
+    ;
+
+directiveAttribute
+    : '*' Identifier '=' htmlAttributeValue
+    ;
+
+htmlAttributeValue
+    : StringLiteral
+    ;
+
+expression
+    : primaryExpression (Dot primaryExpression)*
+    ;
+
+primaryExpression
+    : Identifier
     ;
 
 eos
     : SemiColon
-    | EOF
     ;

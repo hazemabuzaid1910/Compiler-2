@@ -1,55 +1,74 @@
 lexer grammar TypeScriptLexer;
 
-Import        : 'import' ;
-From          : 'from' ;
-Component     : 'Component' ;
-CommonModule  : 'CommonModule';
-SELECTOR      : 'selector';
-STANDALONE    : 'standalone';
-IMPORTS       : 'imports';
-TEMPLATE      : 'template';
-STYLES        : 'styles';
-TRUE          : 'true';
-FALSE         : 'false';
-SemiColon     : ';' ;
-Comma         : ',';
-OpenBrace     : '{' ;
-CloseBrace    : '}' ;
-As            : 'as';
-Star          : '*';
-AT_Component  : '@Component';
-AT            : '@';
-OpenParen     : '(';
-CloseParen    : ')';
-OpenBracket   : '[';
-CloseBracket  : ']';
-Colon         : ':';
-BackTick      : '`' ;
-Minus         : '-';
-LessThan      : '<';
-MoreThan      : '>';
-Divide        : '/';
+// Symbols and operators
+DoubleLeftBrace      : '{{' ;
+DoubleRightBrace     : '}}' ;
+SemiColon            : ';' ;
+Comma                : ',' ;
+OpenBrace            : '{' ;
+CloseBrace           : '}' ;
+OpenParen            : '(' ;
+CloseParen           : ')' ;
+OpenBracket          : '[' ;
+CloseBracket         : ']' ;
+Colon                : ':' ;
+BackTick             : '`' ;
+Minus                : '-' ;
+LessThan             : '<' ;
+MoreThan             : '>' ;
+Divide               : '/' ;
+SelfCloseTag         : '/>' ;
+Dot                  : '.' ;
+Question             : '?' ;
+DoubleQuestion       : '??' ;
+Not                  : '!' ;
+Equal                : '=' ;
+StrictEqual          : '===' ;
+LooseEqual           : '==' ;
+StrictNotEqual       : '!==' ;
+LooseNotEqual        : '!=' ;
+And                  : '&&' ;
+Or                   : '||' ;
+Plus                 : '+' ;
+Multiply             : '*' ;
 
-Identifier: IdentifierStart IdentifierPart*;
-StringLiteral: '\'' (~['\r\n])* '\'' | '"' (~["\r\n])* '"';
+// Keywords
+Import               : 'import' ;
+From                 : 'from' ;
+As                   : 'as' ;
+Component            : 'Component' ;
+CommonModule         : 'CommonModule' ;
+AT_Component         : '@Component' ;
+AT                   : '@' ;
 
-fragment IdentifierStart: [\p{L}] | [$_] ;
-fragment IdentifierPart: IdentifierStart | [\p{Mn}] | [\p{Nd}] | [\p{Pc}] | '\u200C' | '\u200D';
+// Properties
+SELECTOR             : 'selector' ;
+STANDALONE           : 'standalone' ;
+IMPORTS              : 'imports' ;
+TEMPLATE             : 'template' ;
+STYLES               : 'styles' ;
 
-TAG_OPEN: '<' TAG_NAME;
-TAG_END: '</' TAG_NAME '>';
-TAG_SELF_CLOSE: '/>';
+// Literals
+BooleanLiteral       : 'true' | 'false' ;
+NumberLiteral        : [0-9]+ ('.' [0-9]+)? ;
 
-TAG_NAME: [a-zA-Z][a-zA-Z0-9-]*;
+StringLiteral
+    : '\'' (~['\r\n])* '\''
+    | '"' (~["\r\n])* '"'
+    ;
 
-ATTRIBUTE_NAME: [a-zA-Z_][a-zA-Z0-9_-]*;
+// Identifiers
+Identifier
+    : IdentifierStart IdentifierPart*
+    ;
 
-EQUALS_SIGN: '=';
+fragment IdentifierStart
+    : [\p{L}] | [$_]
+    ;
 
-ATTRIBUTE_VALUE: '"' .*? '"' | '\'' .*? '\'';
+fragment IdentifierPart
+    : IdentifierStart | [\p{Mn}] | [\p{Nd}] | [\p{Pc}] | '\u200C' | '\u200D'
+    ;
 
-ANGULAR_BINDING: '{{' .*? '}}';
-ANGULAR_DIRECTIVE: ('*' | '[' | '(') [a-zA-Z0-9_-]+ ('=' | ']');
-
-
-WS: [ \t\r\n]+ -> skip;
+// Whitespace
+WS : [ \t\r\n]+ -> skip ;
