@@ -23,9 +23,11 @@ public class ImportFrom {
     @Override
     public String toString() {
       StringBuilder sb=new StringBuilder();
+        sb.append("\t");
        if(From!=null){
            sb.append(From);
        }
+        sb.append("\t");
         if(StringLiteral!=null){
             sb.append(StringLiteral);
         }

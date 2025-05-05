@@ -24,11 +24,12 @@ public class ImportStatement implements Statement {
     @Override
     public String toString() {
         StringBuilder sb=new StringBuilder();
+        sb.append("\n").append("importStatement{");
         if(Import!=null){
-            sb.append(Import);
+            sb.append(Import).append("\t");
         }
         if(importFromBlock!=null){
-            sb.append(importFromBlock).append("\n");
+            sb.append(importFromBlock).append("}");
         }
         return sb.toString();
     }
