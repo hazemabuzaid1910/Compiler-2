@@ -5,7 +5,7 @@ options {
 }
 
 program
-    : (statement | classDeclaration)+ EOF
+    : statement  + EOF
     ;
 
 
@@ -13,6 +13,7 @@ statement
     : importStatement (',' importStatement)* eos?
     | componentDeclaration
     | htmlNode
+    | classDeclaration
     ;
 
 importStatement
@@ -39,7 +40,7 @@ importFrom
     ;
 
 componentDeclaration
-    : AT_Component OpenParen componentMetadata CloseParen
+    : AT_Component OpenParen componentMetadata CloseParen eos?
     ;
 
 componentMetadata
@@ -86,7 +87,6 @@ htmlElements
 htmlElement
     : '<' htmlTagName htmlAttribute* '>' htmlContent* '<''/' htmlTagName '>'
     | '<' htmlTagName htmlAttribute* '/>'
-    | '<' htmlTagName htmlAttribute* '>'
     ;
 
 htmlTagName
@@ -107,7 +107,7 @@ htmlAttribute
     ;
 
 standardAttribute
-    : Identifier ('-' Identifier)* ('=' htmlAttributeValue)?
+    : (Identifier|expression) ('-' Identifier)* ('=' htmlAttributeValue)?
     ;
 
 boundAttribute
@@ -115,7 +115,7 @@ boundAttribute
     ;
 
 attributeName
-    : Identifier ((Dot | '-') Identifier)*
+    : (Identifier|expression) ((Dot | '-') Identifier)*
     ;
 
 eventAttribute
@@ -128,6 +128,7 @@ directiveAttribute
 
 htmlAttributeValue
     : StringLiteral
+    | expression
     ;
 
 expressionhtml
@@ -239,6 +240,7 @@ expression
     :  expression binaryOperator expression        # binaryExpr
     | unaryOperator expression                                  # unaryExpr
     | primary (memberAccess)*                     # memberExpr
+    | CLASS                                        #classexp
 //    | Identifier (memberAccess)*                                # idExpression
 //    | literal                                                   # literalExpr
 //    | arrayLiteral                                              # arrayExpr
@@ -259,7 +261,7 @@ primary
 binaryOperator
     : Plus | Minus | Multiply | Divide | MOD
     | MoreThan | LessThan | GTE | LTE
-    | LooseEqual | LooseNotEqual
+    | LooseEqual | LooseNotEqual |Equal
     | And | Or
     ;
 

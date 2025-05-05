@@ -8,7 +8,7 @@ Component            : 'Component' ;
 CommonModule         : 'CommonModule' ;
 AT_Component         : '@Component' ;
 AT                   : '@' ;
-
+CLASS                :'class';
 // Properties
 SELECTOR             : 'selector' ;
 STANDALONE           : 'standalone' ;
@@ -18,7 +18,6 @@ STYLES               : 'styles' ;
 
 //key words for type script
 EXPORT        : 'export';
-CLASS         : 'class';
 THIS          : 'this';
 ANY           : 'any';
 BOOLEAN       : 'boolean';
