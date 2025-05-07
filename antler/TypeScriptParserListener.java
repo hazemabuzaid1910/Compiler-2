@@ -188,26 +188,6 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 */
 	void exitHtmlElement(TypeScriptParser.HtmlElementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TypeScriptParser#htmlPairTag}.
-	 * @param ctx the parse tree
-	 */
-	void enterHtmlPairTag(TypeScriptParser.HtmlPairTagContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TypeScriptParser#htmlPairTag}.
-	 * @param ctx the parse tree
-	 */
-	void exitHtmlPairTag(TypeScriptParser.HtmlPairTagContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TypeScriptParser#htmlSingleTag}.
-	 * @param ctx the parse tree
-	 */
-	void enterHtmlSingleTag(TypeScriptParser.HtmlSingleTagContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TypeScriptParser#htmlSingleTag}.
-	 * @param ctx the parse tree
-	 */
-	void exitHtmlSingleTag(TypeScriptParser.HtmlSingleTagContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link TypeScriptParser#htmlTagName}.
 	 * @param ctx the parse tree
 	 */

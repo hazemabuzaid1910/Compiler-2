@@ -233,30 +233,6 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtmlPairTag(TypeScriptParser.HtmlPairTagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitHtmlPairTag(TypeScriptParser.HtmlPairTagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterHtmlSingleTag(TypeScriptParser.HtmlSingleTagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitHtmlSingleTag(TypeScriptParser.HtmlSingleTagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterHtmlTagName(TypeScriptParser.HtmlTagNameContext ctx) { }
 	/**
 	 * {@inheritDoc}

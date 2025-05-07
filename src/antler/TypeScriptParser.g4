@@ -14,6 +14,7 @@ statement
     | componentDeclaration
     | htmlNode
     | classDeclaration
+    | block
     ;
 
 importStatement
@@ -21,12 +22,13 @@ importStatement
     ;
 
 importFromBlock
-    : OpenBrace (importModule ((',' importModule)* | importAlias)) CloseBrace importFrom
+    : OpenBrace ((importModule (',' importModule)*) | importAlias) CloseBrace importFrom
     | StringLiteral
     ;
 
 importAlias
-    : (importModule | '*') (As Identifier)?
+    : '*' As Identifier
+    | importModule As Identifier
     ;
 
 importModule
@@ -84,10 +86,17 @@ htmlElements
     : htmlElement+
     ;
 
-htmlElement
-    : '<' htmlTagName htmlAttribute* '>' htmlContent* '<''/' htmlTagName '>'
-    | '<' htmlTagName htmlAttribute* '/>'
-    ;
+htmlElement: htmlPairTag
+           | htmlSingleTag
+           ;
+
+ htmlPairTag:
+           '<' htmlTagName htmlAttribute* '>' htmlContent* '<''/' htmlTagName '>'
+               ;
+htmlSingleTag:
+             '<' htmlTagName htmlAttribute* '/>'
+             ;
+
 
 htmlTagName
     : Identifier
@@ -140,7 +149,6 @@ primaryExpressionhtml
     ;
 
 
-//  TypeScript logic/////////////////////////////////////////////////////////////////////////////////////
 classDeclaration
     : EXPORT? CLASS Identifier OpenBrace classBody CloseBrace
     ;
@@ -195,7 +203,7 @@ primaryType
     ;
 
 block
-    : OpenBrace statements* CloseBrace
+    : OpenBrace statements+ CloseBrace
     ;
 
 statements
@@ -238,8 +246,8 @@ returnStatement
 
 expression
     :  expression binaryOperator expression        # binaryExpr
-    | unaryOperator expression                                  # unaryExpr
-    | primary (memberAccess)*                     # memberExpr
+    | unaryOperator expression                     # unaryExpr
+    | primary (memberAccess)*                      # memberExpr
     | CLASS                                        #classexp
 //    | Identifier (memberAccess)*                                # idExpression
 //    | literal                                                   # literalExpr

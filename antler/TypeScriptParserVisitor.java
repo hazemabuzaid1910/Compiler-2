@@ -119,18 +119,6 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHtmlElement(TypeScriptParser.HtmlElementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TypeScriptParser#htmlPairTag}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitHtmlPairTag(TypeScriptParser.HtmlPairTagContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TypeScriptParser#htmlSingleTag}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitHtmlSingleTag(TypeScriptParser.HtmlSingleTagContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link TypeScriptParser#htmlTagName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

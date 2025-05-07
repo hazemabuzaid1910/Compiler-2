@@ -1,13 +1,16 @@
 package AST;
 
-public class ComponentMetadata {
-    ComponentProperty componentProperty;
+import java.util.ArrayList;
+import java.util.List;
 
-    public ComponentProperty getComponentProperty() {
+public class ComponentMetadata {
+  List<ComponentProperty> componentProperty=new ArrayList<>();
+
+    public List<ComponentProperty> getComponentProperty() {
         return componentProperty;
     }
 
-    public void setComponentProperty(ComponentProperty componentProperty) {
+    public void setComponentProperty(List<ComponentProperty> componentProperty) {
         this.componentProperty = componentProperty;
     }
 
@@ -15,7 +18,7 @@ public class ComponentMetadata {
     public String toString() {
    StringBuilder sb=new StringBuilder();
    if(componentProperty!=null){
-       sb.append(componentProperty);
+       sb.append("\n").append(componentProperty);
    }
    return sb.toString();
     }

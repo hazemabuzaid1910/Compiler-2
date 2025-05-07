@@ -1,8 +1,11 @@
 package AST;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ImportFromBlock {
     ImportFrom importFrom;
-    ImportModule importModule;
+    List<ImportModule> importModule=new ArrayList<>();
     ImportAlias importAlias;
     String StringLiteral;
 
@@ -14,11 +17,11 @@ public class ImportFromBlock {
         this.importFrom = importFrom;
     }
 
-    public ImportModule getImportModule() {
+    public List<ImportModule> getImportModule() {
         return importModule;
     }
 
-    public void setImportModule(ImportModule importModule) {
+    public void setImportModule(List<ImportModule> importModule) {
         this.importModule = importModule;
     }
 
@@ -41,12 +44,11 @@ public class ImportFromBlock {
     @Override
     public String toString() {
     StringBuilder sb=new StringBuilder();
-    if(importModule!=null){
+    if(importModule!=null && !importModule.isEmpty()){
         sb.append(importModule);
     }
     if(importAlias!=null){
-        sb.append(importAlias);
-    }
+     }
     if(importFrom!=null){
         sb.append(importFrom);
     }

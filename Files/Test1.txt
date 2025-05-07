@@ -1,5 +1,13 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/core';
+import { Component ,CommonModule } from '@angular/core';
+import { * as co } from '@angular/common';
+import  '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  template: `<div></div>`
+})
 
 
