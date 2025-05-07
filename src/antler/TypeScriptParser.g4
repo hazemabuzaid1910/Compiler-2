@@ -10,10 +10,11 @@ program
 
 
 statement
-    : importStatement (',' importStatement)* eos?
+    : importStatement (Comma importStatement)* eos?
     | componentDeclaration
     | htmlNode
     | classDeclaration
+    |block
     ;
 
 importStatement
@@ -21,12 +22,12 @@ importStatement
     ;
 
 importFromBlock
-    : OpenBrace (importModule ((',' importModule)* | importAlias)) CloseBrace importFrom
+    : OpenBrace (importModule ((Comma importModule)* | importAlias)) CloseBrace importFrom
     | StringLiteral
     ;
 
 importAlias
-    : (importModule | '*') (As Identifier)?
+    : (importModule | Multiply) (As Identifier)?
     ;
 
 importModule
@@ -44,7 +45,7 @@ componentDeclaration
     ;
 
 componentMetadata
-    : OpenBrace componentProperty (',' componentProperty)* CloseBrace
+    : OpenBrace componentProperty (Comma componentProperty)* CloseBrace
     ;
 
 componentProperty
@@ -56,23 +57,23 @@ componentProperty
     ;
 
 selectorProperty
-    : 'selector' ':' StringLiteral
+    : SELECTOR Colon StringLiteral
     ;
 
 standaloneProperty
-    : 'standalone' ':' BooleanLiteral
+    : STANDALONE Colon BooleanLiteral
     ;
 
 importsProperty
-    : 'imports' ':' OpenBracket importModule ((',' importModule)*)? CloseBracket
+    : IMPORTS Colon OpenBracket importModule ((Comma importModule)*)? CloseBracket
     ;
 
 templateProperty
-    : 'template' ':' '`' htmlNode '`'
+    : TEMPLATE Colon BackTick htmlNode BackTick
     ;
 
 stylesProperty
-    : 'styles' ':' OpenBracket (StringLiteral (',' StringLiteral)*)? CloseBracket
+    : STYLES Colon OpenBracket (StringLiteral (Comma StringLiteral)*)? CloseBracket
     ;
 
 // html
@@ -85,8 +86,8 @@ htmlElements
     ;
 
 htmlElement
-    : '<' htmlTagName htmlAttribute* '>' htmlContent* '<''/' htmlTagName '>'
-    | '<' htmlTagName htmlAttribute* '/>'
+    : LessThan htmlTagName htmlAttribute* MoreThan htmlContent* LessThan Divide htmlTagName MoreThan
+    | LessThan htmlTagName htmlAttribute* SelfCloseTag
     ;
 
 htmlTagName
@@ -107,23 +108,23 @@ htmlAttribute
     ;
 
 standardAttribute
-    : (Identifier|expression) ('-' Identifier)* ('=' htmlAttributeValue)?
+    : (Identifier|expression) (Minus Identifier)* (Equal htmlAttributeValue)?
     ;
 
 boundAttribute
-    : '[' attributeName ']' '=' htmlAttributeValue
+    : OpenBracket attributeName CloseBracket Equal htmlAttributeValue
     ;
 
 attributeName
-    : (Identifier|expression) ((Dot | '-') Identifier)*
+    : (Identifier|expression) ((Dot | Minus) Identifier)*
     ;
 
 eventAttribute
-    : '(' Identifier ')' '=' htmlAttributeValue
+    : OpenParen Identifier CloseParen Equal htmlAttributeValue
     ;
 
 directiveAttribute
-    : '*' Identifier '=' htmlAttributeValue
+    : Multiply Identifier Equal htmlAttributeValue
     ;
 
 htmlAttributeValue
@@ -183,15 +184,10 @@ unionType
     ;
 
 primaryType
-    : ANY
-    | STRING
-    | NUMBER
-    | BOOLEAN
-    | VOID
-    | UNKNOWN
-    | NEVER
-    | OBJECT
-    | Identifier
+    : ANY| STRING| NUMBER
+    | BOOLEAN| VOID
+    | UNKNOWN| NEVER
+    | OBJECT| Identifier
     ;
 
 block
@@ -237,9 +233,9 @@ returnStatement
     ;
 
 expression
-    :  expression binaryOperator expression        # binaryExpr
-    | unaryOperator expression                                  # unaryExpr
-    | primary (memberAccess)*                     # memberExpr
+    : expression binaryOperator expression        # binaryExpr
+    | unaryOperator expression                     # unaryExpr
+    | primary (memberAccess)*                      # memberExpr
     | CLASS                                        #classexp
 //    | Identifier (memberAccess)*                                # idExpression
 //    | literal                                                   # literalExpr

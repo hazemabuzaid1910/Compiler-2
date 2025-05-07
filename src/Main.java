@@ -16,7 +16,7 @@ public class Main {
         public static void main(String[] args) throws IOException {
 
 
-                File folder = new File("C:\\Users\\hazem\\OneDrive\\Desktop\\4_2\\compiler2\\Files");
+                File folder = new File("C://Users//Touqa2003//Desktop//Compiler-2-AST//Compiler-2-AST//Files");
                 File[] files = folder.listFiles();
                 for (int i = 0; i < files.length; i++) {
                         String source = files[i].getPath();
