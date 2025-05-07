@@ -7,7 +7,6 @@ import antler.TypeScriptParserVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -458,7 +457,13 @@ public class visitor extends TypeScriptParserBaseVisitor {
             }
             return null;
         }
-////////////////////////////////////////////////////////////////////
+
+    @Override
+    public Primary visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) {
+        return (Primary) visit(ctx.literal());
+    }
+
+    ////////////////////////////////////////////////////////////////////
 ///
 ///
 
@@ -478,17 +483,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
 
             return new UnaryExpression(operator, expression);
         }
-
-
-        @Override
-        public VariableDeclaration visitVariableDeclaration (TypeScriptParser.VariableDeclarationContext ctx){
-            String identifier = ctx.Identifier().getText();
-            Expression value = (Expression) visit(ctx.expression());
-
-            return new VariableDeclaration(identifier, value);
-        }
-
-
         @Override
         public Statements visitExpressionStatement (TypeScriptParser.ExpressionStatementContext ctx){
             Expression expression = (Expression) visit(ctx.expression());
@@ -529,8 +523,14 @@ public class visitor extends TypeScriptParserBaseVisitor {
             return new MemberExpression((Primary) base, accesses);
         }
 
+    @Override
+    public VariableDeclaration visitVariableDeclaration(TypeScriptParser.VariableDeclarationContext ctx) {
+        String identifier = ctx.Identifier().getText();
+        Expression value = (Expression) visit(ctx.expression());
 
+        return new VariableDeclaration(identifier, value);
     }
 
+}
 
 
