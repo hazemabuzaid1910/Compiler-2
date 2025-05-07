@@ -1,6 +1,6 @@
 package AST;
 
-public class ObjectExpression  implements Primary , Literal {
+public class ObjectExpression  implements Primary , Literal,Expression {
      java.util.List<PropertyAssignment> properties;
 
     public ObjectExpression(java.util.List<PropertyAssignment> properties) {

@@ -347,12 +347,12 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdExpr(TypeScriptParser.IdExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code literalExpr}
+	 * Visit a parse tree produced by the {@code objectExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx);
+	T visitObjectExpr(TypeScriptParser.ObjectExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code arrayExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
@@ -361,12 +361,12 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayExpr(TypeScriptParser.ArrayExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code objectExpr}
+	 * Visit a parse tree produced by the {@code literalExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObjectExpr(TypeScriptParser.ObjectExprContext ctx);
+	T visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code parenExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.

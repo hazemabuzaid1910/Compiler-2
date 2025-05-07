@@ -570,17 +570,17 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 */
 	void exitIdExpr(TypeScriptParser.IdExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code literalExpr}
+	 * Enter a parse tree produced by the {@code objectExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiteralExpr(TypeScriptParser.LiteralExprContext ctx);
+	void enterObjectExpr(TypeScriptParser.ObjectExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code literalExpr}
+	 * Exit a parse tree produced by the {@code objectExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiteralExpr(TypeScriptParser.LiteralExprContext ctx);
+	void exitObjectExpr(TypeScriptParser.ObjectExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code arrayExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
@@ -594,17 +594,17 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 */
 	void exitArrayExpr(TypeScriptParser.ArrayExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code objectExpr}
+	 * Enter a parse tree produced by the {@code literalExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterObjectExpr(TypeScriptParser.ObjectExprContext ctx);
+	void enterLiteralExpr(TypeScriptParser.LiteralExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code objectExpr}
+	 * Exit a parse tree produced by the {@code literalExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitObjectExpr(TypeScriptParser.ObjectExprContext ctx);
+	void exitLiteralExpr(TypeScriptParser.LiteralExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code parenExpr}
 	 * labeled alternative in {@link TypeScriptParser#primary}.

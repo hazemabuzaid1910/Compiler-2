@@ -677,13 +677,13 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLiteralExpr(TypeScriptParser.LiteralExprContext ctx) { }
+	@Override public void enterObjectExpr(TypeScriptParser.ObjectExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) { }
+	@Override public void exitObjectExpr(TypeScriptParser.ObjectExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -701,13 +701,13 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObjectExpr(TypeScriptParser.ObjectExprContext ctx) { }
+	@Override public void enterLiteralExpr(TypeScriptParser.LiteralExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObjectExpr(TypeScriptParser.ObjectExprContext ctx) { }
+	@Override public void exitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

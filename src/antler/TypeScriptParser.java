@@ -3837,26 +3837,6 @@ public class TypeScriptParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ArrayExprContext extends PrimaryContext {
-		public ArrayLiteralContext arrayLiteral() {
-			return getRuleContext(ArrayLiteralContext.class,0);
-		}
-		public ArrayExprContext(PrimaryContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeScriptParserListener ) ((TypeScriptParserListener)listener).enterArrayExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeScriptParserListener ) ((TypeScriptParserListener)listener).exitArrayExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TypeScriptParserVisitor ) return ((TypeScriptParserVisitor<? extends T>)visitor).visitArrayExpr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ObjectExprContext extends PrimaryContext {
 		public ObjectLiteralContext objectLiteral() {
 			return getRuleContext(ObjectLiteralContext.class,0);
@@ -3873,6 +3853,26 @@ public class TypeScriptParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof TypeScriptParserVisitor ) return ((TypeScriptParserVisitor<? extends T>)visitor).visitObjectExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ArrayExprContext extends PrimaryContext {
+		public ArrayLiteralContext arrayLiteral() {
+			return getRuleContext(ArrayLiteralContext.class,0);
+		}
+		public ArrayExprContext(PrimaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TypeScriptParserListener ) ((TypeScriptParserListener)listener).enterArrayExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TypeScriptParserListener ) ((TypeScriptParserListener)listener).exitArrayExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof TypeScriptParserVisitor ) return ((TypeScriptParserVisitor<? extends T>)visitor).visitArrayExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3961,11 +3961,11 @@ public class TypeScriptParser extends Parser {
 				}
 				break;
 			case 3:
-				_localctx = new LiteralExprContext(_localctx);
+				_localctx = new ObjectExprContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(514);
-				literal();
+				objectLiteral();
 				}
 				break;
 			case 4:
@@ -3977,11 +3977,11 @@ public class TypeScriptParser extends Parser {
 				}
 				break;
 			case 5:
-				_localctx = new ObjectExprContext(_localctx);
+				_localctx = new LiteralExprContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(516);
-				objectLiteral();
+				literal();
 				}
 				break;
 			case 6:
@@ -4940,8 +4940,8 @@ public class TypeScriptParser extends Parser {
 		"\u0000\u0000\u0000\u01fd\u01fb\u0001\u0000\u0000\u0000\u01fd\u01fe\u0001"+
 		"\u0000\u0000\u0000\u01fec\u0001\u0000\u0000\u0000\u01ff\u01fd\u0001\u0000"+
 		"\u0000\u0000\u0200\u020a\u0005\u000f\u0000\u0000\u0201\u020a\u0005C\u0000"+
-		"\u0000\u0202\u020a\u0003l6\u0000\u0203\u020a\u0003r9\u0000\u0204\u020a"+
-		"\u0003n7\u0000\u0205\u0206\u0005$\u0000\u0000\u0206\u0207\u0003b1\u0000"+
+		"\u0000\u0202\u020a\u0003n7\u0000\u0203\u020a\u0003r9\u0000\u0204\u020a"+
+		"\u0003l6\u0000\u0205\u0206\u0005$\u0000\u0000\u0206\u0207\u0003b1\u0000"+
 		"\u0207\u0208\u0005%\u0000\u0000\u0208\u020a\u0001\u0000\u0000\u0000\u0209"+
 		"\u0200\u0001\u0000\u0000\u0000\u0209\u0201\u0001\u0000\u0000\u0000\u0209"+
 		"\u0202\u0001\u0000\u0000\u0000\u0209\u0203\u0001\u0000\u0000\u0000\u0209"+

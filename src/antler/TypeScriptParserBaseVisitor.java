@@ -403,7 +403,7 @@ public class TypeScriptParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObjectExpr(TypeScriptParser.ObjectExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -417,7 +417,7 @@ public class TypeScriptParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitObjectExpr(TypeScriptParser.ObjectExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

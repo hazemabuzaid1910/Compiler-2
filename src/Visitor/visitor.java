@@ -376,7 +376,13 @@ public class visitor extends TypeScriptParserBaseVisitor {
         }
         return null;
     }
-////////////////////////////////////////////////////////////////////
+
+    @Override
+    public Primary visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) {
+        return (Primary) visit(ctx.literal());
+    }
+
+    ////////////////////////////////////////////////////////////////////
 ///
 ///
 
@@ -418,23 +424,21 @@ public Expression visitBinaryExpr(TypeScriptParser.BinaryExprContext ctx) {
      /////////////////////////////////////////////////////////////memberaccess - memberexp
      @Override
      public Expression visitMemberExpr(TypeScriptParser.MemberExprContext ctx) {
-         List<MemberAccess> accesses = new ArrayList<>();
+         // تحليل الـ primary
+         Expression base = (Expression) visit(ctx.primary());
 
+         List<MemberAccess> accesses = new ArrayList<>();
          for (TypeScriptParser.MemberAccessContext accessCtx : ctx.memberAccess()) {
-             // كل accessCtx قد يحتوي [expression] أو .Identifier
              for (ParseTree child : accessCtx.children) {
-                 if (child instanceof TerminalNode) {
-                     TerminalNode terminal = (TerminalNode) child;
+                 if (child instanceof TerminalNode terminal) {
                      if (terminal.getSymbol().getType() == TypeScriptParser.Dot) {
-                         // التالي يجب أن يكون identifier
                          int index = accessCtx.children.indexOf(child);
                          if (index + 1 < accessCtx.children.size()) {
                              String identifier = accessCtx.getChild(index + 1).getText();
                              accesses.add(new MemberAccess("dot", identifier, null));
                          }
                      }
-                 } else if (child instanceof ParserRuleContext) {
-                     ParserRuleContext ruleCtx = (ParserRuleContext) child;
+                 } else if (child instanceof ParserRuleContext ruleCtx) {
                      if (ruleCtx.getRuleIndex() == TypeScriptParser.RULE_expression) {
                          Expression expr = (Expression) visit(ruleCtx);
                          accesses.add(new MemberAccess("bracket", null, expr));
@@ -442,8 +446,7 @@ public Expression visitBinaryExpr(TypeScriptParser.BinaryExprContext ctx) {
                  }
              }
          }
-         // تحليل primary داخل التعبير
-         Expression base = (Expression) visit(ctx.primary());
+
          return new MemberExpression((Primary) base, accesses);
      }
 

@@ -248,9 +248,9 @@ expression
 primary
     : THIS                                        # thisExpr
     | Identifier                                  # idExpr
-    | literal                                     # literalExpr
-    | arrayLiteral                                # arrayExpr
     | objectLiteral                               # objectExpr
+    | arrayLiteral                                # arrayExpr
+    | literal                                     # literalExpr
     | OpenParen expression CloseParen             # parenExpr
     ;
 
