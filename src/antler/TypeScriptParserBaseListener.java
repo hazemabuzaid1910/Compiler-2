@@ -269,13 +269,25 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtmlContent(TypeScriptParser.HtmlContentContext ctx) { }
+	@Override public void enterWrapHtml(TypeScriptParser.WrapHtmlContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtmlContent(TypeScriptParser.HtmlContentContext ctx) { }
+	@Override public void exitWrapHtml(TypeScriptParser.WrapHtmlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMostacheExp(TypeScriptParser.MostacheExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMostacheExp(TypeScriptParser.MostacheExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

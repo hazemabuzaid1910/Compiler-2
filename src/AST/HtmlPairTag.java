@@ -1,11 +1,12 @@
 package AST;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HtmlPairTag implements HtmlElement{
     HtmlTagName htmlTagName;
-    List<HtmlAttribute> htmlAttribute;
-    List<HtmlContent> htmlContent;
+    List<HtmlAttribute> htmlAttribute=new ArrayList<>();
+    List<HtmlContent> htmlContent =new ArrayList<>();
     public HtmlTagName getHtmlTagName() {
         return htmlTagName;
     }
@@ -32,7 +33,7 @@ public class HtmlPairTag implements HtmlElement{
 
     @Override
     public String toString() {
-        return "HtmlPairTag{" +
+        return "\n"+"HtmlPairTag{" +
                 "htmlTagName=" + htmlTagName +
                 ", htmlAttribute=" + htmlAttribute +
                 ", htmlContent=" + htmlContent +

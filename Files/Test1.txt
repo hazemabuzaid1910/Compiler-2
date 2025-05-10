@@ -7,7 +7,31 @@ import  '@angular/core';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule],
-  template: `<div></div>`
+  template: `
+    <div class="container">
+      <div class="product-list">
+        <div
+          class="product"
+          *ngFor="let product of products"
+          [class.selected]="product === selectedProduct"
+          (click)="selectProduct(product)"
+        >
+          <h4>{{ product.name }}</h4>
+          <img [src]="product.image" alt="Product Image" class="product-image" />
+        </div>
+      </div>
+      <div class="product-detail" *ngIf="selectedProduct">
+        <h3>{{ selectedProduct.name }}</h3>
+        <img
+          [src]='selectedProduct.image'
+          alt="Product Image"
+          class="detail-image"
+        />
+        <p>{{ selectedProduct.details }}</p>
+      </div>
+    </div>
+  `
+
 })
 export class AppComponent {
   products = [
@@ -29,7 +53,6 @@ export class AppComponent {
   ];
 
   selectedProduct = this.products[0];
-
   selectProduct(product: any) {
     this.selectedProduct = product;
   }

@@ -13,8 +13,8 @@ public class HtmlTagName {
 
     @Override
     public String toString() {
-        return "HtmlTagName{" +
-                "tagName='" + tagName + '\'' +
+        return "\n"+"HtmlTagName{" +
+                "tagName=" + tagName + '\n' +
                 '}';
     }
 }

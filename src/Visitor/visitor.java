@@ -1,9 +1,7 @@
 package Visitor;
-
 import AST.*;
 import antler.TypeScriptParser;
 import antler.TypeScriptParserBaseVisitor;
-import antler.TypeScriptParserVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -233,7 +231,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
                 Parameter param = (Parameter) visit(paramCtx);
                 parameterList.getParameters().add(param);
             }
-
             return parameterList;
         }
         @Override
@@ -252,9 +249,7 @@ public class visitor extends TypeScriptParserBaseVisitor {
         @Override
         public TypeAnnotation visitTypeAnnotation (TypeScriptParser.TypeAnnotationContext ctx){
             TypeAnnotation typeAnnotation = new TypeAnnotation();
-
             typeAnnotation.setTypeName((TypeName) visit(ctx.typeName()));
-
             return typeAnnotation;
         }
 
@@ -275,7 +270,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
             for (TypeScriptParser.PrimaryTypeContext ptCtx : ctx.primaryType()) {
                 primaryTypes.add((PrimaryType) visit(ptCtx));
             }
-
             unionType.setPrimaryTypes(primaryTypes);
             return unionType;
         }
@@ -284,7 +278,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
         public PrimaryType visitPrimaryType (TypeScriptParser.PrimaryTypeContext ctx){
             PrimaryType primaryType = new PrimaryType();
             primaryType.setTypeName(ctx.getText());
-
             return primaryType;
         }
 
@@ -339,15 +332,15 @@ public class visitor extends TypeScriptParserBaseVisitor {
 
         @Override
         public Expression visitClassexp (TypeScriptParser.ClassexpContext ctx){
-            return new ClassExpression(); // تحتاج إنشاء هذا الكلاس في AST
+            ClassExpression expr = new ClassExpression();
+            expr.setClass(ctx.getText());
+            return expr;
         }
-
 
         @Override
         public Primary visitThisExpr (TypeScriptParser.ThisExprContext ctx){
             return new ThisExpression();
         }
-
 
         @Override
         public SelectorProperty visitSelectorProperty (TypeScriptParser.SelectorPropertyContext ctx){
@@ -364,6 +357,12 @@ public class visitor extends TypeScriptParserBaseVisitor {
         @Override
         public StandaloneProperty visitStandaloneProperty (TypeScriptParser.StandalonePropertyContext ctx){
             StandaloneProperty standaloneProperty = new StandaloneProperty();
+            if(ctx.STANDALONE()!=null){
+                standaloneProperty.setStandalone(ctx.STANDALONE().getText());
+            }
+            if(ctx.BooleanLiteral()!=null){
+                standaloneProperty.setCase(ctx.BooleanLiteral().getText());
+            }
             return standaloneProperty;
         }
 
@@ -374,6 +373,9 @@ public class visitor extends TypeScriptParserBaseVisitor {
                 if (ctx.importModule(i) != null) {
                     importsProperty.getImportModules().add(visitImportModule(ctx.importModule(i)));
                 }
+            }
+            if(ctx.IMPORTS()!=null){
+                importsProperty.setImports(ctx.IMPORTS().getText());
             }
             return importsProperty;
         }
@@ -390,9 +392,212 @@ public class visitor extends TypeScriptParserBaseVisitor {
         @Override
         public HtmlNode visitHtmlNode (TypeScriptParser.HtmlNodeContext ctx){
             HtmlNode html = new HtmlNode();
+            if(ctx.htmlElements()!=null){
+                html.setHtmlElements(visitHtmlElements(ctx.htmlElements()));
+            }
             return html;
         }
-        public Primary visitIdExpr (TypeScriptParser.IdExprContext ctx){
+
+    @Override
+    public HtmlElements visitHtmlElements(TypeScriptParser.HtmlElementsContext ctx) {
+        HtmlElements htmlElements=new HtmlElements();
+        for(int i=0;i<ctx.htmlElement().size();i++){
+            htmlElements.getHtmlElements().add(visitHtmlElement(ctx.htmlElement(i)));
+        }
+        return htmlElements;
+    }
+
+    @Override
+    public HtmlElement visitHtmlElement(TypeScriptParser.HtmlElementContext ctx) {
+        if(ctx.htmlPairTag()!=null){
+        return  visitHtmlPairTag(ctx.htmlPairTag());
+        }
+        if(ctx.htmlSingleTag()!=null){
+            return  visitHtmlSingleTag(ctx.htmlSingleTag());
+        }
+        return  null;
+    }
+
+    @Override
+    public HtmlPairTag visitHtmlPairTag(TypeScriptParser.HtmlPairTagContext ctx) {
+        HtmlPairTag htmlPairTag=new HtmlPairTag();
+
+
+        if(ctx.htmlTagName()!=null){
+            htmlPairTag.setHtmlTagName(visitHtmlTagName(ctx.htmlTagName(0)));
+        }
+        for (int i=0;i<ctx.htmlAttribute().size();i++){
+            if(ctx.htmlAttribute(i)!=null){
+                htmlPairTag.getHtmlAttribute().add(visitHtmlAttribute(ctx.htmlAttribute(i)));
+            }
+        }
+        for(int i=0;i<ctx.htmlContent().size();i++){
+        if(ctx.htmlContent()!=null){
+            HtmlContent content = (HtmlContent) visit(ctx.htmlContent(i));
+            htmlPairTag.getHtmlContent().add(content);
+        }
+        }
+        return htmlPairTag;
+    }
+
+    @Override
+    public HtmlSingleTag visitHtmlSingleTag(TypeScriptParser.HtmlSingleTagContext ctx) {
+        HtmlSingleTag htmlSingleTag=new HtmlSingleTag();
+        if(ctx.htmlTagName()!=null){
+            htmlSingleTag.setHtmlTagName(visitHtmlTagName(ctx.htmlTagName()));
+        }
+        for (int i=0;i<ctx.htmlAttribute().size();i++){
+            if(ctx.htmlAttribute(i)!=null){
+                htmlSingleTag.getHtmlAttributes().add(visitHtmlAttribute(ctx.htmlAttribute(i)));
+            }
+        }
+        return  htmlSingleTag;
+    }
+
+    @Override
+    public HtmlTagName visitHtmlTagName(TypeScriptParser.HtmlTagNameContext ctx) {
+        HtmlTagName htmlTagName=new HtmlTagName();
+        if(ctx.Identifier()!=null){
+            htmlTagName.setTagName(ctx.Identifier().getText());
+        }
+        return htmlTagName;
+    }
+
+
+    @Override
+    public HtmlContent visitWrapHtml(TypeScriptParser.WrapHtmlContext ctx) {
+        WrapHtml wrapHtml=new WrapHtml();
+        if(ctx.htmlElement()!=null){
+            wrapHtml.setHtmlElement(visitHtmlElement(ctx.htmlElement()));
+        }
+        return wrapHtml;
+
+    }
+
+
+    @Override
+    public HtmlContent visitMostacheExp(TypeScriptParser.MostacheExpContext ctx) {
+        MostacheExp mostacheExp=new MostacheExp();
+        if(ctx.expressionhtml()!=null){
+            mostacheExp.setExpressionHtml(visitExpressionhtml(ctx.expressionhtml()));
+        }
+        return mostacheExp;
+    }
+
+    @Override
+    public ExpressionHtml visitExpressionhtml(TypeScriptParser.ExpressionhtmlContext ctx) {
+        ExpressionHtml expressionHtml=new ExpressionHtml();
+        for (int i=0 ; i<ctx.primaryExpressionhtml().size(); i++){
+            if(ctx.primaryExpressionhtml(i)!=null){
+                expressionHtml.getPrimaryExpressionHtmls().add(visitPrimaryExpressionhtml(ctx.primaryExpressionhtml(i)));
+            }
+
+        }
+        return  expressionHtml;
+    }
+
+    @Override
+    public PrimaryExpressionHtml visitPrimaryExpressionhtml(TypeScriptParser.PrimaryExpressionhtmlContext ctx) {
+        PrimaryExpressionHtml primaryExpressionHtml=new PrimaryExpressionHtml();
+        if(ctx.Identifier()!=null){
+            primaryExpressionHtml.setIdentifier(ctx.Identifier().getText());
+        }
+        return primaryExpressionHtml;
+    }
+
+    @Override
+    public HtmlAttribute visitHtmlAttribute(TypeScriptParser.HtmlAttributeContext ctx) {
+        if(ctx.standardAttribute()!=null){
+            return visitStandardAttribute(ctx.standardAttribute());
+        }
+        if(ctx.boundAttribute()!=null){
+            return visitBoundAttribute(ctx.boundAttribute());
+        }if(ctx.eventAttribute()!=null){
+            return visitEventAttribute(ctx.eventAttribute());
+        }if(ctx.directiveAttribute()!=null){
+            return visitDirectiveAttribute(ctx.directiveAttribute());
+        }
+        return null;
+    }
+
+    @Override
+    public StandardAttribute visitStandardAttribute(TypeScriptParser.StandardAttributeContext ctx) {
+        StandardAttribute standardAttribute=new StandardAttribute();
+        if (ctx.CLASS()!=null) {
+           standardAttribute.setClass(ctx.CLASS().getText());
+        }
+        for (int i=0 ;i<ctx.Identifier().size();i++){
+            if (ctx.Identifier(i) != null) {
+                standardAttribute.getIdentifier().add(ctx.Identifier(i).getText());
+
+            }}
+
+        if(ctx.htmlAttributeValue()!=null){
+            standardAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+        }
+        return standardAttribute;
+    }@Override
+    public BoundAttribute visitBoundAttribute(TypeScriptParser.BoundAttributeContext ctx) {
+        BoundAttribute boundAttribute=new BoundAttribute();
+        if(ctx.htmlAttributeValue()!=null){
+            boundAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+        }
+        if(ctx.attributeName()!=null){
+            boundAttribute.setAttributeName(visitAttributeName(ctx.attributeName()));
+        }
+        return boundAttribute;
+    }
+
+    @Override
+    public EventAttribute visitEventAttribute(TypeScriptParser.EventAttributeContext ctx) {
+        EventAttribute eventAttribute=new EventAttribute();
+        if(ctx.Identifier()!=null){
+            eventAttribute.setIdentifier(ctx.Identifier().getText());
+        }
+        if(ctx.htmlAttributeValue()!=null){
+            eventAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+        }
+        return eventAttribute;
+    }
+
+    @Override
+    public DirectiveAttribute visitDirectiveAttribute(TypeScriptParser.DirectiveAttributeContext ctx) {
+        DirectiveAttribute directiveAttribute=new DirectiveAttribute();
+        if(ctx.Identifier()!=null){
+            directiveAttribute.setIdentifier(ctx.Identifier().getText());
+        }
+        if(ctx.htmlAttributeValue()!=null){
+            directiveAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+        }
+        return directiveAttribute;
+    }
+
+    @Override
+    public HtmlAttributeValue visitHtmlAttributeValue(TypeScriptParser.HtmlAttributeValueContext ctx) {
+      HtmlAttributeValue htmlAttributeValue=new HtmlAttributeValue();
+
+      if(ctx.StringLiteral()!=null){
+            htmlAttributeValue.setStringLiteral(ctx.StringLiteral().getText());
+      }
+      return htmlAttributeValue;
+    }
+
+    @Override
+    public AttributeName visitAttributeName(TypeScriptParser.AttributeNameContext ctx) {
+        AttributeName attributeName=new AttributeName();
+        if (ctx.CLASS() != null) {
+            attributeName.getIdentifier().add(ctx.CLASS().getText());
+        }
+        for (int i=0 ;i<ctx.Identifier().size();i++){
+            if (ctx.Identifier(i) != null) {
+            attributeName.getIdentifier().add(ctx.Identifier(i).getText());
+
+        }
+        }
+        return attributeName;
+    }
+
+    public Primary visitIdExpr (TypeScriptParser.IdExprContext ctx){
             return new IdentifierExpression(ctx.Identifier().getText());
         }
 
@@ -462,11 +667,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
     public Primary visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) {
         return (Primary) visit(ctx.literal());
     }
-
-    ////////////////////////////////////////////////////////////////////
-///
-///
-
         @Override
         public Expression visitBinaryExpr (TypeScriptParser.BinaryExprContext ctx){
             Expression left = (Expression) visit(ctx.expression(0));
@@ -522,15 +722,12 @@ public class visitor extends TypeScriptParserBaseVisitor {
             Expression base = (Expression) visit(ctx.primary());
             return new MemberExpression((Primary) base, accesses);
         }
-
     @Override
     public VariableDeclaration visitVariableDeclaration(TypeScriptParser.VariableDeclarationContext ctx) {
         String identifier = ctx.Identifier().getText();
         Expression value = (Expression) visit(ctx.expression());
-
         return new VariableDeclaration(identifier, value);
     }
-
 }
 
 

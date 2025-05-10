@@ -23,9 +23,9 @@ public class ComponentDeclaration implements Statement {
 
     @Override
     public String toString() {
-        return "\n"+ "ComponentDeclaration{" +
-                "At_Component='" + At_Component + '\'' +
-                ", componentMetadata=" + componentMetadata +
+        return "\n\n"+ "ComponentDeclaration{" +
+                "At_Component='" + At_Component + '\n' +
+                ", componentMetadata=" +"\t\t"+ componentMetadata +
                 '}';
     }
 }

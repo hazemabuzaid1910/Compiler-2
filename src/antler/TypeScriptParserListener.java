@@ -218,15 +218,29 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 */
 	void exitHtmlTagName(TypeScriptParser.HtmlTagNameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TypeScriptParser#htmlContent}.
+	 * Enter a parse tree produced by the {@code wrapHtml}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
 	 * @param ctx the parse tree
 	 */
-	void enterHtmlContent(TypeScriptParser.HtmlContentContext ctx);
+	void enterWrapHtml(TypeScriptParser.WrapHtmlContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TypeScriptParser#htmlContent}.
+	 * Exit a parse tree produced by the {@code wrapHtml}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
 	 * @param ctx the parse tree
 	 */
-	void exitHtmlContent(TypeScriptParser.HtmlContentContext ctx);
+	void exitWrapHtml(TypeScriptParser.WrapHtmlContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code mostacheExp}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterMostacheExp(TypeScriptParser.MostacheExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code mostacheExp}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitMostacheExp(TypeScriptParser.MostacheExpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TypeScriptParser#htmlAttribute}.
 	 * @param ctx the parse tree

@@ -25,7 +25,7 @@ public class ImportsProperty implements ComponentProperty{
 
     @Override
     public String toString() {
-        return "ImportsProperty{" +
+        return "\n\t\t\t\t"+"ImportsProperty{" +
                 "imports='" + imports + '\'' +
                 ", importModules=" + importModules +
                 '}';

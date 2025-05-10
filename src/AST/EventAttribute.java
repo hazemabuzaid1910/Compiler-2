@@ -1,6 +1,6 @@
 package AST;
 
-public class EventAttribute {
+public class EventAttribute implements HtmlAttribute{
 
     String identifier;
     HtmlAttributeValue htmlAttributeValue;

@@ -137,11 +137,19 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHtmlTagName(TypeScriptParser.HtmlTagNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TypeScriptParser#htmlContent}.
+	 * Visit a parse tree produced by the {@code wrapHtml}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHtmlContent(TypeScriptParser.HtmlContentContext ctx);
+	T visitWrapHtml(TypeScriptParser.WrapHtmlContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code mostacheExp}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMostacheExp(TypeScriptParser.MostacheExpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TypeScriptParser#htmlAttribute}.
 	 * @param ctx the parse tree

@@ -1,6 +1,6 @@
 package AST;
 
-public class ArrayExpression implements Primary, Literal,Expression {
+public class ArrayExpression implements Primary, Literal {
      java.util.List<Expression> elements;
 
     public ArrayExpression(java.util.List<Expression> elements) {

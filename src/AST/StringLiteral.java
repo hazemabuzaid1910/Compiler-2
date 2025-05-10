@@ -1,6 +1,6 @@
 package AST;
 
-public class StringLiteral implements Literal {
+public class StringLiteral implements Literal,HtmlContent {
      String value;
 
     public StringLiteral(String value) {

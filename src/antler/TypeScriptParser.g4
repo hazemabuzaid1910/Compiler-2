@@ -107,9 +107,8 @@ htmlTagName
     ;
 
 htmlContent
-    : htmlElement
-    | StringLiteral
-    | DoubleLeftBrace expressionhtml DoubleRightBrace
+    : htmlElement                                        #wrapHtml
+    | DoubleLeftBrace expressionhtml DoubleRightBrace    #mostacheExp
     ;
 
 htmlAttribute
@@ -120,7 +119,7 @@ htmlAttribute
     ;
 
 standardAttribute
-    : (Identifier|expression) (Minus Identifier)* (Equal htmlAttributeValue)?
+    : (Identifier|CLASS) (Minus Identifier)* (Equal htmlAttributeValue)?
     ;
 
 boundAttribute
@@ -128,7 +127,7 @@ boundAttribute
     ;
 
 attributeName
-    : (Identifier|expression) ((Dot | Minus) Identifier)*
+    : (Identifier|CLASS) ((Dot | Minus) Identifier)*
     ;
 
 eventAttribute
@@ -245,7 +244,6 @@ returnStatement
 
 expression
     :  expression binaryOperator expression        # binaryExpr
-
     | unaryOperator expression                     # unaryExpr
     | primary (memberAccess)*                      # memberExpr
     | CLASS                                        #classexp
@@ -270,7 +268,7 @@ binaryOperator
     : Plus | Minus | Multiply | Divide | MOD
     | MoreThan | LessThan | GTE | LTE
     | LooseEqual | LooseNotEqual |Equal
-    | And | Or
+    | And | Or |Dot
     ;
 
 unaryOperator

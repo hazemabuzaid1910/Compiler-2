@@ -85,9 +85,6 @@ Identifier
     : IdentifierStart IdentifierPart*
     ;
 
-
-
-
 fragment IdentifierStart
     : [\p{L}] | [$_]
     ;

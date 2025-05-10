@@ -1,5 +1,5 @@
 package AST;
 
-public class HtmlContent {
+public interface HtmlContent {
 
 }

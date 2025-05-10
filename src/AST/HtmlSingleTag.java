@@ -25,7 +25,7 @@ public class HtmlSingleTag implements HtmlElement{
 
     @Override
     public String toString() {
-        return "HtmlSingleTag{" +
+        return "\n\t"+"HtmlSingleTag{" +
                 "htmlTagName=" + htmlTagName +
                ",htmlAttributes=" + htmlAttributes +
                 '}';

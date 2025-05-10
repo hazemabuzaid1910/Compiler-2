@@ -22,7 +22,7 @@ HtmlNode htmlNode;
 
     @Override
     public String toString() {
-        return "TemplateProperty{" +
+        return "\n\t\t\t\t"+"TemplateProperty{" +
                 "template='" + htmlNode + '\'' +
                 '}';
     }

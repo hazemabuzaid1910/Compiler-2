@@ -22,7 +22,7 @@ String selectorName;
 
     @Override
     public String toString() {
-        return "SelectorProperty{" +
+        return "\t\t\t\t"+"SelectorProperty{" +
                 "selector='" + selector + '\'' +
                 ", selectorName='" + selectorName + '\'' +
                 '}';
