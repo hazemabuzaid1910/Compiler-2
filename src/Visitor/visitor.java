@@ -1,12 +1,17 @@
 package Visitor;
 import AST.*;
+import Sympol_Table.object.E4_obj;
 import antler.TypeScriptParser;
 import antler.TypeScriptParserBaseVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.ArrayList;
+import MainApp.Main;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class visitor extends TypeScriptParserBaseVisitor {
@@ -158,11 +163,15 @@ public class visitor extends TypeScriptParserBaseVisitor {
 
             classDecl.setClass(ctx.CLASS().getText());  // غالباً يكون دائمًا "class"
             classDecl.setIdentifier(ctx.Identifier().getText());
+            Main.semanticError.getE2().insert();
+            Main.semanticError.getE3().insert();
 
             // زيارة classBody
             ClassBody body = (ClassBody) visit(ctx.classBody());
             classDecl.setClassBody(body);
-
+            Main.semanticError.getE2().get();
+            Main.semanticError.getE3().get();
+            Main.semanticError.getE4().SetIsComponent(false);
             return classDecl;
         }
 
@@ -183,15 +192,22 @@ public class visitor extends TypeScriptParserBaseVisitor {
         @Override
         public PropertyDeclaration visitPropertyDeclaration (TypeScriptParser.PropertyDeclarationContext ctx){
             PropertyDeclaration prop = new PropertyDeclaration();
-
+            Main.semanticError.getE4().insert_class_equal();
             if (ctx.Identifier() != null) {
                 prop.setIdentifier(ctx.Identifier().getText());
+                Main.semanticError.getE3().addVariable(ctx.Identifier().getText());
+                if(Main.semanticError.getE4().GetIsComponent()){
+                    Main.semanticError.getE4().addSaveVar(ctx.Identifier().getText());
+                }
+                Main.test.add(ctx.Identifier().getText());
+                Main.semanticError.getE4().insert_name_class_equal(ctx.Identifier().getText());
             }
 
             if (ctx.expression() != null) {
                 Expression expr = (Expression) visit(ctx.expression());
                 prop.setExpression(expr);
             }
+            Main.semanticError.getE4().pop_class_equal();
 
             return prop;
         }
@@ -203,6 +219,7 @@ public class visitor extends TypeScriptParserBaseVisitor {
 
             if (ctx.Identifier() != null) {
                 method.setIdentifier(ctx.Identifier().getText());
+                Main.semanticError.check_E2(ctx.Identifier().getText() , ctx.getStart().getLine());
             }
 
             if (ctx.parameterList() != null) {
@@ -422,9 +439,9 @@ public class visitor extends TypeScriptParserBaseVisitor {
     public HtmlPairTag visitHtmlPairTag(TypeScriptParser.HtmlPairTagContext ctx) {
         HtmlPairTag htmlPairTag=new HtmlPairTag();
 
-
         if(ctx.htmlTagName()!=null){
             htmlPairTag.setHtmlTagName(visitHtmlTagName(ctx.htmlTagName(0)));
+            Main.semanticError.getE1().insert(ctx.htmlTagName(0).getText());
         }
         for (int i=0;i<ctx.htmlAttribute().size();i++){
             if(ctx.htmlAttribute(i)!=null){
@@ -437,6 +454,8 @@ public class visitor extends TypeScriptParserBaseVisitor {
             htmlPairTag.getHtmlContent().add(content);
         }
         }
+        Main.semanticError.getE5().set_Is_ngfor(false);
+        Main.semanticError.check_E1(ctx.htmlTagName(1).getText(),ctx.htmlTagName(1).getStart().getLine());
         return htmlPairTag;
     }
 
@@ -487,11 +506,11 @@ public class visitor extends TypeScriptParserBaseVisitor {
     @Override
     public ExpressionHtml visitExpressionhtml(TypeScriptParser.ExpressionhtmlContext ctx) {
         ExpressionHtml expressionHtml=new ExpressionHtml();
+        Main.semanticError.insert_obj_check();
         for (int i=0 ; i<ctx.primaryExpressionhtml().size(); i++){
             if(ctx.primaryExpressionhtml(i)!=null){
                 expressionHtml.getPrimaryExpressionHtmls().add(visitPrimaryExpressionhtml(ctx.primaryExpressionhtml(i)));
             }
-
         }
         return  expressionHtml;
     }
@@ -501,6 +520,7 @@ public class visitor extends TypeScriptParserBaseVisitor {
         PrimaryExpressionHtml primaryExpressionHtml=new PrimaryExpressionHtml();
         if(ctx.Identifier()!=null){
             primaryExpressionHtml.setIdentifier(ctx.Identifier().getText());
+            Main.semanticError.add_check_list(ctx.Identifier().getText(),ctx.getStart().getLine());
         }
         return primaryExpressionHtml;
     }
@@ -565,9 +585,13 @@ public class visitor extends TypeScriptParserBaseVisitor {
         DirectiveAttribute directiveAttribute=new DirectiveAttribute();
         if(ctx.Identifier()!=null){
             directiveAttribute.setIdentifier(ctx.Identifier().getText());
+            if (Objects.equals(ctx.Identifier().getText(), "ngFor")){
+                Main.semanticError.getE5().set_Is_ngfor(true);
+            }
         }
         if(ctx.htmlAttributeValue()!=null){
             directiveAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+
         }
         return directiveAttribute;
     }
@@ -578,6 +602,16 @@ public class visitor extends TypeScriptParserBaseVisitor {
 
       if(ctx.StringLiteral()!=null){
             htmlAttributeValue.setStringLiteral(ctx.StringLiteral().getText());
+          Pattern pattern = Pattern.compile("^\\s*let\\s+(\\w+)\\s+of\\s+(.+)$");
+          String text = ctx.StringLiteral().getText();
+          text = text.substring(1, text.length() - 1);
+          Matcher matcher = pattern.matcher(text);
+          if(matcher.matches()){
+              String x = matcher.group(1).trim(); // المتغير بعد let
+              String y = matcher.group(2).trim(); // الجزء بعد of
+              Main.semanticError.getE4().setForequal(x,y ,String.valueOf(ctx.getStart().getLine()));
+              Main.semanticError.getE5().setParent(x);
+          }
       }
       return htmlAttributeValue;
     }
@@ -637,6 +671,10 @@ public class visitor extends TypeScriptParserBaseVisitor {
         @Override
         public PropertyAssignment visitPropertyAssignment (TypeScriptParser.PropertyAssignmentContext ctx){
             String key = ctx.Identifier().getText();
+            if(Main.semanticError.getE4().GetIsComponent()){
+                Main.semanticError.getE4().addSaveAtt(ctx.Identifier().getText());
+            }
+            Main.test.add(ctx.Identifier().getText());
             Expression value = (Expression) visit(ctx.expression());
             return new PropertyAssignment(key, value);
         }
@@ -707,6 +745,9 @@ public class visitor extends TypeScriptParserBaseVisitor {
                             if (index + 1 < accessCtx.children.size()) {
                                 String identifier = accessCtx.getChild(index + 1).getText();
                                 accesses.add(new MemberAccess("dot", identifier, null));
+                                Main.semanticError.check_E3(identifier,ctx.getStart().getLine());
+                                Main.semanticError.getE4().insert_value_class_equal(identifier);
+                                Main.testcheck.add(identifier);
                             }
                         }
                     } else if (child instanceof ParserRuleContext) {

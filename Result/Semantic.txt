@@ -1,0 +1,2 @@
+Semantic Check : 
+Error Name : UNDECLARED_PROPERTY , Error Description : The Property x is Undeclared  , Error Location : 55

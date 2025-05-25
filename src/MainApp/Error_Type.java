@@ -1,0 +1,9 @@
+package MainApp;
+
+public enum Error_Type {
+    TAG_MISMATCH,
+    FUNCTION_DUPLICATION,
+    UNDECLARED_PROPERTY,
+    VAR_NOT_EXIST,
+    SINGLE_VALUED_VARIABLE
+}
