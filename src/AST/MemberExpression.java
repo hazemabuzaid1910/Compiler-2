@@ -25,15 +25,17 @@ public class MemberExpression implements Expression {
         sb.append("  primary: ").append(primary != null ? primary.toString().replace("\n", "\n    ") : "No primary").append(",\n");
 
         // إضافة مسافة وتنظيم الطباعة للقائمة accesses
-        sb.append("  accesses: [\n");
+
         if (accesses != null && !accesses.isEmpty()) {
+            sb.append("  accesses: [\n");
             for (MemberAccess access : accesses) {
                 sb.append("    ").append(access != null ? access.toString().replace("\n", "\n    ") : "No access").append(",\n");
+                sb.append("  ]\n");
             }
         } else {
-            sb.append("    null\n");
+            ;
         }
-        sb.append("  ]\n");
+
 
         sb.append("}");
         return sb.toString();

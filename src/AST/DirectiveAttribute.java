@@ -22,9 +22,11 @@ HtmlAttributeValue htmlAttributeValue;
 
     @Override
     public String toString() {
-        return "DirectiveAttribute{" +
-                "identifier='" + identifier + '\'' +
-                ", htmlAttributeValue=" + htmlAttributeValue +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("DirectiveAttribute {\n")
+                .append("  Identifier: '").append(identifier).append("'\n")
+                .append("  HTML Attribute Value: ").append(htmlAttributeValue).append("\n")
+                .append("}");
+        return sb.toString();
     }
 }

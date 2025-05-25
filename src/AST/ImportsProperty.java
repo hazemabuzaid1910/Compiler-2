@@ -25,9 +25,12 @@ public class ImportsProperty implements ComponentProperty{
 
     @Override
     public String toString() {
-        return "\n\t\t\t\t"+"ImportsProperty{" +
-                "imports='" + imports + '\'' +
-                ", importModules=" + importModules +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\t\t\t\tImportsProperty {\n")
+                .append("  imports: '").append(imports).append("',\n")
+                .append("  importModules: ").append(importModules).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

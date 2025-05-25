@@ -23,9 +23,12 @@ public class EventAttribute implements HtmlAttribute{
 
     @Override
     public String toString() {
-        return "EventAttribute{" +
-                "identifier='" + identifier + '\'' +
-                ", htmlAttributeValue=" + htmlAttributeValue +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("EventAttribute {\n")
+                .append("  Identifier: '").append(identifier).append("'\n")
+                .append("  HTML Attribute Value: ").append(htmlAttributeValue).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

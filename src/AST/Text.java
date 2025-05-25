@@ -13,8 +13,11 @@ public class Text implements HtmlContent{
 
     @Override
     public String toString() {
-        return "Text{" +
-                "text='" + text + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Text {")
+                .append("\n  text = '").append(text).append('\'')
+                .append("\n}");
+        return sb.toString();
     }
+
 }

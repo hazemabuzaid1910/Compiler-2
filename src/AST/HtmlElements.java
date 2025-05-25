@@ -15,8 +15,11 @@ public class HtmlElements {
 
     @Override
     public String toString() {
-        return "HtmlElements{" +
-                "htmlElements=" + htmlElements +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("HtmlElements {\n")
+                .append("  htmlElements: ").append(htmlElements).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

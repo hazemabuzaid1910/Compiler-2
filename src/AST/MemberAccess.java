@@ -28,10 +28,11 @@ public class MemberAccess implements Expression {
         sb.append("  identifier: '").append(identifier).append("',\n");
 
         // إضافة التحقق من null لـ indexExpression
-        sb.append("  indexExpression: ")
-                .append(indexExpression != null ? indexExpression.toString().replace("\n", "\n    ") : "No indexExpression ")
-                .append("\n");
-
+        if(indexExpression != null) {
+            sb.append("  indexExpression: ")
+                    .append( indexExpression.toString().replace("\n", "\n    "))
+                    .append("\n");
+        }
         sb.append("}");
         return sb.toString();
     }

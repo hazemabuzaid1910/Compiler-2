@@ -16,8 +16,11 @@ public class ExpressionHtml {
 
     @Override
     public String toString() {
-        return "ExpressionHtml{" +
-                "primaryExpressionHtmls=" + primaryExpressionHtmls +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("ExpressionHtml {\n")
+                .append("  Primary Expressions: ").append(primaryExpressionHtmls).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

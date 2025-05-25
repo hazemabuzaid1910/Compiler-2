@@ -22,9 +22,12 @@ String selectorName;
 
     @Override
     public String toString() {
-        return "\t\t\t\t"+"SelectorProperty{" +
-                "selector='" + selector + '\'' +
-                ", selectorName='" + selectorName + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\t\t\t\tSelectorProperty {")
+                .append("\n  selector = '").append(selector).append('\'')
+                .append("\n  selectorName = '").append(selectorName).append('\'')
+                .append("\n}");
+        return sb.toString();
     }
+
 }

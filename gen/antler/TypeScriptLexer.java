@@ -1,4 +1,4 @@
-// Generated from C:/Users/hazem/OneDrive/Desktop/4_2/compiler2/src/antler/TypeScriptLexer.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Touqa2003/Desktop/Compiler-2-AST/Compiler-2-AST/src/antler/TypeScriptLexer.g4 by ANTLR 4.13.2
 package antler;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

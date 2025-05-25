@@ -23,10 +23,21 @@ public class ComponentDeclaration implements Statement {
 
     @Override
     public String toString() {
-        return "\n\n"+ "ComponentDeclaration{" +
-                "At_Component='" + At_Component + '\n' +
-                ", componentMetadata=" +"\t\t"+ componentMetadata +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\nComponentDeclaration {\n");
+
+        if (At_Component != null) {
+            sb.append("  At_Component: ").append(At_Component).append("\n");
+        }
+
+        if (componentMetadata != null) {
+            sb.append("  ComponentMetadata:\n    ").append(componentMetadata).append("\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
+
 }
 

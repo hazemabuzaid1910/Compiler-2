@@ -15,8 +15,8 @@ public class Program  {
 
     @Override
     public String toString() {
-        return "Program{" +
-                "statementList=" +"\n"+ statementList+"\n" +
+        return "Program{ " +
+                "statementList =" +"\n"+ statementList+"\n" +
                 '}';
     }
 }

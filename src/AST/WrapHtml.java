@@ -13,8 +13,11 @@ public class WrapHtml implements HtmlContent{
 
     @Override
     public String toString() {
-        return "WrapHtml{" +
-                "htmlElement=" + htmlElement +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(" WrapHtml {")
+                .append("\n  htmlElement = ").append(htmlElement)
+                .append("\n}");
+        return sb.toString();
     }
+
 }

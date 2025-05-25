@@ -25,9 +25,12 @@ public class HtmlSingleTag implements HtmlElement{
 
     @Override
     public String toString() {
-        return "\n\t"+"HtmlSingleTag{" +
-                "htmlTagName=" + htmlTagName +
-               ",htmlAttributes=" + htmlAttributes +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\tHtmlSingleTag {\n")
+                .append("  htmlTagName: ").append(htmlTagName).append("\n")
+                .append("  htmlAttributes: ").append(htmlAttributes).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

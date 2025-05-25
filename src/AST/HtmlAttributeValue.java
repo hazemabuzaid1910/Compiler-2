@@ -13,8 +13,11 @@ public class HtmlAttributeValue {
 
   @Override
   public String toString() {
-    return "HtmlAttributeValue{" +
-            "StringLiteral='" + StringLiteral + '\'' +
-            '}';
+    StringBuilder sb = new StringBuilder();
+    sb.append("HtmlAttributeValue {\n")
+            .append("  StringLiteral: '").append(StringLiteral).append("'\n")
+            .append("}");
+    return sb.toString();
   }
+
 }

@@ -11,7 +11,7 @@ public class ClassExpression implements Expression {
 
     @Override
     public String toString() {
-        return "ClassExpression" +Class;
+        return "ClassExpression " + Class;
     }
 
 }

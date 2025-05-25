@@ -27,6 +27,7 @@ public class visitor extends TypeScriptParserBaseVisitor {
         }
         return program;
     }
+
     @Override
     public Statement visitStatement(TypeScriptParser.StatementContext ctx) {
         if (ctx.importStatement() != null && !ctx.importStatement().isEmpty()) {
@@ -152,7 +153,7 @@ public class visitor extends TypeScriptParserBaseVisitor {
         return null;
 
     }
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////type script visitors
         @Override
         public ClassDeclaration visitClassDeclaration (TypeScriptParser.ClassDeclarationContext ctx){
             ClassDeclaration classDecl = new ClassDeclaration();

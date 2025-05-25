@@ -33,10 +33,13 @@ public class HtmlPairTag implements HtmlElement{
 
     @Override
     public String toString() {
-        return "\n"+"HtmlPairTag{" +
-                "htmlTagName=" + htmlTagName +
-                ", htmlAttribute=" + htmlAttribute +
-                ", htmlContent=" + htmlContent +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n   HtmlPairTag {\n")
+                .append("    htmlTagName: ").append(htmlTagName).append("\n")
+                .append("    htmlAttribute: ").append(htmlAttribute).append("\n")
+                .append("    htmlContent: ").append(htmlContent).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

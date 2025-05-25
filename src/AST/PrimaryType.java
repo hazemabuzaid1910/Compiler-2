@@ -13,9 +13,12 @@ public class PrimaryType {
 
     @Override
     public String toString() {
-        return "PrimaryType {\n" +
-                "  typeName = '" + typeName + "'\n" +
-                "}";
+        StringBuilder sb = new StringBuilder();
+        sb.append("PrimaryType {")
+                .append("\n  typeName = '").append(typeName).append('\'')
+                .append("\n}");
+        return sb.toString();
     }
+
 
 }

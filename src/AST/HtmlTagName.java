@@ -13,8 +13,11 @@ public class HtmlTagName {
 
     @Override
     public String toString() {
-        return "\n"+"HtmlTagName{" +
-                "tagName=" + tagName + '\n' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nHtmlTagName {\n")
+                .append("  tagName: ").append(tagName).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

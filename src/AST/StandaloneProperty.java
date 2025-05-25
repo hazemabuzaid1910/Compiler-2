@@ -22,9 +22,12 @@ public class StandaloneProperty implements ComponentProperty{
 
     @Override
     public String toString() {
-        return "\n\t\t\t\t"+"StandaloneProperty{" +
-                "standalone='" + standalone + '\'' +
-                ", Case='" + Case + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\t\t\t\tStandaloneProperty {")
+                .append("\n  standalone = '").append(standalone).append('\'')
+                .append("\n  Case = '").append(Case).append('\'')
+                .append("\n}");
+        return sb.toString();
     }
+
 }

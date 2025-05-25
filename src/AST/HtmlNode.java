@@ -13,8 +13,11 @@ public class HtmlNode implements  Statement{
 
     @Override
     public String toString() {
-        return "HtmlNode{" +
-                "htmlElements=" + htmlElements +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("HtmlNode {\n")
+                .append("  htmlElements: ").append(htmlElements).append("\n")
+                .append("}");
+        return sb.toString();
     }
+
 }

@@ -22,8 +22,11 @@ HtmlNode htmlNode;
 
     @Override
     public String toString() {
-        return "\n\t\t\t\t"+"TemplateProperty{" +
-                "template='" + htmlNode + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\t\t\t\tTemplateProperty {")
+                .append("\n  template = '").append(htmlNode).append('\'')
+                .append("\n}");
+        return sb.toString();
     }
+
 }
