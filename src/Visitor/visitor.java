@@ -200,7 +200,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
                 if(Main.semanticError.getE4().GetIsComponent()){
                     Main.semanticError.getE4().addSaveVar(ctx.Identifier().getText());
                 }
-                Main.test.add(ctx.Identifier().getText());
                 Main.semanticError.getE4().insert_name_class_equal(ctx.Identifier().getText());
             }
 
@@ -221,12 +220,19 @@ public class visitor extends TypeScriptParserBaseVisitor {
             if (ctx.Identifier() != null) {
                 method.setIdentifier(ctx.Identifier().getText());
                 Main.semanticError.check_E2(ctx.Identifier().getText() , ctx.getStart().getLine());
+                if (Main.semanticError.getE4().GetIsComponent()){
+                    Main.semanticError.getE6().add_fun_name_to_save_map(ctx.Identifier().getText());
+                }
             }
 
             if (ctx.parameterList() != null) {
                 ParameterList params = (ParameterList) visit(ctx.parameterList());
                 method.setParameterList(params);
             }
+            if (Main.semanticError.getE4().GetIsComponent()){
+                Main.semanticError.getE6().get_var_from_connection(ctx.Identifier().getText());
+            }
+
 
             if (ctx.typeAnnotation() != null) {
                 TypeAnnotation typeAnn = (TypeAnnotation) visit(ctx.typeAnnotation());
@@ -248,6 +254,9 @@ public class visitor extends TypeScriptParserBaseVisitor {
             for (TypeScriptParser.ParameterContext paramCtx : ctx.parameter()) {
                 Parameter param = (Parameter) visit(paramCtx);
                 parameterList.getParameters().add(param);
+                if (Main.semanticError.getE4().GetIsComponent()){
+                    Main.semanticError.getE6().add_connection_stack(param.getIdentifier());
+                }
             }
             return parameterList;
         }
@@ -576,6 +585,19 @@ public class visitor extends TypeScriptParserBaseVisitor {
             eventAttribute.setIdentifier(ctx.Identifier().getText());
         }
         if(ctx.htmlAttributeValue()!=null){
+          String event= visitHtmlAttributeValue(ctx.htmlAttributeValue()).getStringLiteral();
+            Pattern pattern = Pattern.compile("\"(\\w+)\\s*\\(([^)]*)\\)\"");
+            Matcher matcher = pattern.matcher(event);
+            while (matcher.find()) {
+                String functionName = matcher.group(1);  // اسم الدالة
+                String arguments = matcher.group(2);     // الوسائط داخل القوسين
+                String[] argsArray = arguments.split("\\s*,\\s*");
+                int num = 0 ;
+                for (String arg : argsArray) {
+                    num++;
+                }
+                Main.semanticError.getE6().add_check_map(functionName, num, ctx.getStart().getLine());
+            }
             eventAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
         }
         return eventAttribute;
@@ -592,7 +614,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
         }
         if(ctx.htmlAttributeValue()!=null){
             directiveAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
-
         }
         return directiveAttribute;
     }
@@ -675,7 +696,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
             if(Main.semanticError.getE4().GetIsComponent()){
                 Main.semanticError.getE4().addSaveAtt(ctx.Identifier().getText());
             }
-            Main.test.add(ctx.Identifier().getText());
             Expression value = (Expression) visit(ctx.expression());
             return new PropertyAssignment(key, value);
         }
@@ -748,7 +768,6 @@ public class visitor extends TypeScriptParserBaseVisitor {
                                 accesses.add(new MemberAccess("dot", identifier, null));
                                 Main.semanticError.check_E3(identifier,ctx.getStart().getLine());
                                 Main.semanticError.getE4().insert_value_class_equal(identifier);
-                                Main.testcheck.add(identifier);
                             }
                         }
                     } else if (child instanceof ParserRuleContext) {

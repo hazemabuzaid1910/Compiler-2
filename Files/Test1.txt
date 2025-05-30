@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
           class="product"
           *ngFor="let product of products"
           [class.selected]="product === selectedProduct"
-          (click)="selectProduct(product)"
+          (click)="selectProduct(product,x)"
         >
           <h4>{{ product.name }}</h4>
           <img [src]="product.image" alt="Product Image" class="product-image" />

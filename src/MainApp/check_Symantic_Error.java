@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class check_Symantic_Error {
@@ -17,6 +18,7 @@ public class check_Symantic_Error {
     private final E3_sympolTable thisVariable = new E3_sympolTable();
     private final E4_sympolTable bindVariable = new E4_sympolTable();
     private final E5_sympolTable forVariable = new E5_sympolTable();
+    private final E6_sympolTable eventfun = new E6_sympolTable();
     private final List<Symantic_Error> errors = new ArrayList<>();;
 
     public check_Symantic_Error() {
@@ -24,6 +26,7 @@ public class check_Symantic_Error {
         funStack.allocate();
         thisVariable.allocate();
         bindVariable.allocate();
+        eventfun.allocate();
     }
     public E1_sympolTable getE1() {
         return tagStack;
@@ -43,6 +46,10 @@ public class check_Symantic_Error {
 
     public E5_sympolTable getE5() {
         return forVariable;
+    }
+
+    public E6_sympolTable getE6() {
+        return eventfun;
     }
 
     public List<Symantic_Error> getErrors() {
@@ -202,11 +209,43 @@ public class check_Symantic_Error {
     }
 
 
+    public void check_E5(){
+        Map<String,String> check_map = getE6().getCheck_map().getMap();
+        Map<String,String> save_map = getE6().get_Save_map().getMap();
+        check_map.forEach((key, value) -> {
+            int index = value.indexOf("Line");
+            String beforeLine =" ";
+            String afterLine = " ";
+            if (index != -1) {
+                 beforeLine = value.substring(0, index);
+                 afterLine = value.substring(index + "Line".length());
+            }
+            if (save_map.containsKey(key)){
+               String V = save_map.get(key);
+               if(!Objects.equals(beforeLine, V)){
+                   Symantic_Error error = new Symantic_Error();
+                   error.addError(Error_Type.FUNCTION_ERROR_PARAMETER,
+                           "Expected "+ V +" arguments, but got "+beforeLine,
+                           afterLine);
+                   errors.add(error);
+               }
+            }else{
+                Symantic_Error error = new Symantic_Error();
+                error.addError(Error_Type.EVENT_NOT_EXIST,
+                        "Function name "+ key +" is not exist ",
+                        afterLine);
+                errors.add(error);
+            }
+        });
+    }
+
+
     public void  check_Errors(){
         try {
             check_E4_1();
             check_E4_3();
             check_E4_2();
+            check_E5();
             FileWriter test =  new FileWriter("Result\\Semantic.txt");
             if (!errors.isEmpty()){
                 test.append("Semantic Check : \n");

@@ -1,2 +1,2 @@
 Semantic Check : 
-Error Name : TAG_MISMATCH , Error Description : Start tag is div id 3 and end tag is h4 id 3 , Error Location : 19
+Error Name : UNDECLARED_PROPERTY , Error Description : The Property x is Undeclared  , Error Location : 55
