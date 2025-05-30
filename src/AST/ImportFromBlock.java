@@ -40,21 +40,40 @@ public class ImportFromBlock {
     public void setStringLiteral(String stringLiteral) {
         StringLiteral = stringLiteral;
     }
-
     @Override
     public String toString() {
-    StringBuilder sb=new StringBuilder();
-    if(importModule!=null && !importModule.isEmpty()){
-        sb.append(importModule);
-    }
-    if(importAlias!=null){
-     }
-    if(importFrom!=null){
-        sb.append(importFrom);
-    }
-        if(StringLiteral!=null){
-            sb.append(StringLiteral);
+        StringBuilder sb = new StringBuilder("ImportDeclaration {\n");
+
+        if (importModule != null && !importModule.isEmpty()) {
+            sb.append("  importModule: [\n");
+            for (ImportModule stmt : importModule) {
+                sb.append("    ")
+                        .append(stmt != null ? stmt.toString().replace("\n", "\n    ") : "null")
+                        .append(",\n");
+            }
+            sb.append("  ]\n");
         }
-    return  sb.toString();
+
+        if (importAlias != null) {
+            sb.append("  importAlias: ")
+                    .append(importAlias.toString().replace("\n", "\n    "))
+                    .append(",\n");
+        }
+
+        if (importFrom != null) {
+            sb.append("  importFrom: ")
+                    .append(importFrom.toString().replace("\n", "\n    "))
+                    .append(",\n");
+        }
+
+        if (StringLiteral != null) {
+            sb.append("  StringLiteral: ")
+                    .append(StringLiteral.toString().replace("\n", "\n    "))
+                    .append("\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
 }

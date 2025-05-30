@@ -13,8 +13,16 @@ ExpressionHtml expressionHtml;
 
     @Override
     public String toString() {
-        return "MostacheExp{" +
-                "expressionHtml=" + expressionHtml +
-                '}';
+        StringBuilder sb = new StringBuilder("MostacheExp {\n");
+
+        if (expressionHtml != null) {
+            sb.append("  expressionHtml: ")
+                    .append(expressionHtml.toString().replace("\n", "\n    "))
+                    .append("\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
 }

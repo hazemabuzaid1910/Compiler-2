@@ -27,20 +27,32 @@ package AST;public class ImportModule {
         Identifier = identifier;
     }
 
+
     @Override
     public String toString() {
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder("YourClassName {\n");
 
-        if(Component!=null){
-            sb.append(Component);
-        }
-        if(CommonModule!=null){
-            sb.append(CommonModule);
-        }
-        if(Identifier!=null){
-            sb.append(Identifier);
+        if (Component != null) {
+            sb.append("  Component: ")
+                    .append(Component.toString().replace("\n", "\n    "))
+                    .append(",\n");
         }
 
+        if (CommonModule != null) {
+            sb.append("  CommonModule: ")
+                    .append(CommonModule.toString().replace("\n", "\n    "))
+                    .append(",\n");
+        }
+
+        if (Identifier != null) {
+            sb.append("  Identifier: ")
+                    .append(Identifier.toString().replace("\n", "\n    "))
+                    .append(",\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
+
+
 }

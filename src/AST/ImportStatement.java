@@ -23,14 +23,22 @@ public class ImportStatement implements Statement {
 
     @Override
     public String toString() {
-        StringBuilder sb=new StringBuilder();
-        sb.append("\n").append("importStatement{");
-        if(Import!=null){
-            sb.append(Import).append("\t");
+        StringBuilder sb = new StringBuilder("importStatement {\n");
+
+        if (Import != null) {
+            sb.append("  Import: ")
+                    .append(Import.toString().replace("\n", "\n    "))
+                    .append(",\n");
         }
-        if(importFromBlock!=null){
-            sb.append(importFromBlock).append("}");
+
+        if (importFromBlock != null) {
+            sb.append("  importFromBlock: ")
+                    .append(importFromBlock.toString().replace("\n", "\n    "))
+                    .append(",\n");
         }
+
+        sb.append("}");
         return sb.toString();
     }
+
 }

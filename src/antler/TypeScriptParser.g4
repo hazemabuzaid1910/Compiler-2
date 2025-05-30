@@ -23,13 +23,13 @@ importStatement
     ;
 
 importFromBlock
-    : OpenBrace ((importModule (',' importModule)*) | importAlias) CloseBrace importFrom
+    : OpenBrace ((importModule (Comma importModule)*) | importAlias) CloseBrace importFrom
 
     | StringLiteral
     ;
 
 importAlias
-    : '*' As Identifier
+    : Multiply As Identifier
     | importModule As Identifier
 
     ;
@@ -94,10 +94,10 @@ htmlElement: htmlPairTag
            ;
 
  htmlPairTag:
-           '<' htmlTagName htmlAttribute* '>' htmlContent* '<''/' htmlTagName '>'
+           LessThan htmlTagName htmlAttribute* MoreThan htmlContent* LessThan Divide htmlTagName MoreThan
                ;
 htmlSingleTag:
-             '<' htmlTagName htmlAttribute* '/>'
+             LessThan htmlTagName htmlAttribute* SelfCloseTag
              ;
 
 
@@ -151,7 +151,7 @@ primaryExpressionhtml
     : Identifier
     ;
 
-
+//tupe script
 classDeclaration
     : EXPORT? CLASS Identifier OpenBrace classBody CloseBrace
     ;
@@ -247,12 +247,7 @@ expression
     | unaryOperator expression                     # unaryExpr
     | primary (memberAccess)*                      # memberExpr
     | CLASS                                        #classexp
-//    | Identifier (memberAccess)*                                # idExpression
-//    | literal                                                   # literalExpr
-//    | arrayLiteral                                              # arrayExpr
-//    | objectLiteral                                             # objectExpr
-//    | OpenParen expression CloseParen                           # parenExpr
-    ;
+;
 
 
 primary

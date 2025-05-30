@@ -22,10 +22,13 @@ HtmlNode htmlNode;
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n\t\t\t\tTemplateProperty {")
-                .append("\n  template = '").append(htmlNode).append('\'')
-                .append("\n}");
+        StringBuilder sb = new StringBuilder("TemplateProperty {\n");
+
+        if (htmlNode != null) {
+            sb.append("  template = '").append(htmlNode.toString().replace("\n", "\n    ")).append("'\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
 

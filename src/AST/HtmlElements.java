@@ -12,14 +12,31 @@ public class HtmlElements {
     public void setHtmlElements(List<HtmlElement> htmlElements) {
         this.htmlElements = htmlElements;
     }
+    public boolean isEmpty() {
+        return htmlElements == null || htmlElements.isEmpty();
+    }
 
+    public List<HtmlElement> getElements() {
+        return htmlElements;
+    }
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("HtmlElements {\n")
-                .append("  htmlElements: ").append(htmlElements).append("\n")
-                .append("}");
+        StringBuilder sb = new StringBuilder("HtmlElements {\n");
+
+        if (htmlElements != null && !htmlElements.isEmpty()) {
+            sb.append("  htmlElements: [\n");
+            for (Object element : htmlElements) { // Adjust type if needed
+                sb.append("    ")
+                        .append(element != null ? element.toString().replace("\n", "\n    ") : "null")
+                        .append(",\n");
+            }
+            sb.append("  ]\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
+
+
 
 }

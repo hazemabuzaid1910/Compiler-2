@@ -13,11 +13,15 @@ public class Text implements HtmlContent{
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Text {")
-                .append("\n  text = '").append(text).append('\'')
-                .append("\n}");
+        StringBuilder sb = new StringBuilder("Text {\n");
+
+        if (text != null) {
+            sb.append("  text = '").append(text).append("'\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
+
 
 }

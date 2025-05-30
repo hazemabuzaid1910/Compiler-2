@@ -33,13 +33,33 @@ public class HtmlPairTag implements HtmlElement{
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n   HtmlPairTag {\n")
-                .append("    htmlTagName: ").append(htmlTagName).append("\n")
-                .append("    htmlAttribute: ").append(htmlAttribute).append("\n")
-                .append("    htmlContent: ").append(htmlContent).append("\n")
-                .append("}");
+        StringBuilder sb = new StringBuilder("HtmlPairTag {\n");
+
+        // Print htmlTagName if not null
+        if (htmlTagName != null) {
+            sb.append("  htmlTagName: ")
+                    .append(htmlTagName.toString().replace("\n", "\n    "))
+                    .append(",\n");
+        }
+
+        // Print htmlAttribute if not null
+        if (htmlAttribute != null) {
+            sb.append("  htmlAttribute: ")
+                    .append(htmlAttribute.toString().replace("\n", "\n    "))
+                    .append(",\n");
+        }
+
+        // Print htmlContent if not null
+        if (htmlContent != null) {
+            sb.append("  htmlContent: ")
+                    .append(htmlContent.toString().replace("\n", "\n    "))
+                    .append("\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
+
+
 
 }

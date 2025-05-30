@@ -13,8 +13,15 @@ public class Identifier implements HtmlContent{
 
     @Override
     public String toString() {
-        return "Identifier{" +
-                "identifier='" + identifier + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder("Identifier {\n");
+
+        if (identifier != null) {
+            sb.append("  identifier: '").append(identifier).append("'\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
+
 }

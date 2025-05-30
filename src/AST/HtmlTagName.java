@@ -11,13 +11,18 @@ public class HtmlTagName {
         this.tagName = tagName;
     }
 
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nHtmlTagName {\n")
-                .append("  tagName: ").append(tagName).append("\n")
-                .append("}");
+        StringBuilder sb = new StringBuilder("HtmlTagName {\n");
+
+        if (tagName != null) {
+            sb.append("  tagName: ").append(tagName).append("\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
+
 
 }

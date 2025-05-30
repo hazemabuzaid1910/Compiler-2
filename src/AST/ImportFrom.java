@@ -20,17 +20,26 @@ public class ImportFrom {
         StringLiteral = stringLiteral;
     }
 
+
     @Override
     public String toString() {
-      StringBuilder sb=new StringBuilder();
-        sb.append("\t");
-       if(From!=null){
-           sb.append(From);
-       }
-        sb.append("\t");
-        if(StringLiteral!=null){
-            sb.append(StringLiteral);
+        StringBuilder sb = new StringBuilder("FromStatement {\n");
+
+        if (From != null) {
+            sb.append("  From: ")
+                    .append(From.toString().replace("\n", "\n    "))
+                    .append(",\n");
         }
-      return sb.toString();
+
+        if (StringLiteral != null) {
+            sb.append("  StringLiteral: ")
+                    .append(StringLiteral.toString().replace("\n", "\n    "))
+                    .append("\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
+
 }

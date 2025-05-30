@@ -40,19 +40,34 @@ public class ImportAlias {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("ImportStatement {\n");
+
         if (importModule != null) {
-            sb.append(importModule);
+            sb.append("  importModule: ")
+                    .append(importModule.toString().replace("\n", "\n    "))
+                    .append(",\n");
         }
+
         if (star != null) {
-            sb.append(star).append("\t");
+            sb.append("  star: ")
+                    .append(star.toString().replace("\n", "\n    "))
+                    .append(",\n");
         }
+
         if (As != null) {
-            sb.append(As).append("\t");
+            sb.append("  As: ")
+                    .append(As.toString().replace("\n", "\n    "))
+                    .append(",\n");
         }
+
         if (Identifier != null) {
-            sb.append(Identifier);
+            sb.append("  Identifier: ")
+                    .append(Identifier.toString().replace("\n", "\n    "))
+                    .append("\n");
         }
+
+        sb.append("}");
         return sb.toString();
     }
+
 }

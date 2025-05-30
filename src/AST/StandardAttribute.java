@@ -32,16 +32,22 @@ public class StandardAttribute implements HtmlAttribute,Expression{
 
     @Override
     public String toString() {
-        StringBuilder sb=new StringBuilder();
-        if (Class!=null && !Class.isEmpty()){
-            sb.append(Class);
-        }
-        if (identifier!=null && !identifier.isEmpty()){
-            sb.append(identifier);
-        }if (htmlAttributeValue!=null){
-            sb.append(htmlAttributeValue);
-        }
-        return  sb.toString();
+        StringBuilder sb = new StringBuilder("YourClassName {\n");
 
+        if (Class != null && !Class.isEmpty()) {
+            sb.append("  Class: ").append(Class).append("\n");
+        }
+
+        if (identifier != null && !identifier.isEmpty()) {
+            sb.append("  identifier: ").append(identifier).append("\n");
+        }
+
+        if (htmlAttributeValue != null) {
+            sb.append("  htmlAttributeValue: ").append(htmlAttributeValue.toString().replace("\n", "\n    ")).append("\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
 }

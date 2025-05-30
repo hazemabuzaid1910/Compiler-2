@@ -12,8 +12,14 @@ public class NumberLiteral implements Literal {
 
     @Override
     public String toString() {
-        return "NumberLiteral {\n" +
-                "  value: '" + value + "'\n" +
-                "}";
+        StringBuilder sb = new StringBuilder("NumberLiteral {\n");
+
+        if (value != null) {
+            sb.append("  value: '").append(value).append("'\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
+
 }

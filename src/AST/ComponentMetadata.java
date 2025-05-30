@@ -16,13 +16,18 @@ public class ComponentMetadata {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("ComponentMetadata {\n");
+
         if (componentProperty != null) {
-            sb.append("\n  ComponentProperty: \n    ").append(componentProperty);
+            sb.append("  ComponentProperty: ")
+                    .append(componentProperty.toString().replace("\n", "\n    "))
+                    .append("\n");
         }
-        sb.append("\n}");
+
+        sb.append("}");
         return sb.toString();
     }
+
 
 
 }

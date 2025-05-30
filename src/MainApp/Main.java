@@ -23,7 +23,7 @@ public class Main {
         public static List<String> testcheck = new ArrayList<>();
         public static int id_element = 0 ;
         public static void main(String[] args) throws IOException {
-                File folder = new File("C:/Users/LENOVO/Desktop/compiler/compiler20/Compiler-2/Files");
+                File folder = new File("C://Users//Touqa2003//Desktop//Compiler-2-AST//Compiler-2-AST//Files");
                 File[] files = folder.listFiles();
             for (File file : Objects.requireNonNull(files)) {
                 String source = file.getPath();
@@ -35,10 +35,10 @@ public class Main {
                 Program program = (Program) new visitor().visit(tree);
                 semanticError.check_Errors();
                 for (int k =0 ; k< semanticError.getE4().getSavemap().size();k++){
-                    System.out.print(semanticError.getE4().getSavemap().get(k).getName()+"  ");
-                    System.out.print(semanticError.getE4().getSavemap().get(k).getType()+"  ");
-                    System.out.print(semanticError.getE4().getSavemap().get(k).printatt());
-                    System.out.println();
+//                    System.out.print(semanticError.getE4().getSavemap().get(k).getName()+"  ");
+//                    System.out.print(semanticError.getE4().getSavemap().get(k).getType()+"  ");
+//                    System.out.print(semanticError.getE4().getSavemap().get(k).printatt());
+//                    System.out.println();
 
                 }
                 System.out.println();
@@ -46,21 +46,22 @@ public class Main {
 //                    System.out.println(key + " = " + value);
 //                });
 
-                for (int i = 0; i < semanticError.getE4().getCheck().size(); i++) {
-                    System.out.println(
-                            semanticError.getE4().getCheck().get(i).getName()+" "+
-                            semanticError.getE4().getCheck().get(i).getValue()+" "+
-                            semanticError.getE4().getCheck().get(i).getLine());
-                }
-                System.out.println();
+//                for (int i = 0; i < semanticError.getE4().getCheck().size(); i++) {
+////                    System.out.println(
+////                            semanticError.getE4().getCheck().get(i).getName()+" "+
+////                            semanticError.getE4().getCheck().get(i).getValue()+" "+
+////                            semanticError.getE4().getCheck().get(i).getLine());
+////                }
+//                System.out.println();
                 for (int i = 0; i < semanticError.getE5().getFor_list().size(); i++) {
-                    System.out.println(  semanticError.getE5().getFor_list().get(i).getParent()+" "+
-                            semanticError.getE5().getFor_list().get(i).getName()+" "+
-                                    semanticError.getE5().getFor_list().get(i).getValue()+" "+
-                                    semanticError.getE5().getFor_list().get(i).getLine());
-                }
+//                    System.out.println(  semanticError.getE5().getFor_list().get(i).getParent()+" "+
+//                            semanticError.getE5().getFor_list().get(i).getName()+" "+
+//                                    semanticError.getE5().getFor_list().get(i).getValue()+" "+
+//                                    semanticError.getE5().getFor_list().get(i).getLine());
+//                }
                 System.out.println(program);
 
             }
+        }
         }
 }

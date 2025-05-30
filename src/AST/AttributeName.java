@@ -16,8 +16,12 @@ public class AttributeName {
 
     @Override
     public String toString() {
-        return "\n"+ "AttributeName{" +
-                "identifier=" + identifier +
-                '}';
+        StringBuilder sb = new StringBuilder("AttributeName {\n");
+
+        // تنسيق وطباعة identifier
+        sb.append("  identifier: ").append( identifier.toString().replace("\n", "\n    "));
+
+        sb.append("}");
+        return sb.toString();
     }
 }

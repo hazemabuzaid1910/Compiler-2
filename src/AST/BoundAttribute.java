@@ -20,11 +20,24 @@ HtmlAttributeValue htmlAttributeValue;
         this.htmlAttributeValue = htmlAttributeValue;
     }
 
+
     @Override
     public String toString() {
-        return "BoundAttribute{" +
-                "attributeName=" + attributeName +
-                ", htmlAttributeValue=" + htmlAttributeValue +
-                '}';
+        StringBuilder sb = new StringBuilder("BoundAttribute {\n");
+
+        if (attributeName != null) {
+            sb.append("  attributeName: ")
+                    .append(attributeName.toString().replace("\n", "\n    "))
+                    .append(",\n");
+        }
+
+        if (htmlAttributeValue != null) {
+            sb.append("  htmlAttributeValue: ")
+                    .append(htmlAttributeValue.toString().replace("\n", "\n    "))
+                    .append("\n");
+        }
+
+        sb.append("}");
+        return sb.toString();
     }
 }

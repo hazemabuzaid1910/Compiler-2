@@ -13,10 +13,13 @@ String identifier;
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nPrimaryExpressionHtml {")
-                .append("\n  identifier: '").append(identifier).append('\'')
-                .append("\n}");
+        StringBuilder sb = new StringBuilder("PrimaryExpressionHtml {\n");
+
+        if (identifier != null) {
+            sb.append("  identifier: '").append(identifier).append("'\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
 

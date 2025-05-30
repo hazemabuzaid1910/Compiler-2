@@ -19,14 +19,19 @@ public class StandaloneProperty implements ComponentProperty{
     public void setStandalone(String standalone) {
         this.standalone = standalone;
     }
-
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n\t\t\t\tStandaloneProperty {")
-                .append("\n  standalone = '").append(standalone).append('\'')
-                .append("\n  Case = '").append(Case).append('\'')
-                .append("\n}");
+        StringBuilder sb = new StringBuilder("StandaloneProperty {\n");
+
+        if (standalone != null) {
+            sb.append("  standalone = '").append(standalone).append("'\n");
+        }
+
+        if (Case != null) {
+            sb.append("  Case = '").append(Case).append("'\n");
+        }
+
+        sb.append("}");
         return sb.toString();
     }
 
