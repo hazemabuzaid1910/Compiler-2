@@ -10,12 +10,11 @@ program
 
 
 statement
-    : importStatement (Comma importStatement)* eos?
-    | componentDeclaration
-    | htmlNode
-    | classDeclaration
-    | block
-
+    : importStatement (Comma importStatement)* eos?    #ImportState
+    | componentDeclaration                             #ComponentState
+    | htmlNode                                         #HtmlNodeState
+    | classDeclaration                                 #ClassState
+    | block                                            #BlockState
     ;
 
 importStatement
@@ -23,21 +22,19 @@ importStatement
     ;
 
 importFromBlock
-    : OpenBrace ((importModule (Comma importModule)*) | importAlias) CloseBrace importFrom
-
-    | StringLiteral
+    : OpenBrace ((importModule (Comma importModule)*) | importAlias) CloseBrace importFrom  #ImportFromBlock1
+    | StringLiteral                                                                         #ImportFromBlock2
     ;
 
 importAlias
-    : Multiply As Identifier
-    | importModule As Identifier
-
+    : Multiply As Identifier        #ImportAlias1
+    | importModule As Identifier    #ImportAlias2
     ;
 
 importModule
-    : Component
-    | CommonModule
-    | Identifier
+    : Component     #ComponentMod
+    | CommonModule  #CommonModuleMod
+    | Identifier    #IdentifierMod
     ;
 
 importFrom
@@ -53,11 +50,11 @@ componentMetadata
     ;
 
 componentProperty
-    : selectorProperty
-    | standaloneProperty
-    | importsProperty
-    | templateProperty
-    | stylesProperty
+    : selectorProperty      #SelectProperty
+    | standaloneProperty    #StandalonProperty
+    | importsProperty       #ImportProperty
+    | templateProperty      #TemplatProperty
+    | stylesProperty        #StyleProperty
     ;
 
 selectorProperty
@@ -89,8 +86,8 @@ htmlElements
     : htmlElement+
     ;
 
-htmlElement: htmlPairTag
-           | htmlSingleTag
+htmlElement: htmlPairTag  #HtmlPair
+           | htmlSingleTag #HtmlSingle
            ;
 
  htmlPairTag:
@@ -107,15 +104,15 @@ htmlTagName
     ;
 
 htmlContent
-    : htmlElement                                        #wrapHtml
-    | DoubleLeftBrace expressionhtml DoubleRightBrace    #mostacheExp
+    : htmlElement                                        #WrapHtml
+    | DoubleLeftBrace expressionhtml DoubleRightBrace    #MostacheExp
     ;
 
 htmlAttribute
-    : standardAttribute
-    | boundAttribute
-    | eventAttribute
-    | directiveAttribute
+    : standardAttribute  #StandardAttr
+    | boundAttribute     #BoundAttr
+    | eventAttribute     #EventAttr
+    | directiveAttribute  #DirectAttr
     ;
 
 standardAttribute
@@ -139,8 +136,8 @@ directiveAttribute
     ;
 
 htmlAttributeValue
-    : StringLiteral
-    | expression
+    : StringLiteral   #HtmlAttributeValueString
+    | expression      #HtmlAttributeValueExp
     ;
 
 expressionhtml
@@ -205,12 +202,12 @@ block
     ;
 
 statements
-    : assignment
-    | expressionStatement
-    | ifStatement
-    | forStatement
-    | whileStatement
-    | returnStatement
+    : assignment            #Assign
+    | expressionStatement   #ExpressionState
+    | ifStatement           #IfState
+    | forStatement          #ForState
+    | whileStatement        #WhileState
+    | returnStatement       #ReturnState
     ;
 
 assignment
@@ -243,20 +240,20 @@ returnStatement
     ;
 
 expression
-    :  expression binaryOperator expression        # binaryExpr
-    | unaryOperator expression                     # unaryExpr
-    | primary (memberAccess)*                      # memberExpr
-    | CLASS                                        #classexp
+    : expression binaryOperator expression        # BinaryExpr
+    | unaryOperator expression                     # UnaryExpr
+    | primary (memberAccess)*                      # MemberExpr
+    | CLASS                                        #Classexp
 ;
 
 
 primary
-    : THIS                                        # thisExpr
-    | Identifier                                  # idExpr
-    | objectLiteral                               # objectExpr
-    | arrayLiteral                                # arrayExpr
-    | literal                                     # literalExpr
-    | OpenParen expression CloseParen             # parenExpr
+    : THIS                                        # ThisExpr
+    | Identifier                                  # IdExpr
+    | objectLiteral                               # ObjectExpr
+    | arrayLiteral                                # ArrayExpr
+    | literal                                     # LiteralExpr
+    | OpenParen expression CloseParen             # ParenExpr
     ;
 
 binaryOperator
@@ -274,10 +271,10 @@ memberAccess
     ;
 
 literal
-    : NumberLiteral
-    | StringLiteral
-    | objectLiteral
-    | arrayLiteral
+    : NumberLiteral   #NumberLiteral
+    | StringLiteral   #StringLiteral
+    | objectLiteral   #ObjectLitera
+    | arrayLiteral    #ArrayLitera
     ;
 
 objectLiteral

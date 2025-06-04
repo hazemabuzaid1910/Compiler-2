@@ -1,4 +1,4 @@
-// Generated from C:/Users/hazem/OneDrive/Desktop/4_2/compiler2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/hazem/OneDrive/Desktop/New folder (3)/Compiler-2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
 package antler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -29,13 +29,61 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(TypeScriptParser.StatementContext ctx) { }
+	@Override public void enterImportState(TypeScriptParser.ImportStateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(TypeScriptParser.StatementContext ctx) { }
+	@Override public void exitImportState(TypeScriptParser.ImportStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComponentState(TypeScriptParser.ComponentStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComponentState(TypeScriptParser.ComponentStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtmlNodeState(TypeScriptParser.HtmlNodeStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtmlNodeState(TypeScriptParser.HtmlNodeStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterClassState(TypeScriptParser.ClassStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClassState(TypeScriptParser.ClassStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockState(TypeScriptParser.BlockStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockState(TypeScriptParser.BlockStateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -53,37 +101,85 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterImportFromBlock(TypeScriptParser.ImportFromBlockContext ctx) { }
+	@Override public void enterImportFromBlock1(TypeScriptParser.ImportFromBlock1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitImportFromBlock(TypeScriptParser.ImportFromBlockContext ctx) { }
+	@Override public void exitImportFromBlock1(TypeScriptParser.ImportFromBlock1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterImportAlias(TypeScriptParser.ImportAliasContext ctx) { }
+	@Override public void enterImportFromBlock2(TypeScriptParser.ImportFromBlock2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitImportAlias(TypeScriptParser.ImportAliasContext ctx) { }
+	@Override public void exitImportFromBlock2(TypeScriptParser.ImportFromBlock2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterImportModule(TypeScriptParser.ImportModuleContext ctx) { }
+	@Override public void enterImportAlias1(TypeScriptParser.ImportAlias1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitImportModule(TypeScriptParser.ImportModuleContext ctx) { }
+	@Override public void exitImportAlias1(TypeScriptParser.ImportAlias1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportAlias2(TypeScriptParser.ImportAlias2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportAlias2(TypeScriptParser.ImportAlias2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComponentMod(TypeScriptParser.ComponentModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComponentMod(TypeScriptParser.ComponentModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCommonModuleMod(TypeScriptParser.CommonModuleModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCommonModuleMod(TypeScriptParser.CommonModuleModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdentifierMod(TypeScriptParser.IdentifierModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdentifierMod(TypeScriptParser.IdentifierModContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -125,13 +221,61 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComponentProperty(TypeScriptParser.ComponentPropertyContext ctx) { }
+	@Override public void enterSelectProperty(TypeScriptParser.SelectPropertyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComponentProperty(TypeScriptParser.ComponentPropertyContext ctx) { }
+	@Override public void exitSelectProperty(TypeScriptParser.SelectPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStandalonProperty(TypeScriptParser.StandalonPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStandalonProperty(TypeScriptParser.StandalonPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportProperty(TypeScriptParser.ImportPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportProperty(TypeScriptParser.ImportPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTemplatProperty(TypeScriptParser.TemplatPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTemplatProperty(TypeScriptParser.TemplatPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStyleProperty(TypeScriptParser.StylePropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStyleProperty(TypeScriptParser.StylePropertyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -221,13 +365,25 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtmlElement(TypeScriptParser.HtmlElementContext ctx) { }
+	@Override public void enterHtmlPair(TypeScriptParser.HtmlPairContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtmlElement(TypeScriptParser.HtmlElementContext ctx) { }
+	@Override public void exitHtmlPair(TypeScriptParser.HtmlPairContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtmlSingle(TypeScriptParser.HtmlSingleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtmlSingle(TypeScriptParser.HtmlSingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -293,13 +449,49 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtmlAttribute(TypeScriptParser.HtmlAttributeContext ctx) { }
+	@Override public void enterStandardAttr(TypeScriptParser.StandardAttrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtmlAttribute(TypeScriptParser.HtmlAttributeContext ctx) { }
+	@Override public void exitStandardAttr(TypeScriptParser.StandardAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBoundAttr(TypeScriptParser.BoundAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoundAttr(TypeScriptParser.BoundAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEventAttr(TypeScriptParser.EventAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEventAttr(TypeScriptParser.EventAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDirectAttr(TypeScriptParser.DirectAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDirectAttr(TypeScriptParser.DirectAttrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -365,13 +557,25 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtmlAttributeValue(TypeScriptParser.HtmlAttributeValueContext ctx) { }
+	@Override public void enterHtmlAttributeValueString(TypeScriptParser.HtmlAttributeValueStringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtmlAttributeValue(TypeScriptParser.HtmlAttributeValueContext ctx) { }
+	@Override public void exitHtmlAttributeValueString(TypeScriptParser.HtmlAttributeValueStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHtmlAttributeValueExp(TypeScriptParser.HtmlAttributeValueExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHtmlAttributeValueExp(TypeScriptParser.HtmlAttributeValueExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -545,13 +749,73 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatements(TypeScriptParser.StatementsContext ctx) { }
+	@Override public void enterAssign(TypeScriptParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatements(TypeScriptParser.StatementsContext ctx) { }
+	@Override public void exitAssign(TypeScriptParser.AssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpressionState(TypeScriptParser.ExpressionStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpressionState(TypeScriptParser.ExpressionStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfState(TypeScriptParser.IfStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfState(TypeScriptParser.IfStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForState(TypeScriptParser.ForStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForState(TypeScriptParser.ForStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhileState(TypeScriptParser.WhileStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhileState(TypeScriptParser.WhileStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReturnState(TypeScriptParser.ReturnStateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturnState(TypeScriptParser.ReturnStateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -641,30 +905,6 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassexp(TypeScriptParser.ClassexpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitClassexp(TypeScriptParser.ClassexpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterUnaryExpr(TypeScriptParser.UnaryExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnaryExpr(TypeScriptParser.UnaryExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterMemberExpr(TypeScriptParser.MemberExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -677,6 +917,18 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterClassexp(TypeScriptParser.ClassexpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClassexp(TypeScriptParser.ClassexpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBinaryExpr(TypeScriptParser.BinaryExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -684,6 +936,18 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBinaryExpr(TypeScriptParser.BinaryExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryExpr(TypeScriptParser.UnaryExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryExpr(TypeScriptParser.UnaryExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -797,13 +1061,49 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLiteral(TypeScriptParser.LiteralContext ctx) { }
+	@Override public void enterNumberLiteral(TypeScriptParser.NumberLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLiteral(TypeScriptParser.LiteralContext ctx) { }
+	@Override public void exitNumberLiteral(TypeScriptParser.NumberLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStringLiteral(TypeScriptParser.StringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringLiteral(TypeScriptParser.StringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterObjectLitera(TypeScriptParser.ObjectLiteraContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectLitera(TypeScriptParser.ObjectLiteraContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayLitera(TypeScriptParser.ArrayLiteraContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayLitera(TypeScriptParser.ArrayLiteraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

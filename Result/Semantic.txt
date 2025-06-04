@@ -1,2 +1,2 @@
 Semantic Check : 
-Error Name : UNDECLARED_PROPERTY , Error Description : The Property x is Undeclared  , Error Location : 55
+Error Name : FUNCTION_ERROR_PARAMETER , Error Description : Expected 1 arguments, but got 2 , Error Location : 15

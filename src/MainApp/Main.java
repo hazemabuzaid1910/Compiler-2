@@ -22,7 +22,7 @@ public class Main {
         public static check_Symantic_Error semanticError = new check_Symantic_Error();
         public static int id_element = 0 ;
         public static void main(String[] args) throws IOException {
-                File folder = new File("C:/Users/LENOVO/Desktop/compiler/compiler20/Compiler-2/Files");
+                File folder = new File("C:/Users/hazem/OneDrive/Desktop/New folder (3)/Compiler-2/Files");
                 File[] files = folder.listFiles();
             for (File file : Objects.requireNonNull(files)) {
                 String source = file.getPath();
@@ -32,6 +32,7 @@ public class Main {
                 TypeScriptParser parser = new TypeScriptParser(token);
                 ParseTree tree = parser.program();
                 Program program = (Program) new visitor().visit(tree);
+
                 semanticError.check_Errors();
                 Map<String,String> map = semanticError.getE6().getCheck_map().getMap();
                 map.forEach((key, value) -> {
@@ -42,6 +43,7 @@ public class Main {
                 map1.forEach((key, value) -> {
                     System.out.println(key + " => " + value);
                 });
+
                 System.out.println(program);
 
             }

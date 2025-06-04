@@ -14,32 +14,43 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class visitor extends TypeScriptParserBaseVisitor {
+public class visitor extends TypeScriptParserBaseVisitor<Object> {
     @Override
     public Program visitProgram(TypeScriptParser.ProgramContext ctx) {
-        Program program=new Program();
+        Program program = new Program();
         for (int i = 0; i < ctx.statement().size(); i++) {
-            if (ctx.statement(i)!=null)
-            {
-
-                program.getStatementList().add(visitStatement(ctx.statement(i)));
+            if (ctx.statement(i) != null) {
+                Object result = ctx.statement(i).accept(this);
+                if (result instanceof Statement) {
+                    program.getStatementList().add((Statement) result);
+                }
             }
         }
         return program;
     }
 
+
     @Override
-    public Statement visitStatement(TypeScriptParser.StatementContext ctx) {
-        if (ctx.importStatement() != null && !ctx.importStatement().isEmpty()) {
-            return visitImportStatement(ctx.importStatement(0));
-        }
-        if (ctx.componentDeclaration() != null && !ctx.componentDeclaration().isEmpty()) {
-            return visitComponentDeclaration(ctx.componentDeclaration());
-        }
-        if (ctx.classDeclaration() != null && !ctx.classDeclaration().isEmpty()) {
-            return visitClassDeclaration(ctx.classDeclaration());
-        }
-        return null;
+    public Statement visitImportState(TypeScriptParser.ImportStateContext ctx) {
+        return visitImportStatement(ctx.importStatement(0));
+    }
+    @Override
+    public Statement visitComponentState(TypeScriptParser.ComponentStateContext ctx) {
+        return visitComponentDeclaration(ctx.componentDeclaration());
+    }
+
+    @Override
+    public Statement visitClassState(TypeScriptParser.ClassStateContext ctx) {
+        return visitClassDeclaration(ctx.classDeclaration());
+    }
+    @Override
+    public Statement visitHtmlNodeState(TypeScriptParser.HtmlNodeStateContext ctx) {
+        return visitHtmlNode(ctx.htmlNode());
+    }
+
+    @Override
+    public Statement visitBlockState(TypeScriptParser.BlockStateContext ctx) {
+        return visitBlock(ctx.block());
     }
     @Override
     public ImportStatement visitImportStatement(TypeScriptParser.ImportStatementContext ctx) {
@@ -48,42 +59,54 @@ public class visitor extends TypeScriptParserBaseVisitor {
             stmt.setImport(ctx.Import().getText());
         }
         if (ctx.importFromBlock() != null) {
-            ImportFromBlock block = (ImportFromBlock) visitImportFromBlock(ctx.importFromBlock());
+            ImportFromBlock block = (ImportFromBlock) ctx.importFromBlock().accept(this);
             stmt.setImportFromBlock(block);
         }
         return stmt;
     }
     @Override
-    public ImportFromBlock visitImportFromBlock(TypeScriptParser.ImportFromBlockContext ctx) {
+    public ImportFromBlock visitImportFromBlock1(TypeScriptParser.ImportFromBlock1Context ctx) {
         ImportFromBlock block = new ImportFromBlock();
-        if(ctx.importFrom()!=null){
+
+        if (ctx.importModule() != null && !ctx.importModule().isEmpty()) {
+            for (TypeScriptParser.ImportModuleContext modCtx : ctx.importModule()) {
+                ImportModule importModule =(ImportModule) ctx.importModule(0).accept(this);
+                block.getImportModule().add(importModule);
+            }
+        }
+        if (ctx.importAlias() != null) {
+            ImportAlias importAlias=(ImportAlias) ctx.importAlias().accept(this);
+            block.setImportAlias(importAlias);
+        }
+        if (ctx.importFrom() != null) {
             block.setImportFrom(visitImportFrom(ctx.importFrom()));
         }
-        if(ctx.importAlias()!=null){
-            block.setImportAlias(visitImportAlias(ctx.importAlias()));
-        }
-        for(int i=0 ; i<ctx.importModule().size() ; i++){
-        if(ctx.importModule(i)!=null) {
-            block.getImportModule().add(visitImportModule(ctx.importModule(i)));
 
-        }
-        }
-        if(ctx.StringLiteral()!=null){
-            block.setStringLiteral(ctx.StringLiteral().getText());
-        }
         return block;
     }
     @Override
-    public ImportModule visitImportModule(TypeScriptParser.ImportModuleContext ctx) {
+    public ImportFromBlock visitImportFromBlock2(TypeScriptParser.ImportFromBlock2Context ctx) {
+        ImportFromBlock block = new ImportFromBlock();
+
+        if (ctx.StringLiteral() != null) {
+            block.setStringLiteral(ctx.StringLiteral().getText());
+        }
+
+        return block;
+    }
+    @Override
+    public ImportModule visitComponentMod(TypeScriptParser.ComponentModContext ctx) {
         ImportModule importModule=new ImportModule();
-        if(ctx.CommonModule()!=null){
+      if (ctx.Component()!=null){
+          importModule.setComponent(ctx.Component().getText());
+      }
+      return importModule;
+    }
+    @Override
+    public ImportModule visitCommonModuleMod(TypeScriptParser.CommonModuleModContext ctx) {
+        ImportModule importModule=new ImportModule();
+        if (ctx.CommonModule()!=null){
             importModule.setCommonModule(ctx.CommonModule().getText());
-        }
-        if(ctx.Component()!=null){
-            importModule.setComponent(ctx.Component().getText());
-        }
-        if(ctx.Identifier()!=null){
-            importModule.setIdentifier(ctx.Identifier().getText());
         }
         return importModule;
     }
@@ -99,22 +122,43 @@ public class visitor extends TypeScriptParserBaseVisitor {
         return importFrom;
     }
     @Override
-    public ImportAlias visitImportAlias(TypeScriptParser.ImportAliasContext ctx) {
-        ImportAlias importAlias=new ImportAlias();
-        if(ctx.importModule()!=null){
-            importAlias.setImportModule(visitImportModule(ctx.importModule()));
+    public ImportAlias visitImportAlias1(TypeScriptParser.ImportAlias1Context ctx) {
+        ImportAlias importAlias = new ImportAlias();
+
+        if (ctx.Multiply() != null) {
+            importAlias.setStar(ctx.Multiply().getText());
         }
-          if(ctx.Multiply()!=null){
-              importAlias.setStar(ctx.Multiply().getText());
-          }
-        if(ctx.As()!=null){
+
+        if (ctx.As() != null) {
             importAlias.setAs(ctx.As().getText());
         }
-        if(ctx.Identifier()!=null){
+
+        if (ctx.Identifier() != null) {
             importAlias.setIdentifier(ctx.Identifier().getText());
         }
+
         return importAlias;
     }
+    @Override
+    public ImportAlias visitImportAlias2(TypeScriptParser.ImportAlias2Context ctx) {
+        ImportAlias importAlias = new ImportAlias();
+
+        if (ctx.importModule() != null) {
+            ImportModule importModule=(ImportModule) ctx.importModule().accept(this);
+            importAlias.setImportModule(importModule);
+        }
+
+        if (ctx.As() != null) {
+            importAlias.setAs(ctx.As().getText());
+        }
+
+        if (ctx.Identifier() != null) {
+            importAlias.setIdentifier(ctx.Identifier().getText());
+        }
+
+        return importAlias;
+    }
+
     @Override
     public ComponentDeclaration visitComponentDeclaration(TypeScriptParser.ComponentDeclarationContext ctx) {
         ComponentDeclaration componentDeclaration=new ComponentDeclaration();
@@ -131,28 +175,29 @@ public class visitor extends TypeScriptParserBaseVisitor {
         ComponentMetadata componentMetadata=new ComponentMetadata();
         for (int i=0;i<ctx.componentProperty().size();i++){
             if(ctx.componentProperty(i)!=null){
-                componentMetadata.getComponentProperty().add(visitComponentProperty(ctx.componentProperty(i)));
+                ComponentProperty componentProperty=(ComponentProperty)  ctx.componentProperty(i).accept(this);
+                componentMetadata.getComponentProperty().add(componentProperty);
             }
         }
         return componentMetadata;
     }
     @Override
-    public ComponentProperty visitComponentProperty(TypeScriptParser.ComponentPropertyContext ctx) {
-        if (ctx.selectorProperty() != null) {
-            return visitSelectorProperty(ctx.selectorProperty());
-        }
-        if (ctx.standaloneProperty() != null) {
-            return visitStandaloneProperty(ctx.standaloneProperty());
-        }
-        if (ctx.importsProperty() != null) {
-            return visitImportsProperty(ctx.importsProperty());
-        }
-        if (ctx.templateProperty() != null) {
-            return visitTemplateProperty(ctx.templateProperty());
-        }
-        return null;
-
+    public ComponentProperty visitSelectProperty(TypeScriptParser.SelectPropertyContext ctx) {
+        return visitSelectorProperty(ctx.selectorProperty());
     }
+    @Override
+    public ComponentProperty visitStandalonProperty(TypeScriptParser.StandalonPropertyContext ctx) {
+        return visitStandaloneProperty(ctx.standaloneProperty());
+    }
+    @Override
+    public ComponentProperty visitImportProperty(TypeScriptParser.ImportPropertyContext ctx) {
+        return visitImportsProperty(ctx.importsProperty());
+    }
+    @Override
+    public ComponentProperty visitTemplatProperty(TypeScriptParser.TemplatPropertyContext ctx) {
+        return visitTemplateProperty(ctx.templateProperty());
+    }
+
 //////////////////////////////////////////////////////////////type script visitors
         @Override
         public ClassDeclaration visitClassDeclaration (TypeScriptParser.ClassDeclarationContext ctx){
@@ -308,54 +353,54 @@ public class visitor extends TypeScriptParserBaseVisitor {
             return primaryType;
         }
 
-        @Override
-        public Block visitBlock (TypeScriptParser.BlockContext ctx){
-            Block block = new Block();
-            List<Statements> stmts = new ArrayList<>();
+    @Override
+    public Block visitBlock(TypeScriptParser.BlockContext ctx) {
+        Block block = new Block();
+        List<Statements> stmts = new ArrayList<>();
 
-            for (TypeScriptParser.StatementsContext stmtCtx : ctx.statements()) {
-                Statements stmt = visitStatements(stmtCtx);
-                if (stmt != null) {
-                    stmts.add(stmt);
-                }
+        for (TypeScriptParser.StatementsContext stmtCtx : ctx.statements()) {
+            Statements stmt = (Statements) stmtCtx.accept(this);
+            if (stmt != null) {
+                stmts.add(stmt);
             }
-            block.setStatements(stmts);
-            return block;
         }
 
-        @Override
-        public Statements visitStatements (TypeScriptParser.StatementsContext ctx){
-            if (ctx.assignment() != null) {
-                Assignment assignment = new Assignment();
-                assignment.setLeft((Expression) visit(ctx.assignment().expression(0)));
-                assignment.setRight((Expression) visit(ctx.assignment().expression(1)));
-                return assignment;
-            }
+        block.setStatements(stmts);
+        return block;
+    }
 
-            if (ctx.expressionStatement() != null) {
-                return (Statements) visit(ctx.expressionStatement());
-            }
+    @Override
+    public Statements visitAssign(TypeScriptParser.AssignContext ctx) {
+        Assignment assignment = new Assignment();
+        assignment.setLeft((Expression) visit(ctx.assignment().expression(0)));
+        assignment.setRight((Expression) visit(ctx.assignment().expression(1)));
+        return assignment;
+    }
 
-            if (ctx.ifStatement() != null) {
-                return (Statements) visit(ctx.ifStatement());
-            }
+    @Override
+    public Statements visitExpressionState(TypeScriptParser.ExpressionStateContext ctx) {
+        return  visitExpressionStatement(ctx.expressionStatement());
+    }
 
-            if (ctx.forStatement() != null) {
-                return (Statements) visit(ctx.forStatement());
-            }
+    @Override
+    public Statements visitIfState(TypeScriptParser.IfStateContext ctx) {
+        return (Statements) visit(ctx.ifStatement());
+    }
 
-            if (ctx.whileStatement() != null) {
-                return (Statements) visit(ctx.whileStatement());
-            }
+    @Override
+    public Statements visitForState(TypeScriptParser.ForStateContext ctx) {
+        return (Statements) visit(ctx.forStatement());
+    }
 
-            if (ctx.returnStatement() != null) {
-                return (Statements) visit(ctx.returnStatement());
-            }
+    @Override
+    public Statements visitWhileState(TypeScriptParser.WhileStateContext ctx) {
+        return (Statements) visitWhileStatement(ctx.whileStatement());
+    }
 
-            return null;
-        }
-/// ///لهون نحن تمام
-///
+    @Override
+    public Statements visitReturnState(TypeScriptParser.ReturnStateContext ctx) {
+        return (Statements) visit(ctx.returnStatement());
+    }
 
         @Override
         public Expression visitClassexp (TypeScriptParser.ClassexpContext ctx){
@@ -398,7 +443,8 @@ public class visitor extends TypeScriptParserBaseVisitor {
             ImportsProperty importsProperty = new ImportsProperty();
             for (int i = 0; i < ctx.importModule().size(); i++) {
                 if (ctx.importModule(i) != null) {
-                    importsProperty.getImportModules().add(visitImportModule(ctx.importModule(i)));
+                    ImportModule importModule=(ImportModule) ctx.importModule(i).accept(this);
+                    importsProperty.getImportModules().add(importModule);
                 }
             }
             if(ctx.IMPORTS()!=null){
@@ -429,20 +475,19 @@ public class visitor extends TypeScriptParserBaseVisitor {
     public HtmlElements visitHtmlElements(TypeScriptParser.HtmlElementsContext ctx) {
         HtmlElements htmlElements=new HtmlElements();
         for(int i=0;i<ctx.htmlElement().size();i++){
-            htmlElements.getHtmlElements().add(visitHtmlElement(ctx.htmlElement(i)));
+            HtmlElement htmlElement=(HtmlElement) ctx.htmlElement(i).accept(this);
+            htmlElements.getHtmlElements().add(htmlElement);
         }
         return htmlElements;
     }
 
     @Override
-    public HtmlElement visitHtmlElement(TypeScriptParser.HtmlElementContext ctx) {
-        if(ctx.htmlPairTag()!=null){
-        return  visitHtmlPairTag(ctx.htmlPairTag());
-        }
-        if(ctx.htmlSingleTag()!=null){
-            return  visitHtmlSingleTag(ctx.htmlSingleTag());
-        }
-        return  null;
+    public HtmlElement visitHtmlPair(TypeScriptParser.HtmlPairContext ctx) {
+      return  visitHtmlPairTag(ctx.htmlPairTag());
+    }
+    @Override
+    public HtmlElement visitHtmlSingle(TypeScriptParser.HtmlSingleContext ctx) {
+        return  visitHtmlSingleTag(ctx.htmlSingleTag());
     }
 
     @Override
@@ -455,7 +500,8 @@ public class visitor extends TypeScriptParserBaseVisitor {
         }
         for (int i=0;i<ctx.htmlAttribute().size();i++){
             if(ctx.htmlAttribute(i)!=null){
-                htmlPairTag.getHtmlAttribute().add(visitHtmlAttribute(ctx.htmlAttribute(i)));
+                HtmlAttribute htmlAttribute=(HtmlAttribute) ctx.htmlAttribute(i).accept(this);
+                htmlPairTag.getHtmlAttribute().add(htmlAttribute);
             }
         }
         for(int i=0;i<ctx.htmlContent().size();i++){
@@ -477,7 +523,8 @@ public class visitor extends TypeScriptParserBaseVisitor {
         }
         for (int i=0;i<ctx.htmlAttribute().size();i++){
             if(ctx.htmlAttribute(i)!=null){
-                htmlSingleTag.getHtmlAttributes().add(visitHtmlAttribute(ctx.htmlAttribute(i)));
+                HtmlAttribute htmlAttribute=(HtmlAttribute) ctx.htmlAttribute(i).accept(this);
+                htmlSingleTag.getHtmlAttributes().add(htmlAttribute);
             }
         }
         return  htmlSingleTag;
@@ -497,13 +544,12 @@ public class visitor extends TypeScriptParserBaseVisitor {
     public HtmlContent visitWrapHtml(TypeScriptParser.WrapHtmlContext ctx) {
         WrapHtml wrapHtml=new WrapHtml();
         if(ctx.htmlElement()!=null){
-            wrapHtml.setHtmlElement(visitHtmlElement(ctx.htmlElement()));
+            HtmlElement htmlElement=(HtmlElement) ctx.htmlElement().accept(this);
+            wrapHtml.setHtmlElement(htmlElement);
         }
         return wrapHtml;
 
     }
-
-
     @Override
     public HtmlContent visitMostacheExp(TypeScriptParser.MostacheExpContext ctx) {
         MostacheExp mostacheExp=new MostacheExp();
@@ -536,20 +582,21 @@ public class visitor extends TypeScriptParserBaseVisitor {
     }
 
     @Override
-    public HtmlAttribute visitHtmlAttribute(TypeScriptParser.HtmlAttributeContext ctx) {
-        if(ctx.standardAttribute()!=null){
-            return visitStandardAttribute(ctx.standardAttribute());
-        }
-        if(ctx.boundAttribute()!=null){
-            return visitBoundAttribute(ctx.boundAttribute());
-        }if(ctx.eventAttribute()!=null){
-            return visitEventAttribute(ctx.eventAttribute());
-        }if(ctx.directiveAttribute()!=null){
-            return visitDirectiveAttribute(ctx.directiveAttribute());
-        }
-        return null;
+    public HtmlAttribute visitStandardAttr(TypeScriptParser.StandardAttrContext ctx) {
+     return visitStandardAttribute(ctx.standardAttribute());
     }
-
+    @Override
+    public HtmlAttribute visitBoundAttr(TypeScriptParser.BoundAttrContext ctx) {
+        return visitBoundAttribute(ctx.boundAttribute());
+    }
+    @Override
+    public HtmlAttribute visitEventAttr(TypeScriptParser.EventAttrContext ctx) {
+        return visitEventAttribute(ctx.eventAttribute());
+    }
+    @Override
+    public HtmlAttribute visitDirectAttr(TypeScriptParser.DirectAttrContext ctx) {
+        return visitDirectiveAttribute(ctx.directiveAttribute());
+    }
     @Override
     public StandardAttribute visitStandardAttribute(TypeScriptParser.StandardAttributeContext ctx) {
         StandardAttribute standardAttribute=new StandardAttribute();
@@ -563,14 +610,18 @@ public class visitor extends TypeScriptParserBaseVisitor {
             }}
 
         if(ctx.htmlAttributeValue()!=null){
-            standardAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+            HtmlAttributeValue htmlAttributeValue=(HtmlAttributeValue) ctx.htmlAttributeValue().accept(this);
+
+            standardAttribute.setHtmlAttributeValue(htmlAttributeValue);
         }
         return standardAttribute;
     }@Override
     public BoundAttribute visitBoundAttribute(TypeScriptParser.BoundAttributeContext ctx) {
         BoundAttribute boundAttribute=new BoundAttribute();
         if(ctx.htmlAttributeValue()!=null){
-            boundAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+            HtmlAttributeValue htmlAttributeValue=(HtmlAttributeValue) ctx.htmlAttributeValue().accept(this);
+
+            boundAttribute.setHtmlAttributeValue(htmlAttributeValue);
         }
         if(ctx.attributeName()!=null){
             boundAttribute.setAttributeName(visitAttributeName(ctx.attributeName()));
@@ -585,7 +636,9 @@ public class visitor extends TypeScriptParserBaseVisitor {
             eventAttribute.setIdentifier(ctx.Identifier().getText());
         }
         if(ctx.htmlAttributeValue()!=null){
-          String event= visitHtmlAttributeValue(ctx.htmlAttributeValue()).getStringLiteral();
+            HtmlAttributeValue htmlAttributeValue=(HtmlAttributeValue) ctx.htmlAttributeValue().accept(this);
+
+            String event= htmlAttributeValue.getStringLiteral();
             Pattern pattern = Pattern.compile("\"(\\w+)\\s*\\(([^)]*)\\)\"");
             Matcher matcher = pattern.matcher(event);
             while (matcher.find()) {
@@ -598,7 +651,7 @@ public class visitor extends TypeScriptParserBaseVisitor {
                 }
                 Main.semanticError.getE6().add_check_map(functionName, num, ctx.getStart().getLine());
             }
-            eventAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+            eventAttribute.setHtmlAttributeValue(htmlAttributeValue);
         }
         return eventAttribute;
     }
@@ -613,30 +666,39 @@ public class visitor extends TypeScriptParserBaseVisitor {
             }
         }
         if(ctx.htmlAttributeValue()!=null){
-            directiveAttribute.setHtmlAttributeValue(visitHtmlAttributeValue(ctx.htmlAttributeValue()));
+            HtmlAttributeValue htmlAttributeValue=(HtmlAttributeValue) ctx.htmlAttributeValue().accept(this);
+
+            directiveAttribute.setHtmlAttributeValue(htmlAttributeValue);
         }
         return directiveAttribute;
     }
 
     @Override
-    public HtmlAttributeValue visitHtmlAttributeValue(TypeScriptParser.HtmlAttributeValueContext ctx) {
-      HtmlAttributeValue htmlAttributeValue=new HtmlAttributeValue();
+    public HtmlAttributeValue visitHtmlAttributeValueString(TypeScriptParser.HtmlAttributeValueStringContext ctx) {
+        HtmlAttributeValue htmlAttributeValue = new HtmlAttributeValue();
 
-      if(ctx.StringLiteral()!=null){
-            htmlAttributeValue.setStringLiteral(ctx.StringLiteral().getText());
-          Pattern pattern = Pattern.compile("^\\s*let\\s+(\\w+)\\s+of\\s+(.+)$");
-          String text = ctx.StringLiteral().getText();
-          text = text.substring(1, text.length() - 1);
-          Matcher matcher = pattern.matcher(text);
-          if(matcher.matches()){
-              String x = matcher.group(1).trim(); // المتغير بعد let
-              String y = matcher.group(2).trim(); // الجزء بعد of
-              Main.semanticError.getE4().setForequal(x,y ,String.valueOf(ctx.getStart().getLine()));
-              Main.semanticError.getE5().setParent(x);
-          }
-      }
-      return htmlAttributeValue;
+        if(ctx.StringLiteral() != null) {
+            String text = ctx.StringLiteral().getText();
+            htmlAttributeValue.setStringLiteral(text);
+
+
+            String innerText = text.substring(1, text.length() - 1);
+
+            Pattern pattern = Pattern.compile("^\\s*let\\s+(\\w+)\\s+of\\s+(.+)$");
+            Matcher matcher = pattern.matcher(innerText);
+
+            if(matcher.matches()) {
+                String x = matcher.group(1).trim();
+                String y = matcher.group(2).trim();
+                Main.semanticError.getE4().setForequal(x, y, String.valueOf(ctx.getStart().getLine()));
+                Main.semanticError.getE5().setParent(x);
+            }
+        }
+
+        return htmlAttributeValue;
     }
+
+
 
     @Override
     public AttributeName visitAttributeName(TypeScriptParser.AttributeNameContext ctx) {
@@ -707,20 +769,49 @@ public class visitor extends TypeScriptParserBaseVisitor {
             return new ParenthesizedExpression(inner);
         }
 
-        @Override
-        public Literal visitLiteral (TypeScriptParser.LiteralContext ctx){
-            if (ctx.NumberLiteral() != null) {
-                return new NumberLiteral(ctx.NumberLiteral().getText());
-            } else if (ctx.StringLiteral() != null) {
-                return new StringLiteral(ctx.StringLiteral().getText());
-            } else if (ctx.objectLiteral() != null) {
-//            System.out.println("inn literal///////////////////////////////////////");
-                return (Literal) visit(ctx.objectLiteral());
-            } else if (ctx.arrayLiteral() != null) {
-                return (Literal) visit(ctx.arrayLiteral());
+    @Override
+    public Literal visitNumberLiteral(TypeScriptParser.NumberLiteralContext ctx) {
+        return new NumberLiteral(ctx.getText());
+    }
+
+    @Override
+    public Literal visitStringLiteral(TypeScriptParser.StringLiteralContext ctx) {
+        return new StringLiteral(ctx.getText());
+    }
+
+    @Override
+    public Literal visitObjectLitera(TypeScriptParser.ObjectLiteraContext ctx) {
+        List<PropertyAssignment> properties = new ArrayList<>();
+
+        for (ParseTree child : ctx.children) {
+            if (child instanceof TypeScriptParser.PropertyAssignmentContext) {
+                PropertyAssignment prop = (PropertyAssignment) visit(child);
+                if (prop != null) {
+                    properties.add(prop);
+                }
             }
-            return null;
         }
+
+        ObjectExpression objectExpression = new ObjectExpression(properties);
+        return objectExpression;
+    }
+
+
+    @Override
+    public Literal visitArrayLitera(TypeScriptParser.ArrayLiteraContext ctx) {
+        List<Expression> elements = new ArrayList<>();
+
+        if (ctx.arrayLiteral().expression() != null) {
+            for (TypeScriptParser.ExpressionContext exprCtx : ctx.arrayLiteral().expression()) {
+                Expression expr = (Expression) visit(exprCtx);
+                elements.add(expr);
+            }
+        }
+
+        ArrayExpression arrayExpression = new ArrayExpression(elements);
+        return arrayExpression;
+    }
+
 
     @Override
     public Primary visitLiteralExpr(TypeScriptParser.LiteralExprContext ctx) {
