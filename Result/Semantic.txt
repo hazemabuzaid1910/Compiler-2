@@ -1,0 +1,10 @@
+Semantic Check : 
+Error Name : SINGLE_VALUED_VARIABLE , Error Description : The variable products is Non-repeatable  , Error Location : 17
+Error Name : VAR_NOT_EXIST , Error Description : The variable product is Undeclared  , Error Location : 21
+Error Name : VAR_NOT_EXIST , Error Description : The variable name is Undeclared  , Error Location : 26
+Error Name : VAR_NOT_EXIST , Error Description : The variable details is Undeclared  , Error Location : 32
+Error Name : SINGLE_VALUED_VARIABLE , Error Description : The variable products is Non-repeatable  , Error Location : 17
+Error Name : VAR_NOT_EXIST , Error Description : The variable product is Undeclared  , Error Location : 21
+Error Name : VAR_NOT_EXIST , Error Description : The variable name is Undeclared  , Error Location : 26
+Error Name : VAR_NOT_EXIST , Error Description : The variable details is Undeclared  , Error Location : 32
+Error Name : EVENT_NOT_EXIST , Error Description : Function name addProduct is not exist  , Error Location : 10

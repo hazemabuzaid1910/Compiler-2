@@ -1,0 +1,47 @@
+ import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+  <div class="product-view">
+  <div class="header">
+        <button class="nav-button" routerLink="/Compiler-2/Result/GeneratedCode2.html"   > Add product</button>
+      </div>
+      <div class="container">
+      <div class="product-list">
+        <div
+          class="product"
+          *ngFor="let product of products"
+          [class.selected]="product === selectedProduct"
+          (click)="selectProduct(product)"
+        >
+          <h4>{{ product.name }}</h4>
+          <img [src]="product.image" alt="Product Image" class="product-image" />
+        </div>
+      </div>
+      <div class="product-detail" *ngIf="selectedProduct">
+        <h3>{{ selectedProduct.name}}</h3>
+        <img
+          [src]='selectedProduct.image'
+          alt="Product Image"
+          class="detail-image"
+        />
+        <p>{{selectedProduct.details}}</p>
+      </div>
+    </div>
+    </div>
+  `})
+
+export class AppComponent{
+     products = JSON.parse(localStorage.getItem("products")||'[]');
+
+
+ selectedProduct =this.products[0];
+
+selectProduct(product:any)  {
+this.selectedProduct = product;
+}
+}

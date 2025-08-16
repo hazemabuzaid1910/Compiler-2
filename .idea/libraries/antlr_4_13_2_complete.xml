@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="antlr-4.13.2-complete">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/antlr-4.13.2-complete.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../4_2/Compiler/compiler2/commons-io-2.16.1-bin.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../4_2/Compiler/compiler2/commons-io-2.16.1-bin.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://$PROJECT_DIR$/../../4_2/Compiler/compiler2/commons-io-2.16.1-bin.zip!/" recursive="false" />
+  </library>
+</component>

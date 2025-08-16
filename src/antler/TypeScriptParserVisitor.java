@@ -248,6 +248,16 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMostacheExp(TypeScriptParser.MostacheExpContext ctx);
 	/**
+<<<<<<< HEAD
+=======
+	 * Visit a parse tree produced by the {@code Text}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitText(TypeScriptParser.TextContext ctx);
+	/**
+>>>>>>> 6a962a7a27a22d40d539070f804bca414e921ad6
 	 * Visit a parse tree produced by the {@code StandardAttr}
 	 * labeled alternative in {@link TypeScriptParser#htmlAttribute}.
 	 * @param ctx the parse tree
@@ -459,6 +469,23 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnState(TypeScriptParser.ReturnStateContext ctx);
 	/**
+<<<<<<< HEAD
+=======
+	 * Visit a parse tree produced by the {@code SetLocal}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetLocal(TypeScriptParser.SetLocalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Push}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPush(TypeScriptParser.PushContext ctx);
+	/**
+>>>>>>> 6a962a7a27a22d40d539070f804bca414e921ad6
 	 * Visit a parse tree produced by {@link TypeScriptParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -501,6 +528,27 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnStatement(TypeScriptParser.ReturnStatementContext ctx);
 	/**
+<<<<<<< HEAD
+=======
+	 * Visit a parse tree produced by {@link TypeScriptParser#getlocalstorage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGetlocalstorage(TypeScriptParser.GetlocalstorageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#setlocalstorage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetlocalstorage(TypeScriptParser.SetlocalstorageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#parselocalstorage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParselocalstorage(TypeScriptParser.ParselocalstorageContext ctx);
+	/**
+>>>>>>> 6a962a7a27a22d40d539070f804bca414e921ad6
 	 * Visit a parse tree produced by the {@code MemberExpr}
 	 * labeled alternative in {@link TypeScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -522,6 +570,23 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBinaryExpr(TypeScriptParser.BinaryExprContext ctx);
 	/**
+<<<<<<< HEAD
+=======
+	 * Visit a parse tree produced by the {@code ParseLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParseLocal(TypeScriptParser.ParseLocalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GetLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGetLocal(TypeScriptParser.GetLocalContext ctx);
+	/**
+>>>>>>> 6a962a7a27a22d40d539070f804bca414e921ad6
 	 * Visit a parse tree produced by the {@code UnaryExpr}
 	 * labeled alternative in {@link TypeScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -571,6 +636,21 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenExpr(TypeScriptParser.ParenExprContext ctx);
 	/**
+<<<<<<< HEAD
+=======
+	 * Visit a parse tree produced by {@link TypeScriptParser#keywords}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKeywords(TypeScriptParser.KeywordsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#pusharray}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPusharray(TypeScriptParser.PusharrayContext ctx);
+	/**
+>>>>>>> 6a962a7a27a22d40d539070f804bca414e921ad6
 	 * Visit a parse tree produced by {@link TypeScriptParser#binaryOperator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
