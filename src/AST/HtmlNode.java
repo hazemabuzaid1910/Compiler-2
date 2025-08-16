@@ -3,7 +3,7 @@ package AST;
 public class HtmlNode implements  Statement{
    HtmlElements htmlElements;
 
-    public HtmlElements getHtmlElements(Object o) {
+    public HtmlElements getHtmlElements() {
         return htmlElements;
     }
 

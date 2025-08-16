@@ -36,12 +36,11 @@ public class VariableDeclaration implements Statements {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("VariableDeclaration {\n");
-        sb.append("  LET: ").append(LET != null ? LET : "NO let ").append("\n");
-        sb.append("  Identifier: ").append(identifier != null ? identifier : "NO identifier").append("\n");
-        sb.append("  Expression: ").append(expression != null ? expression.toString() : "NO expression").append("\n");
-        sb.append("}");
-        return sb.toString();
+        String sb = "VariableDeclaration {\n" + "  LET: " + (LET != null ? LET : "NO let ") + "\n" +
+                "  Identifier: " + (identifier != null ? identifier : "NO identifier") + "\n" +
+                "  Expression: " + (expression != null ? expression.toString() : "NO expression") + "\n" +
+                "}";
+        return sb;
     }
 
 }

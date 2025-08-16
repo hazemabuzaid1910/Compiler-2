@@ -1,6 +1,7 @@
 package MainApp;
 
 import AST.Program;
+import Generation.Generator;
 import Visitor.visitor;
 import antler.TypeScriptLexer;
 import antler.TypeScriptParser;
@@ -22,9 +23,12 @@ public class Main {
         public static check_Symantic_Error semanticError = new check_Symantic_Error();
         public static int id_element = 0 ;
         public static void main(String[] args) throws IOException {
-                File folder = new File("C:/Users/hazem/OneDrive/Desktop/New folder (3)/Compiler-2/Files");
+                File folder = new File("D:\\New folder (3)\\Compiler-2\\Files");
                 File[] files = folder.listFiles();
+            int i=0;
             for (File file : Objects.requireNonNull(files)) {
+
+                i++;
                 String source = file.getPath();
                 CharStream cs = fromFileName(source);
                 TypeScriptLexer lexer = new TypeScriptLexer(cs);
@@ -46,6 +50,10 @@ public class Main {
 
                 System.out.println(program);
 
+                Generator generator = new Generator();
+
+                generator.generate(program,"GeneratedCode"+i+".html");
+
+                }
             }
-        }
-}
+    }

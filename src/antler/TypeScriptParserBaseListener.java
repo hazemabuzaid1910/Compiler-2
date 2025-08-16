@@ -1,4 +1,4 @@
-// Generated from C:/Users/hazem/OneDrive/Desktop/New folder (3)/Compiler-2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
+// Generated from D:/New folder (3)/Compiler-2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
 package antler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -449,6 +449,18 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterText(TypeScriptParser.TextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitText(TypeScriptParser.TextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStandardAttr(TypeScriptParser.StandardAttrContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -492,6 +504,18 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDirectAttr(TypeScriptParser.DirectAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTwoWayAttr(TypeScriptParser.TwoWayAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTwoWayAttr(TypeScriptParser.TwoWayAttrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -552,6 +576,18 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDirectiveAttribute(TypeScriptParser.DirectiveAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTwoWayBindingAttribute(TypeScriptParser.TwoWayBindingAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTwoWayBindingAttribute(TypeScriptParser.TwoWayBindingAttributeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -821,6 +857,30 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSetLocal(TypeScriptParser.SetLocalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetLocal(TypeScriptParser.SetLocalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPush(TypeScriptParser.PushContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPush(TypeScriptParser.PushContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAssignment(TypeScriptParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -905,6 +965,42 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterGetlocalstorage(TypeScriptParser.GetlocalstorageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGetlocalstorage(TypeScriptParser.GetlocalstorageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSetlocalstorage(TypeScriptParser.SetlocalstorageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetlocalstorage(TypeScriptParser.SetlocalstorageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParselocalstorage(TypeScriptParser.ParselocalstorageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParselocalstorage(TypeScriptParser.ParselocalstorageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMemberExpr(TypeScriptParser.MemberExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -936,6 +1032,30 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBinaryExpr(TypeScriptParser.BinaryExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParseLocal(TypeScriptParser.ParseLocalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParseLocal(TypeScriptParser.ParseLocalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGetLocal(TypeScriptParser.GetLocalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGetLocal(TypeScriptParser.GetLocalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1020,6 +1140,30 @@ public class TypeScriptParserBaseListener implements TypeScriptParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParenExpr(TypeScriptParser.ParenExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterKeywords(TypeScriptParser.KeywordsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitKeywords(TypeScriptParser.KeywordsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPusharray(TypeScriptParser.PusharrayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPusharray(TypeScriptParser.PusharrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

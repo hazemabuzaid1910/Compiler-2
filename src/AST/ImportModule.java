@@ -34,19 +34,19 @@ package AST;public class ImportModule {
 
         if (Component != null) {
             sb.append("  Component: ")
-                    .append(Component.toString().replace("\n", "\n    "))
+                    .append(Component.replace("\n", "\n    "))
                     .append(",\n");
         }
 
         if (CommonModule != null) {
             sb.append("  CommonModule: ")
-                    .append(CommonModule.toString().replace("\n", "\n    "))
+                    .append(CommonModule.replace("\n", "\n    "))
                     .append(",\n");
         }
 
         if (Identifier != null) {
             sb.append("  Identifier: ")
-                    .append(Identifier.toString().replace("\n", "\n    "))
+                    .append(Identifier.replace("\n", "\n    "))
                     .append(",\n");
         }
 

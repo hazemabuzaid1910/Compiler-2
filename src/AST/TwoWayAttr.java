@@ -1,16 +1,15 @@
 package AST;
 
-public class EventAttribute implements HtmlAttribute{
-
-    String identifier;
+public class TwoWayAttr implements HtmlAttribute{
+    String attributeName;
     HtmlAttributeValue htmlAttributeValue;
 
-    public String getIdentifier() {
-        return identifier;
+    public String getAttributeName() {
+        return attributeName;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
     }
 
     public HtmlAttributeValue getHtmlAttributeValue() {
@@ -21,18 +20,19 @@ public class EventAttribute implements HtmlAttribute{
         this.htmlAttributeValue = htmlAttributeValue;
     }
 
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("EventAttribute {\n");
+        StringBuilder sb = new StringBuilder("TowWayBoundingAttribute {\n");
 
-        if (identifier != null) {
-            sb.append("  Identifier: '")
-                    .append(identifier.replace("\n", "\n    "))
-                    .append("',\n");
+        if (attributeName != null) {
+            sb.append("  attributeName: ")
+                    .append(attributeName.replace("\n", "\n    "))
+                    .append(",\n");
         }
 
         if (htmlAttributeValue != null) {
-            sb.append("  HTML Attribute Value: ")
+            sb.append("  htmlAttributeValue: ")
                     .append(htmlAttributeValue.toString().replace("\n", "\n    "))
                     .append("\n");
         }
@@ -40,5 +40,4 @@ public class EventAttribute implements HtmlAttribute{
         sb.append("}");
         return sb.toString();
     }
-
 }

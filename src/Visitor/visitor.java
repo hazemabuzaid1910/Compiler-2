@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import MainApp.Main;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -559,6 +560,77 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
         return mostacheExp;
     }
 
+
+    @Override
+    public Expression visitParseLocal(TypeScriptParser.ParseLocalContext ctx) {
+     return  visitParselocalstorage(ctx.parselocalstorage());
+    }
+
+    @Override
+    public ParseLocalStorage visitParselocalstorage(TypeScriptParser.ParselocalstorageContext ctx) {
+        ParseLocalStorage parseLocalStorage=new ParseLocalStorage();
+        if (ctx.expression()!=null){
+            parseLocalStorage.setExpression((Expression) visit(ctx.expression()));
+
+        }
+        return parseLocalStorage;
+    }
+
+
+    @Override
+    public GetLocalStorage visitGetlocalstorage(TypeScriptParser.GetlocalstorageContext ctx) {
+        GetLocalStorage getLocalStorage=new GetLocalStorage();
+
+        if(ctx.StringLiteral()!=null){
+
+            getLocalStorage.setGetItem(ctx.StringLiteral().getText());
+        }
+        return getLocalStorage;
+    }
+
+    @Override
+    public Statements visitPush(TypeScriptParser.PushContext ctx) {
+        return visitPusharray(ctx.pusharray());
+    }
+
+    @Override
+    public PushArray visitPusharray(TypeScriptParser.PusharrayContext ctx) {
+        PushArray pushArray=new PushArray();
+        if(ctx.Identifier()!=null){
+            pushArray.setObjectName(ctx.Identifier().getText());
+        }
+        if (ctx.expression()!=null){
+         pushArray.setExpression((Expression) visit(ctx.expression()));
+        }
+        return pushArray;
+    }
+
+    @Override
+    public Statements visitSetLocal(TypeScriptParser.SetLocalContext ctx){
+        return visitSetlocalstorage(ctx.setlocalstorage());
+    }
+
+    @Override
+    public SetLocalStorage visitSetlocalstorage(TypeScriptParser.SetlocalstorageContext ctx) {
+        SetLocalStorage setLocalStorage=new SetLocalStorage();
+        if (ctx.Identifier()!=null){
+            setLocalStorage.setDataName(ctx.Identifier().getText());
+        }
+        if (ctx.StringLiteral()!=null){
+            setLocalStorage.setData(ctx.StringLiteral().getText());
+        }
+        return setLocalStorage;
+    }
+
+    @Override
+    public HtmlContent visitText(TypeScriptParser.TextContext ctx) {
+        Text text=new Text();
+        if (ctx.Identifier()!=null){
+            text.setText(ctx.getText());
+        }
+        return text;
+    }
+
     @Override
     public ExpressionHtml visitExpressionhtml(TypeScriptParser.ExpressionhtmlContext ctx) {
         ExpressionHtml expressionHtml=new ExpressionHtml();
@@ -598,10 +670,29 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
         return visitDirectiveAttribute(ctx.directiveAttribute());
     }
     @Override
+    public HtmlAttribute visitTwoWayAttr(TypeScriptParser.TwoWayAttrContext ctx) {
+        return visitTwoWayBindingAttribute(ctx.twoWayBindingAttribute());
+    }
+
+    @Override
+    public TwoWayAttr visitTwoWayBindingAttribute(TypeScriptParser.TwoWayBindingAttributeContext ctx) {
+        TwoWayAttr boundAttribute=new TwoWayAttr();
+        if(ctx.htmlAttributeValue()!=null){
+            HtmlAttributeValue htmlAttributeValue=(HtmlAttributeValue) ctx.htmlAttributeValue().accept(this);
+
+            boundAttribute.setHtmlAttributeValue(htmlAttributeValue);
+        }
+        if(ctx.NGMODEL()!=null){
+            boundAttribute.setAttributeName(ctx.NGMODEL().getText());
+        }
+        return boundAttribute;
+    }
+
+    @Override
     public StandardAttribute visitStandardAttribute(TypeScriptParser.StandardAttributeContext ctx) {
         StandardAttribute standardAttribute=new StandardAttribute();
         if (ctx.CLASS()!=null) {
-           standardAttribute.setClass(ctx.CLASS().getText());
+           standardAttribute.setClasss(ctx.CLASS().getText());
         }
         for (int i=0 ;i<ctx.Identifier().size();i++){
             if (ctx.Identifier(i) != null) {
@@ -642,8 +733,8 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
             Pattern pattern = Pattern.compile("\"(\\w+)\\s*\\(([^)]*)\\)\"");
             Matcher matcher = pattern.matcher(event);
             while (matcher.find()) {
-                String functionName = matcher.group(1);  // اسم الدالة
-                String arguments = matcher.group(2);     // الوسائط داخل القوسين
+                String functionName = matcher.group(1);
+                String arguments = matcher.group(2);
                 String[] argsArray = arguments.split("\\s*,\\s*");
                 int num = 0 ;
                 for (String arg : argsArray) {
@@ -715,9 +806,10 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
         return attributeName;
     }
 
-    public Primary visitIdExpr (TypeScriptParser.IdExprContext ctx){
-            return new IdentifierExpression(ctx.Identifier().getText());
-        }
+    public Primary visitIdExpr(TypeScriptParser.IdExprContext ctx){
+        String keyword = ctx.keywords() != null ? ctx.keywords().getText() : null;
+        return new IdentifierExpression(ctx.Identifier().getText(), keyword);
+    }
 
         @Override
         public Primary visitArrayExpr (TypeScriptParser.ArrayExprContext ctx){
@@ -849,8 +941,7 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
             for (TypeScriptParser.MemberAccessContext accessCtx : ctx.memberAccess()) {
                 // كل accessCtx قد يحتوي [expression] أو .Identifier
                 for (ParseTree child : accessCtx.children) {
-                    if (child instanceof TerminalNode) {
-                        TerminalNode terminal = (TerminalNode) child;
+                    if (child instanceof TerminalNode terminal) {
                         if (terminal.getSymbol().getType() == TypeScriptParser.Dot) {
                             // التالي يجب أن يكون identifier
                             int index = accessCtx.children.indexOf(child);
@@ -861,8 +952,7 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
                                 Main.semanticError.getE4().insert_value_class_equal(identifier);
                             }
                         }
-                    } else if (child instanceof ParserRuleContext) {
-                        ParserRuleContext ruleCtx = (ParserRuleContext) child;
+                    } else if (child instanceof ParserRuleContext ruleCtx) {
                         if (ruleCtx.getRuleIndex() == TypeScriptParser.RULE_expression) {
                             Expression expr = (Expression) visit(ruleCtx);
                             accesses.add(new MemberAccess("bracket", null, expr));

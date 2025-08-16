@@ -33,7 +33,6 @@ public class MemberExpression implements Expression {
                 sb.append("  ]\n");
             }
         } else {
-            ;
         }
 
 

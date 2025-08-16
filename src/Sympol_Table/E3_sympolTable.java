@@ -24,10 +24,6 @@ public class E3_sympolTable extends SymbolTable<E2_obj>{
 
     public boolean addthis(String value){
         E2_obj lastscope =  stack.peek();
-        if(lastscope.getSet().contains(value)){
-            return false;
-        }else{
-            return true;
-        }
+        return !lastscope.getSet().contains(value);
     }
 }

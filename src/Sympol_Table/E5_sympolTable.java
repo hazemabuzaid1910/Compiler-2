@@ -12,7 +12,7 @@ public class E5_sympolTable {
     private int scope_id ;
     private String parent ;
     private boolean is_ngfor ;
-    private List<E5_obj> for_list ;
+    private final List<E5_obj> for_list ;
 
     public E5_sympolTable(){
         scope_name = "none";

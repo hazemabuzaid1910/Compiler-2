@@ -106,13 +106,16 @@ htmlTagName
 htmlContent
     : htmlElement                                        #WrapHtml
     | DoubleLeftBrace expressionhtml DoubleRightBrace    #MostacheExp
+    | Identifier                                               #Text
+
     ;
 
 htmlAttribute
-    : standardAttribute  #StandardAttr
-    | boundAttribute     #BoundAttr
-    | eventAttribute     #EventAttr
-    | directiveAttribute  #DirectAttr
+    : standardAttribute        #StandardAttr
+    | boundAttribute           #BoundAttr
+    | eventAttribute           #EventAttr
+    | directiveAttribute       #DirectAttr
+    | twoWayBindingAttribute   #TwoWayAttr
     ;
 
 standardAttribute
@@ -133,6 +136,10 @@ eventAttribute
 
 directiveAttribute
     : Multiply Identifier Equal htmlAttributeValue
+    ;
+
+twoWayBindingAttribute
+    : OpenBracket OpenParen NGMODEL CloseParen CloseBracket Equal htmlAttributeValue
     ;
 
 htmlAttributeValue
@@ -208,6 +215,8 @@ statements
     | forStatement          #ForState
     | whileStatement        #WhileState
     | returnStatement       #ReturnState
+    | setlocalstorage       #SetLocal
+    | pusharray             #Push
     ;
 
 assignment
@@ -238,24 +247,34 @@ whileStatement
 returnStatement
     : RETURN expression? SemiColon
     ;
-
+getlocalstorage:LOCALSTORAGE'.'GETITEM'(' StringLiteral ')'
+               ;
+setlocalstorage:LOCALSTORAGE'.'SETITEM'(' StringLiteral ',' JSON'.'STRINGIFY'('Identifier')' ')'
+               ;
+parselocalstorage: JSON '.' PARSE '(' expression ')'
+                 ;
 expression
-    : expression binaryOperator expression        # BinaryExpr
-    | unaryOperator expression                     # UnaryExpr
-    | primary (memberAccess)*                      # MemberExpr
+    : expression binaryOperator expression         #BinaryExpr
+    | unaryOperator expression                     #UnaryExpr
+    | primary (memberAccess)*                      #MemberExpr
     | CLASS                                        #Classexp
-;
+    | parselocalstorage                            #ParseLocal
+    | getlocalstorage                              #GetLocal
+    ;
 
 
 primary
     : THIS                                        # ThisExpr
-    | Identifier                                  # IdExpr
+    | keywords ? Identifier                       # IdExpr
     | objectLiteral                               # ObjectExpr
     | arrayLiteral                                # ArrayExpr
     | literal                                     # LiteralExpr
     | OpenParen expression CloseParen             # ParenExpr
     ;
-
+ keywords: CONST | LET |VAR
+         ;
+pusharray: Identifier'.'PUSH'(''{'REST expression'}'')'';'
+         ;
 binaryOperator
     : Plus | Minus | Multiply | Divide | MOD
     | MoreThan | LessThan | GTE | LTE
@@ -292,4 +311,5 @@ eos
     : SemiColon
     | EOF
     ;
+
 

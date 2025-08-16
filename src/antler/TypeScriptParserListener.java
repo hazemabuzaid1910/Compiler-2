@@ -1,4 +1,4 @@
-// Generated from C:/Users/hazem/OneDrive/Desktop/New folder (3)/Compiler-2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
+// Generated from D:/New folder (3)/Compiler-2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
 package antler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -410,6 +410,18 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 */
 	void exitMostacheExp(TypeScriptParser.MostacheExpContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Text}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterText(TypeScriptParser.TextContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Text}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitText(TypeScriptParser.TextContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code StandardAttr}
 	 * labeled alternative in {@link TypeScriptParser#htmlAttribute}.
 	 * @param ctx the parse tree
@@ -457,6 +469,18 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDirectAttr(TypeScriptParser.DirectAttrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TwoWayAttr}
+	 * labeled alternative in {@link TypeScriptParser#htmlAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterTwoWayAttr(TypeScriptParser.TwoWayAttrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TwoWayAttr}
+	 * labeled alternative in {@link TypeScriptParser#htmlAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitTwoWayAttr(TypeScriptParser.TwoWayAttrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TypeScriptParser#standardAttribute}.
 	 * @param ctx the parse tree
@@ -507,6 +531,16 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDirectiveAttribute(TypeScriptParser.DirectiveAttributeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TypeScriptParser#twoWayBindingAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterTwoWayBindingAttribute(TypeScriptParser.TwoWayBindingAttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TypeScriptParser#twoWayBindingAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitTwoWayBindingAttribute(TypeScriptParser.TwoWayBindingAttributeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code HtmlAttributeValueString}
 	 * labeled alternative in {@link TypeScriptParser#htmlAttributeValue}.
@@ -744,6 +778,30 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 */
 	void exitReturnState(TypeScriptParser.ReturnStateContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SetLocal}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetLocal(TypeScriptParser.SetLocalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SetLocal}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetLocal(TypeScriptParser.SetLocalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Push}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void enterPush(TypeScriptParser.PushContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Push}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void exitPush(TypeScriptParser.PushContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TypeScriptParser#assignment}.
 	 * @param ctx the parse tree
 	 */
@@ -814,6 +872,36 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 */
 	void exitReturnStatement(TypeScriptParser.ReturnStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TypeScriptParser#getlocalstorage}.
+	 * @param ctx the parse tree
+	 */
+	void enterGetlocalstorage(TypeScriptParser.GetlocalstorageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TypeScriptParser#getlocalstorage}.
+	 * @param ctx the parse tree
+	 */
+	void exitGetlocalstorage(TypeScriptParser.GetlocalstorageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TypeScriptParser#setlocalstorage}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetlocalstorage(TypeScriptParser.SetlocalstorageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TypeScriptParser#setlocalstorage}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetlocalstorage(TypeScriptParser.SetlocalstorageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TypeScriptParser#parselocalstorage}.
+	 * @param ctx the parse tree
+	 */
+	void enterParselocalstorage(TypeScriptParser.ParselocalstorageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TypeScriptParser#parselocalstorage}.
+	 * @param ctx the parse tree
+	 */
+	void exitParselocalstorage(TypeScriptParser.ParselocalstorageContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code MemberExpr}
 	 * labeled alternative in {@link TypeScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -849,6 +937,30 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBinaryExpr(TypeScriptParser.BinaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ParseLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterParseLocal(TypeScriptParser.ParseLocalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ParseLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitParseLocal(TypeScriptParser.ParseLocalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GetLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterGetLocal(TypeScriptParser.GetLocalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GetLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitGetLocal(TypeScriptParser.GetLocalContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code UnaryExpr}
 	 * labeled alternative in {@link TypeScriptParser#expression}.
@@ -933,6 +1045,26 @@ public interface TypeScriptParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParenExpr(TypeScriptParser.ParenExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TypeScriptParser#keywords}.
+	 * @param ctx the parse tree
+	 */
+	void enterKeywords(TypeScriptParser.KeywordsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TypeScriptParser#keywords}.
+	 * @param ctx the parse tree
+	 */
+	void exitKeywords(TypeScriptParser.KeywordsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TypeScriptParser#pusharray}.
+	 * @param ctx the parse tree
+	 */
+	void enterPusharray(TypeScriptParser.PusharrayContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TypeScriptParser#pusharray}.
+	 * @param ctx the parse tree
+	 */
+	void exitPusharray(TypeScriptParser.PusharrayContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TypeScriptParser#binaryOperator}.
 	 * @param ctx the parse tree

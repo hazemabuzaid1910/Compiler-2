@@ -26,7 +26,7 @@ HtmlAttributeValue htmlAttributeValue;
 
         if (identifier != null) {
             sb.append("  Identifier: '")
-                    .append(identifier.toString().replace("\n", "\n    "))
+                    .append(identifier.replace("\n", "\n    "))
                     .append("',\n");
         }
 

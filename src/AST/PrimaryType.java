@@ -13,11 +13,10 @@ public class PrimaryType {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("PrimaryType {")
-                .append("\n  typeName = '").append(typeName).append('\'')
-                .append("\n}");
-        return sb.toString();
+        String sb = "PrimaryType {" +
+                "\n  typeName = '" + typeName + '\'' +
+                "\n}";
+        return sb;
     }
 
 

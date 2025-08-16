@@ -27,7 +27,7 @@ public class ComponentDeclaration implements Statement {
 
         if (At_Component != null) {
             sb.append("  At_Component: ")
-                    .append(At_Component.toString().replace("\n", "\n    "))
+                    .append(At_Component.replace("\n", "\n    "))
                     .append(",\n");
         }
 

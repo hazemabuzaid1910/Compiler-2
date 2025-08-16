@@ -40,27 +40,22 @@ public class ForStatement implements Statements {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("ForStatement {\n");
 
-        sb.append("  initializer: ")
-                .append(initializer != null ? initializer.toString().replaceAll("(?m)^", "    ") : "null")
-                .append("\n");
+        String sb = "ForStatement {\n" + "  initializer: " +
+                (initializer != null ? initializer.toString().replaceAll("(?m)^", "    ") : "null") +
+                "\n" +
+                "  condition: " +
+                (condition != null ? condition.toString().replaceAll("(?m)^", "    ") : "null") +
+                "\n" +
+                "  increment: " +
+                (increment != null ? increment.toString().replaceAll("(?m)^", "    ") : "null") +
+                "\n" +
+                "  block:\n" +
+                (block != null ? block.toString().replaceAll("(?m)^", "    ") : "    null") +
+                "\n" +
+                "}";
 
-        sb.append("  condition: ")
-                .append(condition != null ? condition.toString().replaceAll("(?m)^", "    ") : "null")
-                .append("\n");
-
-        sb.append("  increment: ")
-                .append(increment != null ? increment.toString().replaceAll("(?m)^", "    ") : "null")
-                .append("\n");
-
-        sb.append("  block:\n")
-                .append(block != null ? block.toString().replaceAll("(?m)^", "    ") : "    null")
-                .append("\n");
-
-        sb.append("}");
-
-        return sb.toString();
+        return sb;
     }
 
 }

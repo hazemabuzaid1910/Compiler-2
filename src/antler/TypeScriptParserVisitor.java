@@ -1,4 +1,4 @@
-// Generated from C:/Users/hazem/OneDrive/Desktop/New folder (3)/Compiler-2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
+// Generated from D:/New folder (3)/Compiler-2/src/antler/TypeScriptParser.g4 by ANTLR 4.13.2
 package antler;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -248,6 +248,13 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMostacheExp(TypeScriptParser.MostacheExpContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Text}
+	 * labeled alternative in {@link TypeScriptParser#htmlContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitText(TypeScriptParser.TextContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code StandardAttr}
 	 * labeled alternative in {@link TypeScriptParser#htmlAttribute}.
 	 * @param ctx the parse tree
@@ -275,6 +282,13 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDirectAttr(TypeScriptParser.DirectAttrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TwoWayAttr}
+	 * labeled alternative in {@link TypeScriptParser#htmlAttribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTwoWayAttr(TypeScriptParser.TwoWayAttrContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TypeScriptParser#standardAttribute}.
 	 * @param ctx the parse tree
@@ -305,6 +319,12 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDirectiveAttribute(TypeScriptParser.DirectiveAttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#twoWayBindingAttribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTwoWayBindingAttribute(TypeScriptParser.TwoWayBindingAttributeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code HtmlAttributeValueString}
 	 * labeled alternative in {@link TypeScriptParser#htmlAttributeValue}.
@@ -446,6 +466,20 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnState(TypeScriptParser.ReturnStateContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SetLocal}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetLocal(TypeScriptParser.SetLocalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Push}
+	 * labeled alternative in {@link TypeScriptParser#statements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPush(TypeScriptParser.PushContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link TypeScriptParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -488,6 +522,24 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnStatement(TypeScriptParser.ReturnStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#getlocalstorage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGetlocalstorage(TypeScriptParser.GetlocalstorageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#setlocalstorage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetlocalstorage(TypeScriptParser.SetlocalstorageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#parselocalstorage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParselocalstorage(TypeScriptParser.ParselocalstorageContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code MemberExpr}
 	 * labeled alternative in {@link TypeScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -508,6 +560,20 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBinaryExpr(TypeScriptParser.BinaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParseLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParseLocal(TypeScriptParser.ParseLocalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GetLocal}
+	 * labeled alternative in {@link TypeScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGetLocal(TypeScriptParser.GetLocalContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code UnaryExpr}
 	 * labeled alternative in {@link TypeScriptParser#expression}.
@@ -557,6 +623,18 @@ public interface TypeScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParenExpr(TypeScriptParser.ParenExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#keywords}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKeywords(TypeScriptParser.KeywordsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TypeScriptParser#pusharray}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPusharray(TypeScriptParser.PusharrayContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TypeScriptParser#binaryOperator}.
 	 * @param ctx the parse tree

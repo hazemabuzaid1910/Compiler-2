@@ -1,0 +1,30 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    <form class="add" (ngSubmit)="addProduct()" >
+      <h1>add Product</h1>
+      <input name="name" [(ngModel)]="newProduct.name" placeholder="name"  />
+      <input name="image" [(ngModel)]="newProduct.image" placeholder="image"  />
+      <input name="details" [(ngModel)]="newProduct.details" placeholder="details"  />
+      <button class="nav-button" routerLink="/Compiler-2/Result/GeneratedCode1.html" type="submit">add Product</button>
+    </form>
+  `
+})
+export class AppComponent {
+  newProduct = { name: '', image: '', details: '' };
+ addProduct() {
+
+    const products = JSON.parse(localStorage.getItem("products")||'[]');
+    products.push({ ...this.newProduct });
+    localStorage.setItem('products', JSON.stringify(products))
+
+
+  }
+}
+

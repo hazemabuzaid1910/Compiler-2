@@ -15,6 +15,7 @@ STANDALONE           : 'standalone' ;
 IMPORTS              : 'imports' ;
 TEMPLATE             : 'template' ;
 STYLES               : 'styles' ;
+NGMODEL            : 'ngModel';
 
 //key words for type script
 EXPORT        : 'export';
@@ -32,8 +33,17 @@ ELSE          :'else';
 FOR           :'for';
 WHILE         :'while';
 RETURN        :'return';
-LET           : 'let';
-
+LET           :'let';
+CONST         :'const';
+VAR           :'var';
+PUSH          :'push';
+REST          :'...';
+LOCALSTORAGE  :'localStorage';
+GETITEM       :'getItem';
+SETITEM       :'setItem';
+JSON          :'JSON';
+STRINGIFY     :'stringify';
+PARSE         :'parse';
 // Symbols and operators
 DoubleLeftBrace      : '{{' ;
 DoubleRightBrace     : '}}' ;
@@ -70,7 +80,6 @@ Divide               : '/' ;
 MOD                  : '%' ;
 HashTag              : '#';
 
-
 // Literals
 BooleanLiteral       : 'true' | 'false' ;
 NumberLiteral        : [0-9]+ ('.' [0-9]+)? ;
@@ -84,7 +93,6 @@ StringLiteral
 Identifier
     : IdentifierStart IdentifierPart*
     ;
-
 fragment IdentifierStart
     : [\p{L}] | [$_]
     ;

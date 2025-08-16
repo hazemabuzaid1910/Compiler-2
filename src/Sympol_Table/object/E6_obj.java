@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class E6_obj {
-   private Map<String,String> map ;
+   private final Map<String,String> map ;
 
    public E6_obj(){
        this.map = new HashMap<String,String>();

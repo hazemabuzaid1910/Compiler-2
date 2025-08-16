@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StandardAttribute implements HtmlAttribute,Expression{
-    String Class;
+    String Classs;
     List<String> identifier=new ArrayList<>();
     HtmlAttributeValue htmlAttributeValue;
 
 
+    public String getClasss() {
+        return Classs;
+    }
 
-    public void setClass(String aClass) {
-        Class = aClass;
+    public void setClasss(String classs) {
+        Classs = classs;
     }
 
     public List<String> getIdentifier() {
@@ -34,8 +37,8 @@ public class StandardAttribute implements HtmlAttribute,Expression{
     public String toString() {
         StringBuilder sb = new StringBuilder("YourClassName {\n");
 
-        if (Class != null && !Class.isEmpty()) {
-            sb.append("  Class: ").append(Class).append("\n");
+        if (Classs != null && !Classs.isEmpty()) {
+            sb.append("  Class: ").append(Classs).append("\n");
         }
 
         if (identifier != null && !identifier.isEmpty()) {

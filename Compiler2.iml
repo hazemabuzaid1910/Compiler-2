@@ -10,7 +10,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/antlr-4.13.2-complete.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/Telegram Desktop/antlr-4.13.2-complete.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,10 +19,14 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../4_2/Compiler/compiler2/commons-io-2.16.1/commons-io-2.16.1.jar!/" />
+          <root url="file://$USER_HOME$/OneDrive/Desktop/4_2/Compiler/compiler2/commons-io-2.16.1" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$USER_HOME$/OneDrive/Desktop/4_2/Compiler/compiler2/commons-io-2.16.1" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/OneDrive/Desktop/4_2/Compiler/compiler2/commons-io-2.16.1" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/OneDrive/Desktop/4_2/Compiler/compiler2/commons-io-2.16.1" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
   </component>

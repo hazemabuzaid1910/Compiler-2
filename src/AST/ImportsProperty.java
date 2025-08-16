@@ -29,7 +29,7 @@ public class ImportsProperty implements ComponentProperty{
 
         if (imports != null) {
             sb.append("  imports: ")
-                    .append(imports.toString().replace("\n", "\n    "))
+                    .append(imports.replace("\n", "\n    "))
                     .append(",\n");
         }
 

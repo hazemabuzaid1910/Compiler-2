@@ -50,19 +50,19 @@ public class ImportAlias {
 
         if (star != null) {
             sb.append("  star: ")
-                    .append(star.toString().replace("\n", "\n    "))
+                    .append(star.replace("\n", "\n    "))
                     .append(",\n");
         }
 
         if (As != null) {
             sb.append("  As: ")
-                    .append(As.toString().replace("\n", "\n    "))
+                    .append(As.replace("\n", "\n    "))
                     .append(",\n");
         }
 
         if (Identifier != null) {
             sb.append("  Identifier: ")
-                    .append(Identifier.toString().replace("\n", "\n    "))
+                    .append(Identifier.replace("\n", "\n    "))
                     .append("\n");
         }
 

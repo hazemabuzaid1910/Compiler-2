@@ -22,13 +22,12 @@ public class Parameter {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Parameter {\n");
-        sb.append("  identifier: ").append(identifier != null ? "'" + identifier + "'" : "null").append("\n");
-        sb.append("  typeAnnotation: ")
-                .append(typeAnnotation != null ? typeAnnotation.toString().replace("\n", "\n    ") : "null")
-                .append("\n");
-        sb.append("}");
-        return sb.toString();
+        String sb = "Parameter {\n" + "  identifier: " + (identifier != null ? "'" + identifier + "'" : "null") + "\n" +
+                "  typeAnnotation: " +
+                (typeAnnotation != null ? typeAnnotation.toString().replace("\n", "\n    ") : "null") +
+                "\n" +
+                "}";
+        return sb;
     }
 }
 

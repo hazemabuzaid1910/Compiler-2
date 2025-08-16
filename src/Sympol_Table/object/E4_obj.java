@@ -8,7 +8,7 @@ import java.util.Map;
 public class E4_obj {
   private String name ;
   private String type ;
-  private List<String> att ;
+  private final List<String> att ;
 
   public E4_obj(){
       name ="";

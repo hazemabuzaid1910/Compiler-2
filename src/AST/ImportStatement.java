@@ -27,7 +27,7 @@ public class ImportStatement implements Statement {
 
         if (Import != null) {
             sb.append("  Import: ")
-                    .append(Import.toString().replace("\n", "\n    "))
+                    .append(Import.replace("\n", "\n    "))
                     .append(",\n");
         }
 

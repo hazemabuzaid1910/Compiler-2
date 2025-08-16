@@ -12,12 +12,11 @@ public class LiteralExpression implements Primary {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("LiteralExpression {\n");
 
         // إضافة المسافة المناسبة للتنسيق مع التأكد من وجود literal
-        sb.append("  literal: ").append(literal != null ? literal.toString().replace("\n", "\n    ") : "null").append("\n");
 
-        sb.append("}");
-        return sb.toString();
+        String sb = "LiteralExpression {\n" + "  literal: " + (literal != null ? literal.toString().replace("\n", "\n    ") : "null") + "\n" +
+                "}";
+        return sb;
     }
 }

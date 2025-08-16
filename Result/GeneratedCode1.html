@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular App</title>
+    <link rel="stylesheet" href="generate.css"/>
+  </head>
+  <body>
+    <div class="product-view">
+      <div class="header">
+        <button class="nav-button">
+ Add product        </button>
+      </div>
+      <div class="container">
+        <div class="product-list">
+          <div class="product">
+            <h4>
+            </h4>
+            <img alt="Product Image" class="product-image"/>
+          </div>
+        </div>
+        <div class="product-detail">
+          <h3>
+          </h3>
+          <img alt="Product Image" class="detail-image"/>
+          <p>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const product_viewSelect = document.querySelector(".product-view");
+    const headerSelect = document.querySelector(".header");
+    const nav_buttonSelect = document.querySelector(".nav-button");
+    const containerSelect = document.querySelector(".container");
+    const product_listSelect = document.querySelector(".product-list");
+    const productSelect = document.querySelector(".product");
+    const product_imageSelect = document.querySelector(".product-image");
+    const product_detailSelect = document.querySelector(".product-detail");
+    const detail_imageSelect = document.querySelector(".detail-image");
+products=JSON.parse(localStorage.getItem("products")||'[]')
+selectedProduct=products[0]
+function  selectProduct(product){
+selectedProduct = product
+render()
+}
+nav_buttonSelect.addEventListener("click", () => window.location.href = "/Compiler-2/Result/GeneratedCode2.html")
+products.forEach((product)=>{
+  const productDiv = document.createElement("div");
+  productDiv.classList.add("product");
+const	h4=document.createElement("h4")
+h4.textContent=product.name
+const	img=document.createElement("img");
+img.src=product.image
+img.alt="Product Image"
+img.class="product-image"
+  productDiv.appendChild(h4);
+  productDiv.appendChild(img);
+productDiv.addEventListener("click", () => {
+selectProduct(product)
+});
+  product_listSelect.appendChild(productDiv);
+});
+function render(){if (selectedProduct) {
+product_detailSelect.innerHTML=""
+  product_detailSelect.classList.add("product-detail");
+}const	h3=document.createElement("h3")
+h3.textContent=selectedProduct.name
+const	img=document.createElement("img");
+img.src=selectedProduct.image
+img.alt="Product Image"
+img.class="detail-image"
+const	p=document.createElement("p")
+p.textContent=selectedProduct.details
+  product_detailSelect.appendChild(h3);
+  product_detailSelect.appendChild(img);
+  product_detailSelect.appendChild(p);
+}
+  </script>
+</html>

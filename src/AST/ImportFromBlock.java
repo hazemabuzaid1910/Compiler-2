@@ -68,7 +68,7 @@ public class ImportFromBlock {
 
         if (StringLiteral != null) {
             sb.append("  StringLiteral: ")
-                    .append(StringLiteral.toString().replace("\n", "\n    "))
+                    .append(StringLiteral.replace("\n", "\n    "))
                     .append("\n");
         }
 

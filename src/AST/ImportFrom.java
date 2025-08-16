@@ -27,13 +27,13 @@ public class ImportFrom {
 
         if (From != null) {
             sb.append("  From: ")
-                    .append(From.toString().replace("\n", "\n    "))
+                    .append(From.replace("\n", "\n    "))
                     .append(",\n");
         }
 
         if (StringLiteral != null) {
             sb.append("  StringLiteral: ")
-                    .append(StringLiteral.toString().replace("\n", "\n    "))
+                    .append(StringLiteral.replace("\n", "\n    "))
                     .append("\n");
         }
 

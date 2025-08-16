@@ -19,7 +19,7 @@ public class check_Symantic_Error {
     private final E4_sympolTable bindVariable = new E4_sympolTable();
     private final E5_sympolTable forVariable = new E5_sympolTable();
     private final E6_sympolTable eventfun = new E6_sympolTable();
-    private final List<Symantic_Error> errors = new ArrayList<>();;
+    private final List<Symantic_Error> errors = new ArrayList<>();
 
     public check_Symantic_Error() {
         tagStack.allocate();
