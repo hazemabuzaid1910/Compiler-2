@@ -247,11 +247,14 @@ whileStatement
 returnStatement
     : RETURN expression? SemiColon
     ;
-getlocalstorage:LOCALSTORAGE'.'GETITEM'(' StringLiteral ')'
+
+getlocalstorage:LOCALSTORAGE Dot GETITEM OpenParen StringLiteral CloseParen
                ;
-setlocalstorage:LOCALSTORAGE'.'SETITEM'(' StringLiteral ',' JSON'.'STRINGIFY'('Identifier')' ')'
+
+setlocalstorage:LOCALSTORAGE Dot SETITEM OpenParen StringLiteral Comma JSON Dot STRINGIFY OpenParen Identifier CloseParen CloseParen
                ;
-parselocalstorage: JSON '.' PARSE '(' expression ')'
+
+parselocalstorage: JSON Dot PARSE OpenParen expression CloseParen
                  ;
 expression
     : expression binaryOperator expression         #BinaryExpr
@@ -271,10 +274,13 @@ primary
     | literal                                     # LiteralExpr
     | OpenParen expression CloseParen             # ParenExpr
     ;
+
  keywords: CONST | LET |VAR
          ;
-pusharray: Identifier'.'PUSH'(''{'REST expression'}'')'';'
+
+pusharray: Identifier Dot PUSH OpenParen OpenBrace REST expression CloseBrace CloseParen SemiColon
          ;
+
 binaryOperator
     : Plus | Minus | Multiply | Divide | MOD
     | MoreThan | LessThan | GTE | LTE

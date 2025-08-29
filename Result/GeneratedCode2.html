@@ -11,14 +11,13 @@
       <input name="name" placeholder="name"/>
       <input name="image" placeholder="image"/>
       <input name="details" placeholder="details"/>
-
       <button class="nav-button" type="submit">
- add Product  </button>
+ add Product      </button>
     </form>
   </body>
   <script>
-    const addSelect = document.querySelector(".add");
-    const nav_buttonSelect = document.querySelector(".nav-button");
+ const addSelect = document.querySelector(".add");
+ const nav_buttonSelect = document.querySelector(".nav-button");
 
 newProduct={name:
 '',image:
@@ -26,7 +25,7 @@ newProduct={name:
 ''}
 
 function  addProduct(event){
-    event.preventDefault()
+event.preventDefault();
 const name = event.target.name.value.trim();
 const image = event.target.image.value.trim();
 const details = event.target.details.value.trim();
@@ -34,7 +33,6 @@ newProduct = { name, image, details };
 const products = JSON.parse(localStorage.getItem("products")||'[]')
 products.push(newProduct)
 localStorage.setItem('products',JSON.stringify(products));
-}
-nav_buttonSelect.addEventListener("click", () => window.location.href = "/Compiler-2/Result/GeneratedCode1.html")
-</script>
+ window.location.href = "/Users/LENOVO/Desktop/Compiler-2/Compiler-2/Result/GeneratedCode1.html"
+}  </script>
 </html>

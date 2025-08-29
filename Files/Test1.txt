@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `
   <div class="product-view">
   <div class="header">
-        <button class="nav-button" routerLink="/Compiler-2/Result/GeneratedCode2.html"   > Add product</button>
+        <button class="nav-button" routerLink="/Users/LENOVO/Desktop/Compiler-2/Compiler-2/Result/GeneratedCode2.html"> Add product</button>
       </div>
       <div class="container">
       <div class="product-list">
@@ -30,13 +30,15 @@ import { CommonModule } from '@angular/common';
           class="detail-image"
         />
         <p>{{selectedProduct.details}}</p>
+
       </div>
     </div>
     </div>
   `})
 
 export class AppComponent{
-     products = JSON.parse(localStorage.getItem("products")||'[]');
+       products = JSON.parse(localStorage.getItem("products")||'[]');
+
 
 
  selectedProduct =this.products[0];

@@ -1,10 +1,13 @@
 package Sympol_Table;
 
+import MainApp.Error_Type;
 import MainApp.Main;
+import MainApp.Symantic_Error;
 import Sympol_Table.object.E6_obj;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
 
 public class E6_sympolTable {
@@ -62,6 +65,36 @@ public class E6_sympolTable {
             add_save_map(name,var);
         }
         connection.clear();
+    }
+
+    public void check_E6(){
+        Map<String,String> check_map = getCheck_map().getMap();
+        Map<String,String> save_map = get_Save_map().getMap();
+        check_map.forEach((key, value) -> {
+            int index = value.indexOf("Line");
+            String beforeLine =" ";
+            String afterLine = " ";
+            if (index != -1) {
+                beforeLine = value.substring(0, index);
+                afterLine = value.substring(index + "Line".length());
+            }
+            if (save_map.containsKey(key)){
+                String V = save_map.get(key);
+                if(!Objects.equals(beforeLine, V)){
+                    Symantic_Error error = new Symantic_Error();
+                    error.addError(Error_Type.FUNCTION_ERROR_PARAMETER,
+                            "Expected "+ V +" arguments, but got "+beforeLine,
+                            afterLine);
+                   Main.errors.add(error);
+                }
+            }else{
+                Symantic_Error error = new Symantic_Error();
+                error.addError(Error_Type.EVENT_NOT_EXIST,
+                        "Function name "+ key +" is not exist ",
+                        afterLine);
+                Main.errors.add(error);
+            }
+        });
     }
 
 

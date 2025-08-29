@@ -29,22 +29,23 @@
     </div>
   </body>
   <script>
-    const product_viewSelect = document.querySelector(".product-view");
-    const headerSelect = document.querySelector(".header");
-    const nav_buttonSelect = document.querySelector(".nav-button");
-    const containerSelect = document.querySelector(".container");
-    const product_listSelect = document.querySelector(".product-list");
-    const productSelect = document.querySelector(".product");
-    const product_imageSelect = document.querySelector(".product-image");
-    const product_detailSelect = document.querySelector(".product-detail");
-    const detail_imageSelect = document.querySelector(".detail-image");
+ const product_viewSelect = document.querySelector(".product-view");
+ const headerSelect = document.querySelector(".header");
+ const nav_buttonSelect = document.querySelector(".nav-button");
+ const containerSelect = document.querySelector(".container");
+ const product_listSelect = document.querySelector(".product-list");
+ const productSelect = document.querySelector(".product");
+ const product_imageSelect = document.querySelector(".product-image");
+ const product_detailSelect = document.querySelector(".product-detail");
+ const detail_imageSelect = document.querySelector(".detail-image");
+
 products=JSON.parse(localStorage.getItem("products")||'[]')
 selectedProduct=products[0]
 function  selectProduct(product){
 selectedProduct = product
 render()
 }
-nav_buttonSelect.addEventListener("click", () => window.location.href = "/Compiler-2/Result/GeneratedCode2.html")
+nav_buttonSelect.addEventListener("click", () => window.location.href = "/Users/LENOVO/Desktop/Compiler-2/Compiler-2/Result/GeneratedCode2.html")
 products.forEach((product)=>{
   const productDiv = document.createElement("div");
   productDiv.classList.add("product");

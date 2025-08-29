@@ -28,7 +28,6 @@ public class Symantic_Error {
     public void setType(String type) {
         this.type = type;
     }
-
     public void setNumber(String number) {
         this.number = number;
     }
@@ -39,7 +38,6 @@ public class Symantic_Error {
                 + " , Error Location : "+ getNumber();
         return error ;
     }
-
    public void addError(Error_Type name , String des , String line){
        this.name = name ;
        this.type = des;

@@ -265,7 +265,7 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
 
             if (ctx.Identifier() != null) {
                 method.setIdentifier(ctx.Identifier().getText());
-                Main.semanticError.check_E2(ctx.Identifier().getText() , ctx.getStart().getLine());
+                Main.semanticError.getE2().check_E2(ctx.Identifier().getText() , ctx.getStart().getLine());
                 if (Main.semanticError.getE4().GetIsComponent()){
                     Main.semanticError.getE6().add_fun_name_to_save_map(ctx.Identifier().getText());
                 }
@@ -512,7 +512,7 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
         }
         }
         Main.semanticError.getE5().set_Is_ngfor(false);
-        Main.semanticError.check_E1(ctx.htmlTagName(1).getText(),ctx.htmlTagName(1).getStart().getLine());
+        Main.semanticError.getE1().check_E1(ctx.htmlTagName(1).getText(),ctx.htmlTagName(1).getStart().getLine());
         return htmlPairTag;
     }
 
@@ -729,17 +729,20 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
         if(ctx.htmlAttributeValue()!=null){
             HtmlAttributeValue htmlAttributeValue=(HtmlAttributeValue) ctx.htmlAttributeValue().accept(this);
 
-            String event= htmlAttributeValue.getStringLiteral();
+            String event = htmlAttributeValue.getStringLiteral();
             Pattern pattern = Pattern.compile("\"(\\w+)\\s*\\(([^)]*)\\)\"");
             Matcher matcher = pattern.matcher(event);
+
             while (matcher.find()) {
                 String functionName = matcher.group(1);
-                String arguments = matcher.group(2);
-                String[] argsArray = arguments.split("\\s*,\\s*");
-                int num = 0 ;
-                for (String arg : argsArray) {
-                    num++;
+                String arguments = matcher.group(2).trim(); // نشيل الفراغات
+
+                int num = 0;
+                if (!arguments.isEmpty()) { // لو فيه بارامترات
+                    String[] argsArray = arguments.split("\\s*,\\s*");
+                    num = argsArray.length;
                 }
+
                 Main.semanticError.getE6().add_check_map(functionName, num, ctx.getStart().getLine());
             }
             eventAttribute.setHtmlAttributeValue(htmlAttributeValue);
@@ -948,7 +951,7 @@ public class visitor extends TypeScriptParserBaseVisitor<Object> {
                             if (index + 1 < accessCtx.children.size()) {
                                 String identifier = accessCtx.getChild(index + 1).getText();
                                 accesses.add(new MemberAccess("dot", identifier, null));
-                                Main.semanticError.check_E3(identifier,ctx.getStart().getLine());
+                                Main.semanticError.getE3().check_E3(identifier,ctx.getStart().getLine());
                                 Main.semanticError.getE4().insert_value_class_equal(identifier);
                             }
                         }

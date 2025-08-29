@@ -13,6 +13,8 @@ public class Generator {
     StringBuilder sbScript = new StringBuilder();
     StringBuilder sbHtmlScript = new StringBuilder();
     StringBuilder form = new StringBuilder();
+    StringBuilder routersubmit = new StringBuilder();
+
 
     Map<String, String> selectorMap = new LinkedHashMap<>();
     private List<String> productFields = new ArrayList<>();
@@ -48,7 +50,7 @@ public class Generator {
             for (Map.Entry<String, String> entry : selectorMap.entrySet()) {
                 String className = entry.getKey();
                 String varName = entry.getValue();
-                fw.append("    const ").append(varName).append("Select = document.querySelector(\".")
+                fw.append(" const ").append(varName).append("Select = document.querySelector(\".")
                         .append(className).append("\");\n");
             }
             fw.append(sbScript);
@@ -85,19 +87,19 @@ public class Generator {
 
     private void generateClassMember(List<ClassMember> classMembers) {
         for (ClassMember classMember:classMembers){
-        if (classMember instanceof MethodDeclaration methodDeclaration){
-        generateMethode(methodDeclaration);
-    }
-        if(classMember instanceof  PropertyDeclaration propertyDeclaration){
-            generatePropertyDeclaration(propertyDeclaration);
-        }
+            if (classMember instanceof MethodDeclaration methodDeclaration){
+                generateMethode(methodDeclaration);
+            }
+            if(classMember instanceof  PropertyDeclaration propertyDeclaration){
+                generatePropertyDeclaration(propertyDeclaration);
+            }
         }
     }
 
     private void generatePropertyDeclaration(PropertyDeclaration propertyDeclaration) {
         if(propertyDeclaration.getIdentifier()!=null){
-           sbScript.append("\n");
-           sbScript.append(propertyDeclaration.getIdentifier()).append("=");
+            sbScript.append("\n");
+            sbScript.append(propertyDeclaration.getIdentifier()).append("=");
         }
         if(propertyDeclaration.getExpression()!=null){
             generateExpression(propertyDeclaration.getExpression());
@@ -106,34 +108,37 @@ public class Generator {
 
     private void generateMethode(MethodDeclaration methodDeclaration) {
         sbScript.append("\n").append("function  ").append(methodDeclaration.getIdentifier()).append("(");
-                if(methodDeclaration.getParameterList()!=null){
-                    sbScript.append(methodDeclaration.getParameterList().getParameters().get(0).getIdentifier());
-                }
-                if (form.length()>0){
-                    sbScript.append("event");
-                }
+        if(methodDeclaration.getParameterList()!=null){
+            sbScript.append(methodDeclaration.getParameterList().getParameters().get(0).getIdentifier());
+        }
+        if (form.length()>0){
+            sbScript.append("event");
+        }
         sbScript.append(")").append("{")
         ;
         if (methodDeclaration.getBlock()!=null){
             if (form.length() > 0) {
-                generateNewProductObject();
 
+                generateNewProductObject();
+                sbScript.append("\nevent.preventDefault();");
                 sbScript.append(form);
                 form.setLength(0);
             }
 
             generateBlock(methodDeclaration.getBlock());
             for (int i=0;i<function.size();i++){
-         sbScript.append("\n").append(function.get(i)).append("()");}
+                sbScript.append("\n").append(function.get(i)).append("()");}
         }
-
+        if (routersubmit!=null){
+            sbScript.append(routersubmit);
+        }
         sbScript.append("\n}");
     }
 
     private void generateBlock(Block block) {
-      if (block.getStatements()!=null){
-          generateStatements(block.getStatements());
-      }
+        if (block.getStatements()!=null){
+            generateStatements(block.getStatements());
+        }
 
     }
 
@@ -182,9 +187,9 @@ public class Generator {
     }
 
     private void generateExpression(Expression expression) {
-       if (expression instanceof MemberExpression memberExpression){
-           generateMemberExpression(memberExpression);
-       }
+        if (expression instanceof MemberExpression memberExpression){
+            generateMemberExpression(memberExpression);
+        }
 
         if (expression instanceof ArrayExpression arrayExpression){
             generateArrayExpression(arrayExpression);
@@ -397,21 +402,49 @@ public class Generator {
             if (standardAttr.getClasss()!=null){
                 generateQuerySelector(htmlElement,standardAttr);
                 className=standardAttr.getHtmlAttributeValue().getStringLiteral();
-            return " " + standardAttr.getClasss() + "=" + standardAttr.getHtmlAttributeValue().getStringLiteral() ;
-        }
-            for(String identifier:standardAttr.getIdentifier()){
+                return " " + standardAttr.getClasss() + "=" + standardAttr.getHtmlAttributeValue().getStringLiteral() ;
+            }
+            for (String identifier : standardAttr.getIdentifier()) {
                 if (identifier.equals("routerLink")) {
-                    className=className
-                    .replace("\"", "")
-                            .replace("-", "_");
-                    sbHtmlScript.append("\n").append(className).append("Select.addEventListener(\"click\", () => window.location.href = ")
-                            .append(standardAttr.getHtmlAttributeValue().getStringLiteral())
+                    String routeValue = standardAttr.getHtmlAttributeValue().getStringLiteral();
+
+                    // إذا كان عنصر <button> ونوعه submit → خزّن في routerForm
+                    if (htmlElement instanceof HtmlPairTag htmlPairTag
+                            && htmlPairTag.getHtmlTagName().getTagName().equalsIgnoreCase("button")) {
+
+                        boolean isSubmit = false;
+                        for (HtmlAttribute attribute : htmlPairTag.getHtmlAttribute()) {
+                            if (attribute instanceof StandardAttribute stdAttr) {
+                                for (String id : stdAttr.getIdentifier()) {
+                                    if (id.equalsIgnoreCase("type")
+                                            && "submit".equalsIgnoreCase(stdAttr.getHtmlAttributeValue().getStringLiteral().replace("\"",""))) {
+                                        isSubmit = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (isSubmit) {
+                            className = className.replace("\"", "").replace("-", "_");
+                            routersubmit.append("\n")
+                                    .append(" window.location.href = ")
+                                    .append(routeValue);
+                            return "";
+                        }
+                    }
+
+
+                    className = className.replace("\"", "").replace("-", "_");
+                    sbHtmlScript.append("\n")
+                            .append(className).append("Select.addEventListener(\"click\", () => window.location.href = ")
+                            .append(routeValue)
                             .append(")");
                     return "";
-
                 }
-            return " " + identifier+"=" + standardAttr.getHtmlAttributeValue().getStringLiteral();
-        }
+
+                return " " + identifier + "=" + standardAttr.getHtmlAttributeValue().getStringLiteral();
+            }
         }
         if (attr instanceof DirectiveAttribute directiveAttribute) {
             if (htmlElement instanceof HtmlPairTag htmlPairTag) {
@@ -425,13 +458,14 @@ public class Generator {
         }
         if (attr instanceof TwoWayAttr twoWayAttr) {
             if (htmlElement instanceof HtmlSingleTag htmlSingleTag) {
-                 generateTwoWayAttr(twoWayAttr, htmlSingleTag);
+
+                generateTwoWayAttr(twoWayAttr, htmlSingleTag);
             }
 
         }
 
 
-            return "";
+        return "";
     }
 
     private void generateTwoWayAttr(TwoWayAttr twoWayAttr, HtmlSingleTag htmlSingleTag) {
@@ -493,13 +527,13 @@ public class Generator {
         if (directiveAttribute.getIdentifier().equals("ngFor")) {
 
             String fullText = String.valueOf(directiveAttribute.getHtmlAttributeValue().getStringLiteral());
-             fullText=split(fullText);
+            fullText=split(fullText);
             String[] parts = fullText.split("\\s+");
             String varName=" ";
             String arrayName = " ";
             if (parts.length >= 4 && parts[0].equals("let") && parts[2].equals("of")) {
-                 varName = parts[1];
-                 arrayName = parts[3];
+                varName = parts[1];
+                arrayName = parts[3];
                 System.out.println(varName + arrayName);
             }
             generateForEach(varName,arrayName,htmlPairTag);
@@ -628,10 +662,10 @@ public class Generator {
                         if (htmlAttribute instanceof BoundAttribute boundAttribute){
                             String value=   split(boundAttribute.getHtmlAttributeValue().getStringLiteral());
                             sbHtmlScript.append(tagname).append(".")
-                                  .append(split(boundAttribute.getAttributeName().getIdentifier().toString()))
-                                  .append("=")
-                                  .append(value)
-                                  .append("\n");
+                                    .append(split(boundAttribute.getAttributeName().getIdentifier().toString()))
+                                    .append("=")
+                                    .append(value)
+                                    .append("\n");
                         }
                         if (htmlAttribute instanceof StandardAttribute standardAttribute){
                             String value= standardAttribute.getHtmlAttributeValue().getStringLiteral();
@@ -639,10 +673,10 @@ public class Generator {
 
                             if (standardAttribute.getIdentifier()!=null&&standardAttribute.getClasss()==null){
                                 sbHtmlScript.append(tagname).append(".")
-                                    .append(split(standardAttribute.getIdentifier().toString()))
-                                    .append("=")
-                                    .append(value).append("\n");
-                        }
+                                        .append(split(standardAttribute.getIdentifier().toString()))
+                                        .append("=")
+                                        .append(value).append("\n");
+                            }
                             if (standardAttribute.getClasss()!=null){
                                 sbHtmlScript.append(tagname).append(".")
                                         .append(standardAttribute.getClasss())
@@ -653,7 +687,7 @@ public class Generator {
                     }
 
                 }
-                }
+            }
         }
 
 

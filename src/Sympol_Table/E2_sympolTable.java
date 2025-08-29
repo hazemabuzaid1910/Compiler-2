@@ -1,5 +1,8 @@
 package Sympol_Table;
 
+import MainApp.Error_Type;
+import MainApp.Main;
+import MainApp.Symantic_Error;
 import Sympol_Table.object.E2_obj;
 
 public class E2_sympolTable extends SymbolTable<E2_obj> {
@@ -23,4 +26,14 @@ public class E2_sympolTable extends SymbolTable<E2_obj> {
         }
     }
 
+    public void check_E2(String fun , int number){
+        boolean error = addfunname(fun);
+        if(error){
+            Symantic_Error symanticError = new Symantic_Error();
+            symanticError.addError(Error_Type.FUNCTION_DUPLICATION ,
+                    "Repeat function name "+ fun,
+                    String.valueOf(number));
+            Main.errors.add(symanticError);
+        }
+    }
 }

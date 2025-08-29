@@ -1,5 +1,8 @@
 package Sympol_Table;
 
+import MainApp.Error_Type;
+import MainApp.Main;
+import MainApp.Symantic_Error;
 import Sympol_Table.object.E4_2_obj;
 import Sympol_Table.object.E4_3_obj;
 import Sympol_Table.object.E4_obj;
@@ -147,5 +150,60 @@ public class E4_sympolTable  {
 
     public List<E4_2_obj> getCheck() {
         return checkList;
+    }
+
+    public void check_E4_2(){
+        for (E4_2_obj checkItem : getCheck()) {
+            String checkName = checkItem.getName();
+            String checkValue = checkItem.getValue();
+            boolean check1 = false ;
+            for (E4_obj mapItem : getSavemap()) {
+                if (mapItem.getName().equals(checkName)) {
+                    check1 = true ;
+                    if (!"value".equals(checkValue)) {
+                        if (!mapItem.getAtt().contains(checkValue)) {
+                            Symantic_Error error = new Symantic_Error();
+                            error.addError(Error_Type.VAR_NOT_EXIST,
+                                    "The variable "+ checkValue +" is Undeclared ",
+                                    String.valueOf(checkItem.getLine()));
+                            Main.errors.add(error);
+                        }
+                    }
+                }
+            }
+            if(!check1){
+                Symantic_Error error = new Symantic_Error();
+                error.addError(Error_Type.VAR_NOT_EXIST,
+                        "The variable "+ checkName +" is Undeclared ",
+                        String.valueOf(checkItem.getLine()));
+                Main.errors.add(error);
+            }
+        }
+    }
+
+    public void check_E4_1(){
+     getForequal().forEach((key, value) -> {
+            E4_obj mainvar =get_obj_in_savemap(value.getValue());
+            if (mainvar == null){
+                Symantic_Error error = new Symantic_Error();
+                error.addError(Error_Type.VAR_NOT_EXIST,
+                        "The variable "+ value.getValue() +" is Undeclared ",
+                        String.valueOf(value.getLine()));
+               Main.errors.add(error);
+            }else {
+                if(Objects.equals(mainvar.getType(), "Single")){
+                    Symantic_Error error = new Symantic_Error();
+                    error.addError(Error_Type.SINGLE_VALUED_VARIABLE,
+                            "The variable "+ value.getValue() +" is Non-repeatable ",
+                            String.valueOf(value.getLine()));
+                    Main.errors.add(error);
+                }else{
+                    addSaveVar(key);
+                    for (int i = 0; i < mainvar.getAtt().size(); i++) {
+                        addSaveAtt(mainvar.getAtt().get(i));
+                    }
+                }
+            }
+        });
     }
 }
